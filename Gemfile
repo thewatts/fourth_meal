@@ -18,12 +18,11 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'capybara-rails'
   gem 'minitest-rails-capybara'
-  gem 'launchy'
   gem 'guard'
   gem 'guard-minitest'
   gem 'launchy'
   gem 'faker'
-  gem 'simplecov', :require => false, :group => :test
+  # gem 'simplecov', :require => false, :group => :test
   gem 'quiet_assets'
 end
 
