@@ -15,16 +15,15 @@ group :development, :test do
   gem 'rails-pry'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capybara-rails'
   gem 'minitest-rails-capybara'
   gem 'guard'
   gem 'guard-minitest'
   gem 'launchy'
   gem 'faker'
-  # gem 'simplecov', :require => false, :group => :test
   gem 'quiet_assets'
+  gem 'devise'
 end
 
-group :production, :test do
+group :production do
   gem 'rails_12factor'
 end

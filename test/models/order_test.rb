@@ -29,6 +29,12 @@ class OrderTest < ActiveSupport::TestCase
     assert @order.items
   end
 
+  test "it has a user" do
+    create_valid_user
+    @order = Order.create(:status => 'unpaid', :user_id => @user.id)
+    assert @order.user
+  end
+
 
 
 end

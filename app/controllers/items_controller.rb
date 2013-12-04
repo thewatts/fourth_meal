@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :load_category, :only => [:index, :in_category]
+  layout "application"
 
   def load_category
     @categories = Category.all

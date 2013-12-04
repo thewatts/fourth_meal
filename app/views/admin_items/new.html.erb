@@ -1,0 +1,40 @@
+<div id="page-wrapper">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Create New Item <small>add new menu items</small></h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+        <li><i class="fa fa-dashboard"></i> Create New Item</li>
+      </ol>
+      
+    </div>
+  </div><!-- /.row -->
+  <%= form_for(@item) do |f| %>
+    <ul>
+    <% @item.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+    </ul>
+    <p>
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :description %><br />
+      <%= f.text_area :description %>
+    </p>
+    <p>
+      <%= f.label :price %><br />
+      <%= f.text_area :price %>
+    </p>
+    <p> 
+      <%# f.label :item_categories %><br />
+      <%# f.text_field :item_categories %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+
+</div><!-- /#page-wrapper -->

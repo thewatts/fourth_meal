@@ -23,5 +23,12 @@ class UsersTest < ActiveSupport::TestCase
     @user = User.create(:display_name => "Hashrocket")
     assert @user.invalid?
   end 
+
+  test "it can have one or more orders" do
+    create_valid_user
+    order1 = Order.create(:status => 'unpaid', :user_id => @user.id)
+    order2 = Order.create(:status => 'unpaid', :user_id => @user.id)
+    assert @user.orders.count == 2
+  end
  
 end

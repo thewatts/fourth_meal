@@ -11,6 +11,8 @@ OnoBurrito::Application.routes.draw do
   resources :sessions
   resources :transactions, only: [:new, :create, :show]
   resources :users
+  resources :admin_orders
+  resources :admin_items
 
   get "code" => "codes#index"
   get "log_out" => "sessions#destroy"
@@ -18,5 +20,6 @@ OnoBurrito::Application.routes.draw do
   get 'menu' => 'items#index', as: :menu
   get "menu/:category_slug" => "items#in_category", as: "menu_items"
   get "sign_up" => "users#new"
+  get "/admin" => "admin#index"
 
 end

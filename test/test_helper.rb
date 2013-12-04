@@ -4,12 +4,14 @@ ENV["RAILS_ENV"] ||= "test"
 # puts "required simplecov"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'capybara/rails' 
-require './test/helpers/minitest_helper'
+require 'minitest/rails/capybara' 
+# require './test/helpers/minitest_helper'
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
-
+  include Capybara::DSL
+  include Capybara::Assertions
+  include Rails.application.routes.url_helpers
 
 
   def create_valid_item

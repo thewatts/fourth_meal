@@ -1,0 +1,174 @@
+<div id="page-wrapper">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Dashboard <small>Statistics Overview</small></h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i> Dashboard</li>
+      </ol>
+      <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span>Hey there, <b><%# current_user.name %></b>!!!! Check out what's been going on since you were last here.</span>
+               
+      </div>
+    </div>
+  </div><!-- /.row -->
+
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <i class="fa fa-comments fa-5x"></i>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p class="announcement-heading"><%= "#{@orders.count}" %></p>
+              <p class="announcement-text"><%= "Total Orders Completed" %></p>
+            </div>
+          </div>
+        </div>
+        
+          <div class="panel-footer announcement-bottom">
+            <div class="row">
+              <div class="col-xs-6">
+                <%# link_to "All Orders", admin_orders_path %>
+              </div>
+              <div class="col-xs-6 text-right">
+                <i class="fa fa-arrow-circle-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <i class="fa fa-check fa-5x"></i>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p class="announcement-heading"><%= "#{@users.count}" %></p>
+              <p class="announcement-text"><%= "Total Customers" %></p>
+            </div>
+          </div>
+        </div>
+        
+          <div class="panel-footer announcement-bottom">
+            <div class="row">
+              <div class="col-xs-6">
+                <%# link_to "All Customers", customers_path %>
+              </div>
+              <div class="col-xs-6 text-right">
+                <i class="fa fa-arrow-circle-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <i class="fa fa-tasks fa-5x"></i>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p class="announcement-heading "><%= "#{number_to_currency(@total_sales)}" %></p>
+              <p class="announcement-text"><%= "Total Sales" %></p>
+            </div>
+          </div>
+        </div>
+        
+          <div class="panel-footer announcement-bottom">
+            <div class="row">
+              <div class="col-xs-6">
+                <%# link_to "Total Sales", admin_orders_path %>
+              </div>
+              <div class="col-xs-6 text-right">
+                <i class="fa fa-arrow-circle-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <i class="fa fa-comments fa-5x"></i>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p class="announcement-heading"><%= "#{@items.count}" %></p>
+              <p class="announcement-text"><%= "Items on Menu" %></p>
+            </div>
+          </div>
+        </div>
+        
+          <div class="panel-footer announcement-bottom">
+            <div class="row">
+              <div class="col-xs-6">
+                <%= link_to "View Menu", admin_items_path %>
+              </div>
+              <div class="col-xs-6 text-right">
+                <i class="fa fa-arrow-circle-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div><!-- /.row -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Recent Orders: </h3>
+        </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped tablesorter">
+                <tr>
+                    <th>Order #</th>
+
+                    <th>Customer</th>
+
+                    <th>Status</th>
+
+                    <th>Order placed at</th>
+
+                </tr>
+                <% @orders.each do |order|  %>
+                <tr>
+                    <td><%= order.id %></td>
+
+                    <td>
+                    
+                      <%# if order.user %>
+
+                        <%# order.user.name %>
+                      <%# else %>
+                        Customer has not logged in
+                      <%# end %>
+                    </td>
+
+                    <td><%= order.status %></td>
+
+                    <td><%= order.updated_at.strftime('%m/%d/%Y') %></td>
+
+                </tr>
+                <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.row -->
+
+
+</div><!-- /#page-wrapper -->
