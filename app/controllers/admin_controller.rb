@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
   # before_action :can_access
+  layout 'admin'
 
   def index
     @orders = Order.all 
@@ -7,6 +8,7 @@ class AdminController < ApplicationController
     @items = Item.all
     @order_items = OrderItem.all
     @total_sales = total_sales
+    render :index
   end
 
   def total_sales

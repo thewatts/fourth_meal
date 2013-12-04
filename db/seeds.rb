@@ -325,12 +325,6 @@ user4 = User.create(email: "benjamin@example.com",
   password: "password")
 
 
-# ADMIN USERS
-
-AdminUser.create(:email => "admin@example.com", :password => "password")
-AdminUser.create(:email => "demo+katrina@jumpstartlab.com", :password => "password")
-
-
 
 # ORDERS
 

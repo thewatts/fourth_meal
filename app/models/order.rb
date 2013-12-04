@@ -1,4 +1,6 @@
 class Order < ActiveRecord::Base
+  belongs_to :user
+
   validates :status, presence: true, inclusion: { in: 
     ['unpaid', 'paid'] }
   validates_numericality_of :user_id, :greater_than_or_equal_to => 0

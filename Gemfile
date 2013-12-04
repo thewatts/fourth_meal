@@ -21,6 +21,7 @@ group :development, :test do
   gem 'launchy'
   gem 'faker'
   gem 'quiet_assets'
+  gem 'devise'
 end
 
 group :production do

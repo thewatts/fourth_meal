@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard - Knife & Fork Admin</title>
+
+
+    <!-- Add custom CSS here -->
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+    <%= stylesheet_link_tag "application", media: "all"%> 
+    <%= stylesheet_link_tag "bootstrap" %> 
+    <%= stylesheet_link_tag "sb-admin" %> 
+    <%= javascript_include_tag "application"%>
+    <%= csrf_meta_tags %>
+   
+
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "Ono Burrito", root_path, {class: "navbar-brand"} %>
+          
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li><%= link_to "Dashboard", admin_path %><i class="fa fa-dashboard"></i></li>
+            <li><%= link_to "All Orders", admin_orders_path %><i class="fa fa-bar-chart-o"></i></li>
+            <li><%= link_to "Edit Menu", admin_items_path %><i class="fa fa-table"></i></li>
+            <li><%= link_to "Create New Item", new_admin_item_path %><i class="fa fa-edit"></i></li>
+            
+              </ul>
+            </li>
+          </ul>
+
+          
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.full_name if current_user %>
+              <%= "billy" unless current_user %>
+               <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                
+                <li class="divider"></li>
+                <li>
+                 
+                  <%= link_to "logout", log_out_path, id: "logout" %>
+                
+
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <%= yield %>
+
+    </div><!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <!-- Page Specific Plugins -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+    <script src="js/morris/chart-data-morris.js"></script>
+    <script src="js/tablesorter/jquery.tablesorter.js"></script>
+    <script src="js/tablesorter/tables.js"></script>
+    <%= javascript_include_tag "chart-data-morris.js" %>
+    <%= javascript_include_tag "jquery.tablesorter.js" %>
+    <%= javascript_include_tag "tables.js" %>
+  </body>
+</html>

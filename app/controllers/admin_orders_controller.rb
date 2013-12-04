@@ -1,5 +1,6 @@
 class AdminOrdersController < ApplicationController
   # before_action :can_access
+  layout 'admin'
   
   def index
     @orders = Order.all

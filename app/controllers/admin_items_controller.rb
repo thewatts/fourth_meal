@@ -1,6 +1,6 @@
 class AdminItemsController < ApplicationController
-  include AdminItemsHelper
   # before_action :can_access
+  layout 'admin'
 
   def index
     @items = Item.all
