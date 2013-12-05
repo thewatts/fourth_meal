@@ -6,10 +6,9 @@ class HomeViewTest < Capybara::Rails::TestCase
     create_valid_restaurant
 
     visit root_path
-
     assert page.has_content?('All Restaurants')
     click_on "KFC"
 
-    assert_equal restaurant_path(@restaurant), current_path
+    assert_equal restaurant_root_path(@restaurant), current_path
   end
 end
