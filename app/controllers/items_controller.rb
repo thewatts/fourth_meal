@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
 
   def index
     @restaurant = Restaurant.find_by_slug(params[:restaurant])
+    session[:current_restaurant] = @restaurant.to_param
     @items = @restaurant.items.active
     @page_title = "Full Menu"
   end
