@@ -23,7 +23,8 @@ class ActiveSupport::TestCase
     :photo_file_name => "hello.jpg",
     :photo_content_type => "jpeg",
     :photo_file_size => 12353,
-    :photo_updated_at => Time.now.to_s)
+    :photo_updated_at => Time.now.to_s) #,
+    # :restaurant_id => 1)
   end
 
   def create_valid_order
@@ -31,7 +32,7 @@ class ActiveSupport::TestCase
   end
 
   def create_valid_category
-    @category = Category.create(:title => 'Brunch')
+    @category = Category.create(:title => 'Brunch') #, :restaurant_id => 1)
   end
 
   def create_valid_user(password = "password")
