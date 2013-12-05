@@ -4,4 +4,9 @@ class Restaurant < ActiveRecord::Base
 
   validates :name, presence: true
   validates :description, presence: true
+
+  def to_param
+    name.downcase.gsub(" ", "_")
+    name.downcase.gsub(/\W/, "")
+  end
 end

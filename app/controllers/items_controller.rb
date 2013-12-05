@@ -12,7 +12,8 @@ class ItemsController < ApplicationController
   end
 
   def in_category
-    @category = Category.find_by_slug(params[:category_slug])
+    @restaurant = Restaurant.find(params[:restaurant])
+    @categories = @restaurant.categories.all
     @items = @category.items.active
     @page_title = @category.title
     render :index
