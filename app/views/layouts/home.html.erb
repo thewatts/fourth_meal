@@ -16,11 +16,13 @@
 <body>
   <div id="wrapper">
     <header class="grid-container" id="page_header" role="header">
-      <%= render 'layouts/header' %>
+      <div class="grid-container" id="header-container">
+        <%= render "users/user_nav" %>
+        <a href="/"><h1>Grub Hub</h1><%# image_tag 'logo-ono.gif', id:"logo-image" %></a>
+      </div>
     </header>
 
     <nav class="grid-container" id="main-nav-container" role="navigation">
-      <% render "layouts/main_nav" %>
     </nav>
 
     <div class="grid-container" id="flash-section">
@@ -30,11 +32,9 @@
     </div>
 
     <main id="main-body" role="main">
-      <% if items_in_cart? && @order.nil? %>
-        <%= render 'layouts/view_order_link' %>
-      <% end %>
-       
+      <div class="grid-container">
       <%= yield %>
+      </div>
     </main>
 
     <footer class="grid-container" id="footer-container" role="footer">
