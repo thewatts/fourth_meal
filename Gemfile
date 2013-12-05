@@ -12,6 +12,8 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'paperclip'
 
 group :development, :test do
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
+  gem 'pry-byebug'
   gem 'rails-pry'
   gem 'better_errors'
   gem 'binding_of_caller'
