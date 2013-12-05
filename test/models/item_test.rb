@@ -57,4 +57,11 @@ class ItemTest < ActiveSupport::TestCase
     assert_respond_to @item, :photo_updated_at
   end
 
+  test "it belongs to a restaurant" do 
+    restaurant = Restaurant.create(:name => "Benjamin", :description => "Lorem Ipsum")
+    item = create_valid_item
+    item.update(restaurant_id: restaurant.id)
+    assert item.restaurant
+  end
+
 end

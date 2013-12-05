@@ -24,14 +24,16 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "it has categories" do
-    restaurant = Restaurant.new(:name => "Benjamin", :description => "Lorem Ipsum")
-    category = Category.new(:restaurant_id => restaurant.id)
+    restaurant = Restaurant.create(:name => "Benjamin", :description => "Lorem Ipsum")
+    category = create_valid_category
+    category.update(:restaurant_id => restaurant.id)
     refute_equal 0, restaurant.categories.length
   end
 
   test "it has items" do
-    restaurant = Restaurant.new(:name => "Benjamin", :description => "Lorem Ipsum")
-    category = Item.new(:restaurant_id => restaurant.id)
+    restaurant = Restaurant.create(:name => "Benjamin", :description => "Lorem Ipsum")
+    item = create_valid_item
+    item.update(:restaurant_id => restaurant.id)
     refute_equal 0, restaurant.items.length
   end
 

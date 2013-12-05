@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
   validates :title, presence: true
 
+  belongs_to :restaurant
   has_many :item_categories
   has_many :items, through: :item_categories
 

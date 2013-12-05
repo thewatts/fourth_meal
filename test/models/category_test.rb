@@ -20,4 +20,11 @@ class CategoryTest < ActiveSupport::TestCase
     assert @category.items
   end
 
+  test "it belongs to a restaurant" do 
+    restaurant = Restaurant.create(:name => "Benjamin", :description => "Lorem Ipsum")
+    category = create_valid_category 
+    category.update(:restaurant_id => restaurant.id)
+    assert category.restaurant
+  end
+
 end
