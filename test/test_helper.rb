@@ -4,7 +4,7 @@ ENV["RAILS_ENV"] ||= "test"
 # puts "required simplecov"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'minitest/rails/capybara' 
+require 'minitest/rails/capybara'
 # require './test/helpers/minitest_helper'
 
 class ActiveSupport::TestCase
@@ -15,8 +15,8 @@ class ActiveSupport::TestCase
 
 
   def create_valid_item
-    @item = Item.create(:title => "Hello!", 
-                        :description => "World", 
+    @item = Item.create(:title => "Hello!",
+                        :description => "World",
                         :price => 4,
                         :slug => "new_item",
                         :retired => false,
@@ -40,7 +40,12 @@ class ActiveSupport::TestCase
                         :full_name    => "Bennny Smith",
                         :display_name => "Bennybeans",
                         :password     => password)
-  end 
+  end
+
+  def create_valid_restaurant
+    @restaurant = Restaurant.create(:name => "KFC",
+      :description => "Kentucky Fried Wonder")
+  end
 
   # Add more helper methods to be used by all tests here...
 end

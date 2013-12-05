@@ -1,18 +1,19 @@
 OnoBurrito::Application.routes.draw do
-  root :to => "items#index"
+  root :to => "restaurants#index"
 
   resources :contacts
   resources :items do
     :item_categories
   end
   resources :locations
-  resources :orders  
+  resources :orders
   resources :order_items
   resources :sessions
   resources :transactions, only: [:new, :create, :show]
   resources :users
   resources :admin_orders
   resources :admin_items
+  resources :restaurants
 
   get "code" => "codes#index"
   get "log_out" => "sessions#destroy"
