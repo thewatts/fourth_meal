@@ -3,31 +3,27 @@ class ApplicationController < ActionController::Base
   
   delegate :allow?, to: :current_permission
 
-  helper_method :allow?
-  helper_method :current_user
-  helper_method :current_order
-  helper_method :current_order_total
+  helper_method :allow?, :current_user, :current_restaurant, :current_cart
 
-  def current_order
-    Order.find_by_id(session[:current_order]) || Order.new(status: "unpaid")  
-  end
-
-  def categories
-   @categories ||= Category.all
-  end
-
-  def current_order_total
-    order_total(current_order.order_items).to_i
+  def current_cart
+    if current_restaurant
+      @current_cart = Cart.new(current_restaurant.to_param)
+    end
   end
   
-  private
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 
-   def current_user
-     @current_user ||= User.find(session[:user_id]) if session[:user_id]
-   end
-   
-   def current_permission
-     @current_permission ||= Permission.new(current_user)
-   end
+  def current_restaurant
+    @current_restaurant ||= Restaurant.find_by_slug(params[:current_restaurant])
+  end
+
+  private
+  
+  def current_permission
+    @current_permission ||= Permission.new(current_user)
+  end
+
 
 end

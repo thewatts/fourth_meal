@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+    session_params = params[:sessions]
     @user = User.authenticate(params[:email], params[:password])
     if @user && current_order.id
       session[:user_id] = @user.id
@@ -24,10 +25,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
-    session.delete(:order_id)
-    session[:user_id] = nil
-    session[:current_order] = Order.new
+    current_user = nil
+    current_cart = nil
     redirect_to root_url, :notice => "Logged out!"
   end
 

@@ -1,4 +1,9 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
+  before_action :define_current_restaurant
+
+  def new
+    @user = User.new
+  end
 
   def create
     @user = User.new(user_params)
@@ -31,5 +36,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :full_name, :display_name, :password, :password_confirmation, :admin)
+  end
+
+  def define_current_restaurant
+    @restaurant = current_restaurant
   end
 end

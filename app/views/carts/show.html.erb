@@ -1,0 +1,13 @@
+<div class="grid-100">
+  <% if current_cart.empty? %>
+    <h2>Cart is Empty!</h2>
+  <% else %>
+    <h2>Cart Details:</h2>
+    <% current_cart.items.each do |item| %>
+      Item: <%= item.title %>
+      Description: <%= item.description %>
+      Price: <%= item.price %>
+    <% end %>
+      
+    <h3>Cart Total: <%= current_cart.total %></h3>
+  <% end %>
