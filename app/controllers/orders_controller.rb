@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   def show
     @page_title = "Your Order"
     @order = current_order
-    @order_items = @order.order_items
+    @order_items = @order.order_items.where(:order_id == @order.id)
     @items = Item.active
     if @order_items.count < 1
       redirect_to menu_path
@@ -24,7 +24,8 @@ class OrdersController < ApplicationController
       @order.save
     end 
     session[:current_order] = @order.id
-    redirect_to order_path(session[:current_order])
+    @restaurant = Restaurant.find_by_slug(session[:current_restaurant])
+    redirect_to restaurant_root_path(@restaurant)
   end
 
   def update
@@ -32,7 +33,7 @@ class OrdersController < ApplicationController
     @order = current_order
     @item = Item.find(params[:item])
     add_item_to_order
-    redirect_to order_path(@order.id)
+    redirect_to restaurant_root_path(session[:current_restaurant])
   end
 
   def destroy

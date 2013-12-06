@@ -19,7 +19,7 @@
 
 <% unless order.order_items.nil? %>
   <div class="grid-100">
-    <%= link_to "(Cancel Order)", order_path(current_order.id), :method => :delete, id: "cancel-link" %>
+    <%# link_to "(Cancel Order)", order_path(current_order.id), :method => :delete, id: "cancel-link" %>
     <br/>
     <h2 id="current-total">
       Current Total: <%= number_to_currency(order_total(@order_items)) %>
