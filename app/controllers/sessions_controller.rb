@@ -10,11 +10,11 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       current_order.save
       flash[:notice] = "Logged in!"
-      redirect_to order_path(current_order.id)
+      redirect_to order_path(session[:current_restaurant], current_order.id)
     elsif @user
       session[:user_id] = @user.id
       flash[:notice] = "Logged in!"
-      redirect_to menu_path
+      redirect_to restaurant_root_path(session[:current_restaurant])
     else
       @user = User.new
       flash.now.alert = "Invalid email or password"

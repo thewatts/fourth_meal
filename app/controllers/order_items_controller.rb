@@ -7,7 +7,7 @@ class OrderItemsController < ApplicationController
     else
       flash[:notice] = "Your order has been cancelled."
     end
-    redirect_to order_path(current_order.id)
+    redirect_to order_path(session[:current_restaurant], current_order.id)
   end
   
 end

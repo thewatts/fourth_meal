@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     @order_items = @order.order_items
     @items = Item.active
     if @order_items.count < 1
-      redirect_to menu_path
+      redirect_to restaurant_root_path(session[:current_restaurant])
     end
   end
 
@@ -23,16 +23,17 @@ class OrdersController < ApplicationController
       @order.order_items.build(item: item, quantity: 1) 
       @order.save
     end 
-    session[:current_order] = @order.id
-    redirect_to order_path(session[:current_order])
+    redirect_to order_path(session[:current_restaurant], @order.id)
   end
 
   def update
     current_order.save
     @order = current_order
+    session[:current_order] = @order.id
     @item = Item.find(params[:item])
     add_item_to_order
-    redirect_to order_path(@order.id)
+    flash.notice = "Item was added to your cart!"
+    redirect_to order_path(session[:current_restaurant], @order.id)
   end
 
   def destroy

@@ -17,7 +17,7 @@ class TransactionsController < ApplicationController
       current_order.update(:user_id => current_user.id, :status => "paid")
       session[:current_order] = nil
       flash[:notice] = "Successfully created your order!"
-      redirect_to transaction_path(@transaction)
+      redirect_to transaction_path(session[:current_restaurant], @transaction)
     else
       flash[:notice] = "There was a problem creating your order!"
       render :new
@@ -30,7 +30,7 @@ class TransactionsController < ApplicationController
       render :show
     else
       @transaction = nil
-      redirect_to root_path
+      redirect_to restaurant_root_path(session[:current_restaurant])
     end
   end
 

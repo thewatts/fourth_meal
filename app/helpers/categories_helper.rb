@@ -10,7 +10,7 @@ module CategoriesHelper
     end
 
     link_to category.title, 
-            menu_items_path(category.to_param), 
+            menu_items_path(session[:current_restaurant], category.to_param), 
             class: css_class
   end
 end
