@@ -10,7 +10,10 @@ class ApplicationController < ActionController::Base
   helper_method :items_in_cart?
 
   def current_order
-    @current_order ||= Order.find_by_id(session[:current_order]) || Order.find_by_user_id(session[:user_id]) || Order.new(status: "unpaid", restaurant_id: current_restaurant.id, user_id: 1)
+    @current_order ||= current_restaurant.orders.find_by_id(session[:current_order]) || 
+                       current_restaurant.orders.find_by_user_id(session[:user_id]) || 
+                       Order.new(status: "unpaid", restaurant_id: current_restaurant.id, user_id: 1)
+
     @current_order.update(:user_id => current_user.id) if current_user
     @current_order.save
     session[:current_order] = @current_order.id
