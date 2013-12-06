@@ -30,5 +30,10 @@ class UsersTest < ActiveSupport::TestCase
     order2 = Order.create(:status => 'unpaid', :user_id => @user.id)
     assert @user.orders.count == 2
   end
+
+  test "it is not a super by default" do 
+    create_valid_user
+    refute @user.super?
+  end
  
 end
