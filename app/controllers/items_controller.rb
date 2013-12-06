@@ -10,7 +10,6 @@ class ItemsController < ApplicationController
     @restaurant = Restaurant.find_by_slug(params[:restaurant])
     session[:current_restaurant] = @restaurant.to_param
     @items = @restaurant.items.active
-    # fail
     @page_title = "Full Menu"
   end
 

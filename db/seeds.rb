@@ -1,3 +1,9 @@
+# RESTAURANTS
+
+ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros")
+billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'")
+adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?")
+
 # CATEGORIES
 
 entrees = Category.create(title: "Entrees")
@@ -16,7 +22,8 @@ burrito = Item.create(
   description: "Mouthwatering slab of meat wrapped in white flour.", 
   price: 5.99, 
   photo: File.open("app/assets/images/BURRITO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -29,7 +36,8 @@ breakfast_burrito = Item.create(
   description: "Eggs and meat!", 
   price: 3.99, 
   photo: File.open("app/assets/images/BREAKFAST.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
@@ -42,7 +50,8 @@ naked_burrito = Item.create(
   description: "Get lucky with a naked burrito.", 
   price: 5.99, 
   photo: File.open("app/assets/images/NAKED_BURRITO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: adam.id)
   
 
 ItemCategory.create(
@@ -55,7 +64,8 @@ taco_gumbo = Item.create(
   description: "Good for a cold day.", 
   price: 4.99, 
   photo: File.open("app/assets/images/C2_TACO_GUMBO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -68,7 +78,8 @@ sig_veggie_burrito = Item.create(
   description: "Vegetarian is caveman speak for bad hunter.", 
   price: 4.99, 
   photo: File.open("app/assets/images/SIG_VEGGIE_BURRITO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
@@ -81,7 +92,8 @@ taco_salad = Item.create(
   description: "It's 'healthy'.", 
   price: 5.99, 
   photo: File.open("app/assets/images/TACO_SALAD.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: adam.id)
   
 
 ItemCategory.create(
@@ -98,7 +110,8 @@ kids_meal = Item.create(
   description: "Comes with a plastic toy.", 
   price: 3.99, 
   photo: File.open("app/assets/images/KIDS_LEADING.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -111,7 +124,8 @@ kids_taco = Item.create(
   description: "It's like the big one, only smaller.", 
   price: 3.99, 
   photo: File.open("app/assets/images/KIDS_TACO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
@@ -124,7 +138,8 @@ kids_quesadilla = Item.create(
   description: "It's like the big one, only smaller.", 
   price: 3.99, 
   photo: File.open("app/assets/images/KIDS_QUESADILLA.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: adam.id)
   
 
 ItemCategory.create(
@@ -137,7 +152,8 @@ kids_burrito = Item.create(
   description: "It's like the big one, only smaller.", 
   price: 3.99, 
   photo: File.open("app/assets/images/KIDS_NAKED_BURRITO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -154,7 +170,8 @@ taco_tortilla_soup = Item.create(
   description: "Es Muy Picante.", 
   price: 6.99, 
   photo: File.open("app/assets/images/C2_TACO_TORT_SOUP.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
@@ -167,7 +184,8 @@ nacho_dilla = Item.create(
   description: "Eat one every dia.", 
   price: 6.99, 
   photo: File.open("app/assets/images/C2_NACHO_DILLA.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: adam.id)
   
 
 ItemCategory.create(
@@ -185,7 +203,8 @@ taco_w_gumbo_soup = Item.create(
   description: "You must be hungry!", 
   price: 6.99, 
   photo: File.open("app/assets/images/C2_TACO_GUMBO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -198,7 +217,8 @@ taco_w_naked_burrito = Item.create(
   description: "You must be hungry!", 
   price: 6.99, 
   photo: File.open("app/assets/images/C2_TACO_NAKED-BURRITO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
@@ -211,7 +231,8 @@ two_naked_tacos = Item.create(
   description: "Two tacos caught in bed together!", 
   price: 6.99, 
   photo: File.open("app/assets/images/C2_TACO_NAKED_TACO.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: adam.id)
   
 
 ItemCategory.create(
@@ -233,7 +254,8 @@ nachos = Item.create(
   description: "That's 'not-cho' cheese!", 
   price: 5.99, 
   photo: File.open("app/assets/images/3_CHEESE_NACHOS.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -251,7 +273,8 @@ chips_dip = Item.create(
   description: "Crunchy and smooth.", 
   price: 4.99, 
   photo: File.open("app/assets/images/CHIPS_DIP.png", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
@@ -268,7 +291,8 @@ beer = Item.create(
   description: "Beer beer beer beer.", 
   price: 3.99, 
   photo: File.open("app/assets/images/beers.jpeg", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: adam.id)
   
 
 ItemCategory.create(
@@ -281,7 +305,8 @@ soda = Item.create(
   description: "Sodee pop.", 
   price: 1.99, 
   photo: File.open("app/assets/images/soda.jpg", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: ono.id)
   
 
 ItemCategory.create(
@@ -294,7 +319,8 @@ margarita = Item.create(
   description: "Blended margs for your enjoyment.", 
   price: 5.99, 
   photo: File.open("app/assets/images/cocktails.jpg", 'r'),
-  retired: false)
+  retired: false,
+  restaurant_id: billy.id)
   
 
 ItemCategory.create(
