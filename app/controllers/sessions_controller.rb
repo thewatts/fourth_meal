@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  include SessionsHelper
-
   def new
     @user = User.new
   end
@@ -25,8 +23,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user = nil
-    current_cart = nil
+    logout
     redirect_to root_url, :notice => "Logged out!"
   end
 
