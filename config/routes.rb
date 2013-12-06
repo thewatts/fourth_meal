@@ -1,4 +1,7 @@
 OnoBurrito::Application.routes.draw do
+
+  root :to => "restaurants#index"
+
   get "/log_out" => "sessions#destroy"
   get "/log_in" => "sessions#new", as: "log_in"
   get "/sign_up" => "users#new"
@@ -6,24 +9,32 @@ OnoBurrito::Application.routes.draw do
   resources :users
   resources :sessions
   resources :restaurants
-  root :to => "restaurants#index"
 
 
   scope ":restaurant" do
-    resources :contacts
+    get '/' => 'items#index', as: :restaurant_root
+    get 'menu' => 'items#index', as: :menu
+
     resources :items do
       :item_categories
     end
-    resources :locations
+    resources :categories
+    get "menu/:category_slug" => "items#in_category", as: "menu_items"
+    
+    resource :cart
+    
     resources :orders
     resources :order_items
+    resources :line_items
+    resources :contacts
+    resources :locations
     resources :transactions, only: [:new, :create, :show]
-    resources :admin_orders
-    resources :admin_items
-    get 'menu' => 'items#index', as: :menu
-    get '/' => 'items#index', as: :restaurant_root
-    get "menu/:category_slug" => "items#in_category", as: "menu_items"
-    get "/admin" => "admin#index"
+
+    namespace :admin do
+      get "/" => "admin#index"
+      resources :orders
+      resources :items
+    end
 
   end
 

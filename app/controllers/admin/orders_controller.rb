@@ -1,4 +1,4 @@
-class AdminOrdersController < ApplicationController
+class Admin::OrdersController < ApplicationController
   # before_action :can_access
   layout 'admin'
   

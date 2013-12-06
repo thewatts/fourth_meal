@@ -1,7 +1,9 @@
-class Cart
-  def initialize(restaurant)
+class Cart < ActiveRecord::Base
+  belongs_to :restaurant
+  has_many :line_items, :dependent => :destroy
+
+  def initialize
     @cart_items ||= []
-    @restaurant = restaurant
   end
 
   def items
@@ -21,7 +23,7 @@ class Cart
   end
 
   def empty?
-    @cart_items.empty?
+    @cart_items == []
   end
 
   def total

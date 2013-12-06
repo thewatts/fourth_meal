@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131206034330) do
+ActiveRecord::Schema.define(version: 20131206152729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carts", force: true do |t|
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", force: true do |t|
     t.string   "title",         null: false
@@ -52,6 +58,13 @@ ActiveRecord::Schema.define(version: 20131206034330) do
     t.string   "slug"
     t.boolean  "retired",                                     default: false
     t.integer  "restaurant_id"
+  end
+
+  create_table "line_items", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "cart_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "order_items", force: true do |t|
