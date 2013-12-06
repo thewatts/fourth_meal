@@ -4,7 +4,7 @@
     <h2 id="restaurant-title"><%= @restaurant.name %></h2>
     <h3><%= @restaurant.description %></h3>
     <%# restaurant.logo_image image_tag 'logo-ono.gif', id:"logo-image" %>
-    <% if session[:current_order] %>
+    <% if session[:current_order].id %>
       <%= link_to "View Your Cart", order_path(session[:current_restaurant], session[:current_order]) %>
     <% end %>
   </div>

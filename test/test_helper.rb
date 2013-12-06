@@ -36,11 +36,11 @@ class ActiveSupport::TestCase
     @category = Category.create(:title => 'Brunch', :restaurant_id => 1)
   end
 
-  def create_valid_user(password = "password")
+  def create_valid_user
     @user = User.create(:email        => "test@example.com",
                         :full_name    => "Bennny Smith",
                         :display_name => "Bennybeans",
-                        :password     => password)
+                        :password     => "password")
   end
 
   def create_valid_restaurant

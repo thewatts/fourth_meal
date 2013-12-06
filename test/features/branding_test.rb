@@ -11,6 +11,7 @@ class BrandingTest < Capybara::Rails::TestCase
 
     assert_equal restaurant_root_path(@restaurant), current_path
 
+    # JavaScript
     within '#restaurant-title' do
         assert page.has_content?("KFC")
     end

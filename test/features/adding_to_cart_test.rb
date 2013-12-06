@@ -17,6 +17,7 @@ class AddingToCartTest < Capybara::Rails::TestCase
 
     assert_equal restaurant_root_path(@restaurant), current_path
 
+    # JavaScript
     assert page.has_content?("1 Item Added to Cart")
   end
 end
