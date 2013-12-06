@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
   # end
 
   def index
+    # throw
     @restaurant = Restaurant.find_by_slug(params[:restaurant])
     session[:current_restaurant] = @restaurant.to_param
     @items = @restaurant.items.active
