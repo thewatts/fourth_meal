@@ -37,4 +37,11 @@ class RestaurantTest < ActiveSupport::TestCase
     refute_equal 0, restaurant.items.length
   end
 
+  test "it has orders" do
+    restaurant = Restaurant.create(:name => "Benjamin", :description => "Lorem Ipsum")
+    order = create_valid_order
+    order.update(:restaurant_id => restaurant.id)
+    refute_equal 0, restaurant.orders.length
+  end
+
 end

@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
   end
 
   def create_valid_order
-    @order = Order.create(:status => 'unpaid', :user_id => 5)
+    @order = Order.create(:status => 'unpaid', :user_id => 5, :restaurant_id => 1)
   end
 
   def create_valid_category
