@@ -3,65 +3,55 @@ require 'test_helper'
 class ItemTest < ActiveSupport::TestCase
 
   test "it is created with valid attributes" do
-    create_valid_item
-    assert @item.valid?
+    assert items(:one).valid?
   end
 
   test "it_validates_its_attributes" do
-    @item = Item.new
-    @item.save
-    assert @item.invalid?
+    item = Item.new
+    item.save
+    assert item.invalid?
   end
 
   test "it_validates_description" do
-    @item = Item.create(:title => "Hello!", :description => "")
-    assert @item.invalid?
+    item = Item.create(:title => "Hello!", :description => "")
+    assert item.invalid?
   end
 
   test "it_validates_price" do
-    @item = Item.create(:title => "Hello!", :description => "World")
-    assert @item.invalid?
+    item = Item.create(:title => "Hello!", :description => "World")
+    assert item.invalid?
   end
 
   test "its_price_must_be_greater_than_zero" do
-    @item = Item.create(:title => "Hello!", :description => "World", :price => -5)
-    assert @item.invalid?
+    item = Item.create(:title => "Hello!", :description => "World", :price => -5)
+    assert item.invalid?
   end
 
   test "it has categories" do
-    create_valid_item
-    assert @item.categories
+    assert items(:one).categories
   end
 
   test "it has orders" do
-    create_valid_item
-    assert @item.orders
+    assert items(:one).orders
   end
 
   test "it has a slug" do
-    create_valid_item
-    assert @item.slug
+    assert items(:one).slug
   end
 
   test "it has a retired flag" do
-    create_valid_item
-    assert_respond_to @item, :retired
-    refute @item.retired
+    assert_respond_to items(:one), :retired
+    refute items(:one).retired
   end
 
   test "it has photo attributes" do
-    create_valid_item
-    assert_respond_to @item, :photo_file_name
-    assert_respond_to @item, :photo_content_type
-    assert_respond_to @item, :photo_file_size
-    assert_respond_to @item, :photo_updated_at
+    assert_respond_to items(:one), :photo_file_name
+    assert_respond_to items(:one), :photo_content_type
+    assert_respond_to items(:one), :photo_file_size
   end
 
   test "it belongs to a restaurant" do 
-    restaurant = Restaurant.create(:name => "Benjamin", :description => "Lorem Ipsum")
-    item = create_valid_item
-    item.update(restaurant_id: restaurant.id)
-    assert item.restaurant
+    assert items(:one).restaurant
   end
 
 end

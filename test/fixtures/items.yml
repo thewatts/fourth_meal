@@ -4,12 +4,10 @@ one:
   price: 4
   slug: "new_item"
   retired: false
-  photo_file_name: "hello.jpg",
-  photo_content_type: "jpeg",
-  photo_file_size: 12353,
-  photo_updated_at: Time.now.to_s,
-  restaurant_id: 1
-
+  photo_file_name: "hello.jpg"
+  photo_content_type: "jpeg"
+  photo_file_size: 12353
+  restaurant: one
 
 two:
   title: "Mashed Potatoes"
@@ -17,11 +15,10 @@ two:
   price: 5
   slug: "taters"
   retired: false
-  photo_file_name: "hello.jpg",
-  photo_content_type: "jpeg",
-  photo_file_size: 12353,
-  photo_updated_at: Time.now.to_s,
-  restaurant_id: 1
+  photo_file_name: "hello.jpg"
+  photo_content_type: "jpeg"
+  photo_file_size: 12353
+  restaurant: one
 
 three:
   title: "Chicken Drumsticks"
@@ -29,8 +26,7 @@ three:
   price: 10
   slug: "drumsticks"
   retired: false
-  photo_file_name: "hello.jpg",
-  photo_content_type: "jpeg",
-  photo_file_size: 12353,
-  photo_updated_at: Time.now.to_s,
-  restaurant_id: 2
+  photo_file_name: "hello.jpg"
+  photo_content_type: "jpeg"
+  photo_file_size: 12353
+  restaurant: two

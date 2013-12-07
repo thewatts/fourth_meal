@@ -1,11 +1,13 @@
 one:
-  email: "test@example.com",
-  full_name: "Bennny Smith",
-  display_name: "Bennybeans",
-  password: "password"
+  email: "test@example.com"
+  full_name: "Bennny Smith"
+  display_name: "Bennybeans"
+  password_hash: "password"
+  password_salt: "password"
 
 two:
-  email: "test2@example.com",
-  full_name: "Bree Thomas",
-  display_name: "breebird",
-  password: "password"
+  email: "test2@example.com"
+  full_name: "Bree Thomas"
+  display_name: "breebird"
+  password_hash: "password"
+  password_salt: "password"
