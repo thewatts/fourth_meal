@@ -3,32 +3,30 @@ require "test_helper"
 class UsersTest < ActiveSupport::TestCase
 
   test "it_validates_its_attributes" do
-    @user = User.new
-    @user.save
-    assert @user.invalid?
+    assert users(:one).invalid?
   end
 
-  test "it_invalid_email" do
-    @user = User.create(:email => "Smith@example.com")
-    assert @user.invalid?
+  test "it validates email" do
+    user = users(:one)
+    user.update(email: nil)
+    refute user.valid?
   end
 
  
   test "it_validates_full_name" do
-    @user = User.create(:full_name => "George Branson")
-    assert @user.invalid?
+    user = users(:one)
+    user.update(full_name: nil)
+    refute user.valid?
   end
 
   test "it_validates_display_name" do 
-    @user = User.create(:display_name => "Hashrocket")
-    assert @user.invalid?
+    user = users(:one)
+    user.update(display_name: nil)
+    refute user.valid?
   end 
 
   test "it can have one or more orders" do
-    create_valid_user
-    order1 = Order.create(:status => 'unpaid', :user_id => @user.id)
-    order2 = Order.create(:status => 'unpaid', :user_id => @user.id)
-    assert @user.orders.count == 2
+    assert users(:one).orders.count == 2
   end
  
 end
