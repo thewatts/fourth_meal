@@ -1,7 +1,7 @@
 one:
-  item_id: 1
-  category_id: 1
+  item: one
+  category: one
 
 two:
-  item_id: 3
-  category_id: 2
+  item: two
+  category: two

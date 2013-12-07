@@ -13,26 +13,25 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "it_validates_description" do
-    item = Item.create(:title => "Hello!", :description => "")
+    item = items(:one)
+    item.update(:description => nil)
     assert item.invalid?
   end
 
   test "it_validates_price" do
-    item = Item.create(:title => "Hello!", :description => "World")
+    item = items(:one)
+    item.update(:price => nil)
     assert item.invalid?
   end
 
   test "its_price_must_be_greater_than_zero" do
-    item = Item.create(:title => "Hello!", :description => "World", :price => -5)
+    item = items(:one)
+    item.update(:price => -1)
     assert item.invalid?
   end
 
   test "it has categories" do
-    assert items(:one).categories
-  end
-
-  test "it has orders" do
-    assert items(:one).orders
+    assert_equal categories(:one), items(:one).categories.first
   end
 
   test "it has a slug" do
@@ -51,7 +50,7 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "it belongs to a restaurant" do 
-    assert items(:one).restaurant
+    assert_equal restaurants(:one), items(:one).restaurant
   end
 
 end
