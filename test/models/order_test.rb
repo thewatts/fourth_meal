@@ -41,5 +41,4 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal restaurants(:one), orders(:one).restaurant
   end
 
-
 end

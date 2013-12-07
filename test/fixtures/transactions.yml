@@ -1,0 +1,16 @@
+one:
+  first_name: Billy
+  last_name: The Kidd
+  credit_card_number: 4444888899996666
+  credit_card_expiration: 8833
+  zipcode: 80204
+  order: one
+
+two:
+  first_name: Doc
+  last_name: Holiday
+  credit_card_number:
+  credit_card_expiration:
+  zipcode: 80220
+  order: two
+
