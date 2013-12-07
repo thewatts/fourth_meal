@@ -16,10 +16,9 @@ class BrandingTest < Capybara::Rails::TestCase
     assert page.has_content?("Mashed Potatoes")
 
 
-    create_another_valid_restaurant
     visit root_path
     click_on "McDonalds"
-    assert_equal restaurant_root_path(@new_restaurant), current_path
+    assert_equal restaurant_root_path(restaurants(:two)), current_path
     within '#restaurant-title' do
         assert page.has_content?("McDonalds")
     end
