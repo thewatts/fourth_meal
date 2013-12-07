@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
 
   def show
     @page_title = "Your Order"
-    @order = current_order
+    @order = current_restaurant_order
     @order_items = @order.order_items
     @items = current_restaurant.items.active
     if @order_items.count < 1

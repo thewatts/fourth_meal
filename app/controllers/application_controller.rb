@@ -22,8 +22,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_restaurant_order
+    @current_restaurant_order ||= current_restaurant.orders.find_by_id(current_order.id) #|| current_restaurant.orders.find_by_user_id(session[:user_id])
+  end
+
   def create_order
-    @current_order = Order.create(status: 'unpaid')
+    @current_order = Order.create(status: 'unpaid', 
+                                  restaurant: current_restaurant)
     session[:order_id] = @current_order.id
     @current_order
   end
