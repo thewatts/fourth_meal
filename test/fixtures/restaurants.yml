@@ -1,10 +1,8 @@
-# Read about fixtures at
-# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
 one:
-  name: MyString
-  description: MyString
+  name: "KFC"
+  description: "Kentucky Fried Wonder"
+
 
 two:
-  name: MyString
-  description: MyString
+  name: "McDonalds"
+  description: "Have you had your break today?"

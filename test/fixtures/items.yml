@@ -1,0 +1,36 @@
+one:
+  title: "Hello!"
+  description: "World"
+  price: 4
+  slug: "new_item"
+  retired: false
+  photo_file_name: "hello.jpg",
+  photo_content_type: "jpeg",
+  photo_file_size: 12353,
+  photo_updated_at: Time.now.to_s,
+  restaurant_id: 1
+
+
+two:
+  title: "Mashed Potatoes"
+  description: "Creamy"
+  price: 5
+  slug: "taters"
+  retired: false
+  photo_file_name: "hello.jpg",
+  photo_content_type: "jpeg",
+  photo_file_size: 12353,
+  photo_updated_at: Time.now.to_s,
+  restaurant_id: 1
+
+three:
+  title: "Chicken Drumsticks"
+  description: "Breaded"
+  price: 10
+  slug: "drumsticks"
+  retired: false
+  photo_file_name: "hello.jpg",
+  photo_content_type: "jpeg",
+  photo_file_size: 12353,
+  photo_updated_at: Time.now.to_s,
+  restaurant_id: 2
