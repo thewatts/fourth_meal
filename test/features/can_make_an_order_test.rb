@@ -4,55 +4,66 @@ require './test/test_helper'
 class CanMakeAnOrderTest < Capybara::Rails::TestCase
 
   test "a user can create an order" do
-    item = Item.create(title: 'Steak Burrito', description: 'Mouthwatering slab', price: '1')
+    create_valid_restaurant
 
     visit root_path
+    click_on "KFC"
 
-    within "#item_#{item.id}" do
+    within "#item_#{@item.id}" do
       click_on "Add to Cart"
     end
 
     assert_content page, 'Your Current Order'
-    assert_content page, "Mouthwatering slab"
+    assert_content page, "Mashed Potatoes"
     
   end
 
   
 
   test "can add multiple items to order without logging in" do
-    item1 = Item.create(title: 'Steak Burrito', description: 'Mouthwatering slab', price: '1')
-    item2 = Item.create(title: 'Breakfast Burrito', description: 'Yummy', price: '1')
+    create_valid_restaurant
+    @item2 = Item.create(:title => "Chicken Drumsticks",
+                            :description => "World",
+                            :price => 4,
+                            :slug => "new_item",
+                            :retired => false,
+                            :photo_file_name => "hello.jpg",
+                            :photo_content_type => "jpeg",
+                            :photo_file_size => 12353,
+                            :photo_updated_at => Time.now.to_s,
+                            :restaurant_id => @restaurant.id)
 
     visit root_path
+    click_on "KFC"
 
-    within "#item_#{item1.id}" do
+    within "#item_#{@item.id}" do
       click_on "Add to Cart"
     end
 
-    within "#item_#{item2.id}" do
+    within "#item_#{@item2.id}" do
       click_on "Add to Cart"
     end
 
-    within("#current_order") do
-      assert_content page, "Breakfast Burrito"
-      assert_content page, "Steak Burrito"
-    end
+    assert_content page, 'Your Current Order'
+    assert_content page, "Mashed Potatoes"
+    assert_content page, "Chicken Drumsticks"
   end
 
   test "can add multiple instances of same item to order" do
-    item1 = Item.create(title: 'Steak Burrito', description: 'Mouthwatering slab', price: '1')
-    item2 = Item.create(title: 'Breakfast Burrito', description: 'Yummy', price: '1')
-
+    create_valid_restaurant
     visit root_path
-    within "#item_#{item1.id}" do
+    click_on "KFC"
+
+    within "#item_#{@item.id}" do
       click_on "Add to Cart"
     end
 
-    within "#item_#{item1.id}" do
+    within "#item_#{@item.id}" do
       click_on "Add to Cart"
     end
 
-    visit order_path(Order.first)
+    assert_content page, 'Your Current Order'
+    assert_content page, "Mashed Potatoes"
     within("#current_order") do
       assert_content page, "2"
     end

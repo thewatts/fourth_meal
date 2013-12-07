@@ -19,9 +19,8 @@ class CanLogInAndOutTest < Capybara::Rails::TestCase
 
     test "test can log out" do
       user = create_valid_user
-      visit log_in_path
-      click_on "Log In"
-
+      visit root_path
+      click_on "Sign up or Log in"
       within "#login-form" do
         fill_in "Email", with: user.email
         fill_in "Password", with: "password"
