@@ -3,8 +3,7 @@ require 'test_helper'
 class OrderTest < ActiveSupport::TestCase
 
   test "it is created with valid attributes" do
-    create_valid_order
-    assert @order.valid?
+    assert orders(:one).valid?
   end
 
   test "it_validates_status" do
