@@ -1,9 +1,9 @@
 one:
   status: 'unpaid'
-  user_id: 5
-  restaurant_id: 1
+  user: one
+  restaurant: one
 
 two:
   status: 'unpaid'
-  user_id: 5
-  restaurant_id: 1
+  user: two
+  restaurant: two

@@ -12,38 +12,33 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "it_validates_user_id" do
-    order = Order.create(:status => "unpaid", :restaurant_id => 1)
-    assert order.invalid?
+    order = orders(:one)
+    order.update(:user_id => nil)
+    refute order.valid?
   end
 
   test "it_validates_restaurant_id" do
-    order = Order.create(:status => "unpaid", :user_id => 1)
-    assert order.invalid?
+    order = orders(:one)
+    order.update(:restaurant_id => nil)
+    refute order.valid?
   end
 
   test "it_validates_correct_type_of_status" do
-    order = Order.create(:status => 'mumbojumbo', :user_id => 5, :restaurant_id => 1)
-    assert order.invalid?
-    order2 = Order.create(:status => 'unpaid', :user_id => 5, :restaurant_id => 1)
-    assert order2.valid?
+    order = orders(:one)
+    order.update(:status => 'mumbojumbo')
+    refute order.valid?
   end
 
   test "it has items" do
-    create_valid_order
-    assert @order.items
+    assert_equal items(:one), orders(:one).items.last
   end
 
   test "it has a user" do
-    create_valid_user
-    @order = Order.create(:status => 'unpaid', :user_id => @user.id, :restaurant_id => 1)
-    assert @order.user
+    assert_equal users(:one), orders(:one).user
   end
 
   test "it has a restaurant" do
-    create_valid_restaurant
-    create_valid_user
-    order = Order.create(:status => 'unpaid', :user_id => @user.id, :restaurant_id => @restaurant.id)
-    assert order.restaurant_id
+    assert_equal restaurants(:one), orders(:one).restaurant
   end
 
 
