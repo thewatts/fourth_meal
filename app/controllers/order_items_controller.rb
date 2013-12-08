@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
 
   def destroy
-    OrderItem.find(params[:oiid]).destroy
+    OrderItem.find(params[:id]).destroy
     if current_order.order_items.count > 0
       flash[:notice] = "The item was removed from your cart."
     else

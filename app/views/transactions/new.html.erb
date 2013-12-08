@@ -1,30 +1,28 @@
 <div class="grid-container">
+
+
+  <div class="grid-100" id="order-summary-container">
+    <h1>Order Summary</h1>
+
+    <table>
+      <thead>
+        <%= render partial: 'orders/order_item_table' %>
+      </thead>
+
+      <tbody>
+        <%= render partial: 'orders/order_item', collection: current_order.order_items %>
+      </tbody>
+    </table>
+  </div>
+
+
   <div class="grid-100" id="transaction-container">
+
     <h1>Transaction Information</h1>
+    <h2>Checking out as <%= if current_user; current_user.full_name; else; "Guest"; end; %></h2>
 
-    <p>Checking out as <%= if current_user; current_user.full_name; else; "Guest"; end; %></p>
-
-    <%# render partial: 'orders/order', locals: {order: current_order} %>
-
-    <%= form_for(@transaction) do |f| %>
-
-      <%= render "shared/errors", model: @transaction %>
-
-      <h2 id="current-total">
-        Current Total: <%= number_to_currency(order_total(current_order.order_items)) %>
-      </h2>
-      <br/>
-
-      <script
-        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="pk_test_czwzkTp2tactuLOEOqbMTRzG"
-        data-amount=""
-        data-name="Ono-Burrito"
-        data-description="Your Order"
-        data-image="">
-      </script>
-
-    <% end %>
+    <%= render "transaction_form" if !current_user.transactions %>
+    <%= render "user_transaction_form" if current_user  %>
 
   </div>
 </div>
