@@ -47,12 +47,10 @@ class AddressTest < ActiveSupport::TestCase
     refute address.valid?
   end
 
-  test "it does not create a address when kind is invalid" do
+  test "it validates email" do
     address = addresses(:one)
-    address.update(kind: "billing")
-    assert address.valid?
-    # address.update(kind: "dropship")
-    # refute address.valid?
+    address.update(email: nil)
+    refute address.valid?
   end
 
   test "it can optionally be associated with a user" do

@@ -10,7 +10,6 @@ one:
   zipcode: 12394
   email: "billyc@bluegrass.com"
   user_id: 
-  kind: "shipping"
 
 two:
   first_name: "Benjamin"
@@ -21,4 +20,3 @@ two:
   zipcode: 80220
   email: "test@example.com"
   user_id: users(:one).id
-  kind: "billing"

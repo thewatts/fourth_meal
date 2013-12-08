@@ -15,8 +15,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = current_order.build_transaction(transaction_params)
-    @transaction.update(:order_id => current_order.id)
+    @transaction = Transaction.create(order_id: current_order.id, address_id: current_address.id, stripe_token: params[:stripe_token])
     if @transaction.save
       @transaction.pay!
       current_order.update(:user_id => current_user.id, :status => "paid")
@@ -42,7 +41,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:first_name, :last_name, :credit_card_number, :credit_card_expiration, :zipcode)
+    params.require(:transaction).permit(:stripe_token)
   end
 
 end

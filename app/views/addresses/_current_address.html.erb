@@ -1,0 +1,27 @@
+<% @address = Address.find(session[:current_address]) %>
+<h3>Shipping To:</h3>
+<table>
+  <thead>
+    <tr>
+      <td class="table-header-item">First Name</td>
+      <td class="table-header-item">Last Name</td>
+      <td class="table-header-item">Street Address</td>
+      <td class="table-header-item">City</td>
+      <td class="table-header-item">State</td>
+      <td class="table-header-item">Zipcode</td>
+      <td class="table-header-item">Email</td>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td class="table-item"><%= @address.first_name %></td>
+    <td class="table-item"><%= @address.last_name %></td>
+    <td class="table-item"><%= @address.street_address %></td>
+    <td class="table-item"><%= @address.city %></td>
+    <td class="table-item"><%= @address.state %></td>
+    <td class="table-item"><%= @address.zipcode %></td>
+    <td class="table-item"><%= @address.email %></td>
+  </tbody>
+</table>
+<%= button_to "Change Address", change_address_path(session[:current_restaurant]), class: "button" %>

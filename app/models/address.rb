@@ -7,8 +7,7 @@ class Address < ActiveRecord::Base
                                 length: { is: 2 }
   validates             :zipcode, presence: true, format: {with: /\d{5}/}, 
                                   length: { is: 5 }
-  validates_presence_of :kind, presence: true,
-                               inclusion: {in: %w(billing, shipping)}
+  validates_presence_of :email
 
   belongs_to :user
 
