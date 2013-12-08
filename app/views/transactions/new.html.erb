@@ -4,7 +4,7 @@
 
     <p>Checking out as <%= if current_user; current_user.full_name; else; "Guest"; end; %></p>
 
-    <%= render partial: 'orders/order', locals: {order: current_order} %>
+    <%# render partial: 'orders/order', locals: {order: current_order} %>
 
     <%= form_for(@transaction) do |f| %>
 
