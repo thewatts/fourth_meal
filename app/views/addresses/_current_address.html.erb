@@ -24,4 +24,5 @@
     <td class="table-item"><%= @address.email %></td>
   </tbody>
 </table>
-<%= button_to "Change Address", change_address_path(session[:current_restaurant]), class: "button" %>
+
+<%= button_to "Change Address", change_address_path(session[:current_restaurant]), method: :get, class: "button" %>
