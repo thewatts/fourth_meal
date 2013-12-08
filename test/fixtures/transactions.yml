@@ -1,16 +1,10 @@
 one:
-  first_name: Billy
-  last_name: The Kidd
-  credit_card_number: 4444888899996666
-  credit_card_expiration: 8833
-  zipcode: 80204
-  order: one
+  address_id: addresses(:one).id
+  order_id: orders(:one).id
+  stripe_token: "24mVDK2mvo423NNSKDS242MF224"
 
 two:
-  first_name: Doc
-  last_name: Holiday
-  credit_card_number:
-  credit_card_expiration:
-  zipcode: 80220
-  order: two
+  address_id: addresses(:two).id
+  order_id: orders(:two).id
+  stripe_token: "24mVDK2mvo423NNSKDS242MF224"
 

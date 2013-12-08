@@ -11,21 +11,9 @@ class TransactionTest < ActiveSupport::TestCase
     assert transactions(:one).valid?
   end
 
-  test "it does not create a transaction when first name is empty" do
-    transaction = transactions(:one)
-    transaction.update(first_name: nil)
-    refute transaction.valid?
+  test "it validates order id" do
+    transactions(:one).update(order_id: nil)
+    refute transactions(:one).valid?
   end
-
-  test "it does not create a transaction when last name is empty" do
-    transaction = transactions(:one)
-    transaction.update(last_name: nil)
-    refute transaction.valid?
-  end
-
-  test "it does not create a transaction when zipcode is invalid" do
-    transaction = transactions(:one)
-    transaction.update(zipcode: nil)
-    refute transaction.valid?
-  end
+  
 end
