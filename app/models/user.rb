@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
   has_many :orders
-  has_many :transactions, :through => :orders
+  has_many :addresses
 
   before_save   :encrypt_password
   validates_confirmation_of :password

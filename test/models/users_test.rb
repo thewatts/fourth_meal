@@ -45,4 +45,13 @@ class UsersTest < ActiveSupport::TestCase
     assert @user.orders.count == 2
   end
 
+  test "it can have one or more addresses" do
+    address = addresses(:one)
+    address.update(user_id: @user.id)
+    address2 = addresses(:two)
+    address2.update(user_id: @user.id)
+
+    assert @user.addresses.count == 2
+  end
+
 end
