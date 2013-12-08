@@ -2,6 +2,16 @@ class TransactionsController < ApplicationController
   
   def new
     @transaction = Transaction.new
+    if current_user
+      render :new
+    else
+      redirect_to new_session_path
+    end
+  end
+
+  def checkout_as_guest
+    @transaction = Transaction.new
+    render :new
   end
 
   def create

@@ -2,15 +2,16 @@
   <div class="grid-100" id="transaction-container">
     <h1>Transaction Information</h1>
 
+    <p>Checking out as <%= if current_user; current_user.full_name; else; "Guest"; end; %></p>
+
     <%= form_for(@transaction) do |f| %>
 
-    <%= render "shared/errors", model: @transaction %>
+      <%= render "shared/errors", model: @transaction %>
 
-
-    <h2 id="current-total">
-      Current Total: <%= number_to_currency(order_total(current_order.order_items)) %>
-    </h2>
-    <br/>
+      <h2 id="current-total">
+        Current Total: <%= number_to_currency(order_total(current_order.order_items)) %>
+      </h2>
+      <br/>
 
       <script
         src="https://checkout.stripe.com/checkout.js" class="stripe-button"

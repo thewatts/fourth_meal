@@ -18,7 +18,7 @@
       <br/>
       <h1>Checkout As A Guest</h1>
       <br/>
-      <%= button_to "Checkout", new_transaction_path(session[:current_restaurant]), :method => :get, class: "button" %>
+      <%= button_to "Checkout", guest_transaction_path(session[:current_restaurant]), :method => :get, class: "button" %>
     <% end %>
   </div>
 
