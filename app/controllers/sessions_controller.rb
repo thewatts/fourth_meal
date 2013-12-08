@@ -8,17 +8,23 @@ class SessionsController < ApplicationController
     @user = User.authenticate(params[:email], params[:password])
     if @user && session[:current_order]
       session[:user_id] = @user.id
-      current_order
       flash[:notice] = "Logged in!"
-      redirect_to restaurant_root_path(session[:current_restaurant])
+      if current_restaurant
+        redirect_to restaurant_root_path(session[:current_restaurant])
+      else 
+        redirect_to root_path
+      end
     elsif @user
       session[:user_id] = @user.id
-      session[:current_order] = @user.orders.max_by()
       flash[:notice] = "Logged in!"
-      redirect_to restaurant_root_path(session[:current_restaurant])
+      if current_restaurant
+        redirect_to restaurant_root_path(session[:current_restaurant])
+      else 
+        redirect_to root_path
+      end
     else
       @user = User.new
-      flash.now.alert = "Invalid email or password"
+      flash[:notice] = "Invalid email or password"
       render :new
     end
   end

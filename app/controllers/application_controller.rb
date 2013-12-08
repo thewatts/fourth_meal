@@ -15,8 +15,10 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_order
-    if session[:orders].keys.include?(current_restaurant.id)
-      order = Order.find(session[:orders][current_restaurant.id])
+    if current_restaurant 
+      if session[:orders].keys.include?(current_restaurant.id)
+        order = Order.find(session[:orders][current_restaurant.id])
+      end
     end
 
     if order

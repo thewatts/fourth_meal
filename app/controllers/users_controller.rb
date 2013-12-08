@@ -6,15 +6,20 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save && current_order.id
+    if current_restaurant
+      if @user.save && current_order
+        session[:user_id] = @user.id
+        current_order.update(user: @user)
+        redirect_to restaurant_root_path(session[:current_restaurant]), :notice => "Signed up!"
+      else @user.save && !current_order
+        session[:user_id] = @user.id
+        redirect_to restaurant_root_path(session[:current_restaurant]), :notice => "Signed up!"
+      end
+    elsif @user.save
       session[:user_id] = @user.id
-      current_order.save
-      redirect_to :back, :notice => "Signed up!"
-    elsif @user.save && !current_order.id
-      session[:user_id] = @user.id
-      redirect_to restaurant_root_path(session[:current_restaurant] || root_path)
+      redirect_to root_path, :notice => "Signed up!"
     else
-      render "sessions/new"
+      render "sessions/new", notice: "FAIL"
     end
   end
 
