@@ -5,3 +5,7 @@ one:
 two:
   item: two
   category: two
+
+three:
+  item: three
+  category: one
