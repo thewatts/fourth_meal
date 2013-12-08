@@ -4,8 +4,8 @@ class CanLogInAndOutTest < Capybara::Rails::TestCase
 
   test "user can sign up with valid params" do
     visit root_path
-
     click_on "Sign up or Log in"
+
     within "#new_user" do
       fill_in "Email", with: 'benji@example.com'
       fill_in "Full name", with: 'Benjamin Franklin'
@@ -26,7 +26,8 @@ class CanLogInAndOutTest < Capybara::Rails::TestCase
       fill_in "Password", with: 'password'
       click_button "Log In"
     end
-
+    save_and_open_page
+    
     click_on "Log out"
     assert_content page, "Logged out"
   end

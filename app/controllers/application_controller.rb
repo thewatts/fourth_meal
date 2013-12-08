@@ -10,26 +10,27 @@ class ApplicationController < ActionController::Base
   helper_method :items_in_cart?
 
   def current_order
+    session[:orders] ||= {}
     @current_order ||= find_or_create_order
   end
 
   def find_or_create_order
-    order = Order.find_by(id: session[:order_id])
+    if session[:orders].keys.include?(current_restaurant.id)
+      order = Order.find(session[:orders][current_restaurant.id])
+    end
+
     if order
       @current_order = order
     else
       create_order
     end
-  end
 
-  def current_restaurant_order
-    @current_restaurant_order ||= current_restaurant.orders.find_by_id(current_order.id) #|| current_restaurant.orders.find_by_user_id(session[:user_id])
   end
 
   def create_order
     @current_order = Order.create(status: 'unpaid', 
                                   restaurant: current_restaurant)
-    session[:order_id] = @current_order.id
+    session[:orders][current_restaurant.id] = @current_order.id
     @current_order
   end
 
@@ -42,7 +43,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_restaurant
-    Restaurant.find_by_slug(session[:current_restaurant])
+    @current_restaurant = Restaurant.find_by_slug(session[:current_restaurant]) || Restaurant.find_by_slug(params[:restaurant])
+    session[:current_restaurant] = @current_restaurant.to_param
+    @current_restaurant
   end
 
   def current_order_total
@@ -50,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def items_in_cart?
-    current_order && current_order.order_items.count > 0
+    current_order.order_items.count > 0
   end
 
   # def categories

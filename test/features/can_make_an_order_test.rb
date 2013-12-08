@@ -70,8 +70,6 @@ class CanMakeAnOrderTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
-    save_and_open_page
-
     assert_content page, 'Your Current Order'
     refute_content page, "Mashed Potatoes"
     assert_content page, "Big Mac"
