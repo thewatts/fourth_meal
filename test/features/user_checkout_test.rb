@@ -14,8 +14,6 @@ class MenuTest < Capybara::Rails::TestCase
     assert_content page, "Mashed Potatoes"
     click_on "Checkout"
 
-    save_and_open_page
-
     assert_content page, "Sign Up"
     assert_content page, "Log In"
     assert_content page, "Checkout As A Guest"
