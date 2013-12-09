@@ -28,10 +28,10 @@
     <h1>Transaction Information</h1>
     <h2>Checking out as <%= if current_user; current_user.full_name; else; "Guest"; end; %></h2>
 
-    <%= render "addresses/address_form" unless session[:current_address] %>
 
     <%= render "addresses/current_address" if session[:current_address] %>
 
+    <%= render "addresses/address_form" unless session[:current_address] %>
 
     <%= form_for(@transaction) do |f| %>
 

@@ -16,7 +16,6 @@ OnoBurrito::Application.routes.draw do
     end
     resources :locations
     resources :addresses
-    get '/addresses/update' => 'addresses#change', as: "change_address"
     resources :orders
     resources :order_items
     get '/transactions/guest' => 'transactions#checkout_as_guest', as: "guest_transaction"

@@ -1,6 +1,6 @@
-<%= form_for Address.new do |f| %>
+<%= form_for @address do |f| %>
 
-  <%# render "shared/errors", model: @address %>
+  <%= render "shared/errors", model: @address %>
 
   <table>
     <tr>

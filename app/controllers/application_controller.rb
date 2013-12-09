@@ -36,6 +36,11 @@ class ApplicationController < ActionController::Base
     @current_order
   end
 
+  def clear_current_order
+    @current_order = nil
+    session[:orders].delete([current_restaurant.id])
+  end
+
   def current_user
     @current_user ||= find_user
   end

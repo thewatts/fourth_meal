@@ -3,6 +3,7 @@ class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new
     if current_user
+      @address = current_user.addresses.last || Address.new
       render :new
     else
       redirect_to new_session_path
@@ -11,16 +12,23 @@ class TransactionsController < ApplicationController
 
   def checkout_as_guest
     @transaction = Transaction.new
+    if session[:current_address]
+      @address = Address.find(session[:current_address])
+    else
+      @address = Address.new
+    end
     render :new
   end
 
   def create
-    @transaction = Transaction.create(order_id: current_order.id, address_id: current_address.id, stripe_token: params[:stripe_token])
+    @address = Address.find(session[:current_address]) if session[:current_address]
+    @transaction = Transaction.create(order_id: current_order.id, 
+                                      address_id: params[:current_address],
+                                      stripe_token: params[:stripe_token])
     if @transaction.save
       @transaction.pay!
-      current_order.update(:user_id => current_user.id, :status => "paid")
-      session[:current_order] = nil
-      flash[:notice] = "Successfully created your order!"
+      clear_current_order
+      flash[:notice] = "Successfully submitteed your order!"
       redirect_to transaction_path(session[:current_restaurant], @transaction)
     else
       flash[:notice] = "There was a problem creating your order!"
@@ -30,8 +38,10 @@ class TransactionsController < ApplicationController
 
   def show
     @transaction = Transaction.find_by(id: params[:id])
-    if current_user.id = @transaction.order.user_id
-      render :show
+    if current_user
+      if current_user.id == @transaction.order.user_id
+        render :show
+      end
     else
       @transaction = nil
       redirect_to restaurant_root_path(session[:current_restaurant])
@@ -41,7 +51,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:stripe_token)
+    params.require(:transaction).permit(:stripe_token, :address, :stripe_email)
   end
 
 end
