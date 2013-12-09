@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @address = Address.find(session[:current_address]) if session[:current_address]
+    # @address = Address.find(session[:current_address]) if session[:current_address]
     @transaction = Transaction.create(order_id: current_order.id, 
                                       address_id: session[:current_address],
                                       stripe_token: params[:stripe_token])
