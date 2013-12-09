@@ -24,12 +24,12 @@ class TransactionsController < ApplicationController
   def create
     @address = Address.find(session[:current_address]) if session[:current_address]
     @transaction = Transaction.create(order_id: current_order.id, 
-                                      address_id: params[:current_address],
+                                      address_id: session[:current_address],
                                       stripe_token: params[:stripe_token])
     if @transaction.save
       @transaction.pay!
       clear_current_order
-      flash[:notice] = "Successfully submitteed your order!"
+      flash[:notice] = "Successfully submitted your order!"
       redirect_to transaction_path(session[:current_restaurant], @transaction)
     else
       flash[:notice] = "There was a problem creating your order!"
