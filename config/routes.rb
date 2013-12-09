@@ -28,41 +28,4 @@ OnoBurrito::Application.routes.draw do
     get "/admin" => "admin#index"
   end
 
-  # constraints Subdomain do
-
-    # namespace :admin do
-    #   get '/' => "dashboard#index", as: :admin
-
-      # get '/edit' => "dashboards#edit", as: :edit_store
-      # put '/update' => "dashboards#update", as: :update_store
-
-      # post '/role' => "roles#create", as: :create_role
-      # delete '/role' => "roles#destroy", as: :revoke_role
-
-      # get :dashboard, to: "orders#index", as: :dashboard
-
-      # resources :products do
-      #   member do
-      #     post :toggle_status
-      #   end
-      # end
-
-      # resources :orders, only: [ :show, :update ]
-      # resources :order_items, only: [ :update, :destroy ]
-      # resources :categories, except: [ :show ]
-
-  #   end
-  # end
-
-  # namespace :super do
-  #   resources :restaurants, only: [ :index ] do
-  #     member do
-  #       put :approve
-  #       put :decline
-  #       put :toggle_online_status
-  #     end
-  #   end
-  # end
-
-
 end
