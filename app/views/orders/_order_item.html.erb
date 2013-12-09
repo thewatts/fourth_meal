@@ -4,7 +4,5 @@
   <td class="table-item"><%= number_to_currency(order_item.item.price) %></td> 
   <td class="table-item"><%= order_item.quantity %></td>
   <td class="table-item"><%= number_to_currency(order_item.quantity*order_item.item.price) %></td>
-  <td class="table-item"><%= button_to "Remove", 
-      { :controller => :order_items, :action => 'destroy', :oiid => order_item.id }, 
-        :method => :delete, class:"button" %></td>
+  <td class="table-item"><%= button_to "Remove", order_item_path(session[:current_restaurant], order_item), :method => :delete, class:"button" %></td>
 <% end %>

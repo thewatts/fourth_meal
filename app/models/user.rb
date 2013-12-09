@@ -2,14 +2,16 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
   has_many :orders
+  has_many :addresses
 
   before_save   :encrypt_password
   validates_confirmation_of :password
   validates_presence_of     :password, :on => :create
   validates                 :password, length: { minimum: 6 }
-  validates                 :display_name, length: { in: 2..32 }, :allow_blank => true
+  validates                 :display_name, length: { in: 2..32 }
   validates_presence_of     :email
   validates_presence_of     :full_name
+  validates_presence_of     :display_name
   validates_format_of       :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates                 :email, uniqueness: true 
 

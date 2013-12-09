@@ -1,34 +1,28 @@
 <table class="grid-100">
-  <h1 id="your-current-order">Your Current Order </h1>
+  <h1 id="your-current-order">Your Current Order</h1>
+  
   <thead>
-    <tr>
-      <td class="table-header-item">Title</td>
-      <td class="table-header-item">Description</td>
-      <td class="table-header-item">Price</td>
-      <td class="table-header-item">Quantity</td>
-      <td class="table-header-item">Subtotal</td>
-      <td class="table-header-item">Remove?</td>
-    </tr>
+    <%= render partial: 'orders/order_item_table' %>
   </thead>
 
   <tbody>
-    <%= render partial: 'order_item', collection: order.order_items %>
+    <%= render partial: 'orders/order_item', collection: order.order_items %>
   </tbody>
 
 </table>
 
 <% unless order.order_items.nil? %>
   <div class="grid-100">
-    <%# link_to "(Cancel Order)", order_path(current_order.id), :method => :delete, id: "cancel-link" %>
+    <%= link_to "(Cancel Order)", order_path(session[:current_restaurant], current_order.id), :method => :delete, id: "cancel-link" %>
     <br/>
     <h2 id="current-total">
-      Current Total: <%= number_to_currency(order_total(@order_items)) %>
+      Current Total: <%= number_to_currency(order_total(order.order_items)) %>
     </h2>
     
   </div>
 
   <div class="grid-100">
-    <%= button_to "Checkout", new_transaction_path, 
+    <%= button_to "Checkout", new_transaction_path(session[:current_restaurant]), 
       :method => :get, class: "button grid-25 prefix-65", 
       id:"checkout-button" %>
   </div>

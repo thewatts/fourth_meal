@@ -1,6 +1,6 @@
 class RemoveAdminUsers < ActiveRecord::Migration
   def change
-    drop_table :admin_users
+    # drop_table :admin_users
 
     drop_table :active_admin_comments
     

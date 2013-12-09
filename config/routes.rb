@@ -15,8 +15,10 @@ OnoBurrito::Application.routes.draw do
       :item_categories
     end
     resources :locations
+    resources :addresses
     resources :orders
     resources :order_items
+    get '/transactions/guest' => 'transactions#checkout_as_guest', as: "guest_transaction"
     resources :transactions, only: [:new, :create, :show]
     resources :admin_orders
     resources :admin_items
@@ -24,8 +26,6 @@ OnoBurrito::Application.routes.draw do
     get '/' => 'items#index', as: :restaurant_root
     get "menu/:category_slug" => "items#in_category", as: "menu_items"
     get "/admin" => "admin#index"
-
   end
-
 
 end

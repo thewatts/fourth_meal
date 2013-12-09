@@ -4,7 +4,8 @@ class AddAndEditItemTest < Capybara::Rails::TestCase
 
   def test_stocker_can_create_an_item
     visit '/onoburrito'
-    assert page.has_content?('On the Menu At Ono')
+    assert page.has_content?('On the Menu')
+    
     # click_on "Sign up or Log in"
 
     # within "#" do

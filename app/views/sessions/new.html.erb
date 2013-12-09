@@ -1,6 +1,6 @@
 <div class="grid-container">
   <div class="grid-50">
-    <h1>Log in</h1>
+    <h1>Log In</h1>
 
     <%= form_tag sessions_path, id:"login-form" do %>
       <p>
@@ -11,7 +11,14 @@
         <%= label_tag :password %><br />
         <%= password_field_tag :password %>
       </p>
-      <p class="button"><%= submit_tag "Log In" %></p>
+      <p><%= submit_tag "Log In", class: "button" %></p>
+    <% end %>
+
+    <% if current_order %>
+      <br/>
+      <h1>Checkout As A Guest</h1>
+      <br/>
+      <%= button_to "Checkout", guest_transaction_path(session[:current_restaurant]), :method => :get, class: "button" %>
     <% end %>
   </div>
 

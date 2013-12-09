@@ -1,0 +1,14 @@
+one:
+  status: 'unpaid'
+  user: one
+  restaurant: one
+
+two:
+  status: 'unpaid'
+  user: two
+  restaurant: two
+
+three:
+  status: 'unpaid'
+  user: one
+  restaurant: one

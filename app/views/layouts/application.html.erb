@@ -4,9 +4,10 @@
   <meta harset="utf-8">
   <meta name="viewport" content=" width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <title>
-    OnoBurrito <%= page_title %>
+    Noshify <%= page_title %>
   </title>
   <%= stylesheet_link_tag "application", media: "all"%> 
+  <%= javascript_include_tag "application"%>
   <%= csrf_meta_tags %>
   <link href='http://fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Podkova:700' rel='stylesheet' type='text/css'>
@@ -29,10 +30,6 @@
     </div>
 
     <main id="main-body" role="main">
-      <% if items_in_cart? && @order.nil? %>
-        <%= render 'layouts/view_order_link' %>
-      <% end %>
-       
       <%= yield %>
     </main>
 
@@ -41,7 +38,6 @@
     </footer>
     
   </div>
-  <%= javascript_include_tag "application"%>
 </body>
 
 </html>

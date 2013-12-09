@@ -1,0 +1,33 @@
+<h3>Shipping To:</h3>
+<table>
+  <tr>
+    <td>First Name</td>
+    <td><%= @address.first_name %></td>
+  </tr>
+  <tr>
+    <td>Last Name</td>
+    <td><%= @address.last_name %></td>
+  </tr>
+  <tr>
+    <td>Street Address</td>
+    <td><%= @address.street_address %></td>
+  </tr>
+  <tr>
+    <td>City</td>
+    <td><%= @address.city %></td>
+  </tr>
+  <tr>
+    <td>State</td>
+    <td><%= @address.state %></td>
+  </tr>
+  <tr>
+    <td>Zipcode</td>
+    <td><%= @address.zipcode %></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= @address.email %></td>
+  </tr>
+</table>
+
+<%# button_to "Change Address", method: :get, class: "button" %>

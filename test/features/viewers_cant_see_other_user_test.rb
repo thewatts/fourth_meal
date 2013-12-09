@@ -4,33 +4,39 @@ require './test/test_helper'
 class ViewersCantSeeOtherUserTest < Capybara::Rails::TestCase
 
   test "logged in user cannot view other user's info" do
-    user1 = User.create({full_name: 'benny bean', password: 'password'})
-    user2 = User.create({full_name: 'bree bird', password: 'password'})
-
     visit root_path
-    click_on "Login"
+    click_on "Sign up or Log in"
 
-    fill_in "Username", with: 'benny bean'
-    fill_in "Password", with: 'password'
-    click_button "Login"
+    within "#new_user" do
+      fill_in "Email", with: 'benji@example.com'
+      fill_in "Full name", with: 'Benjamin Franklin'
+      fill_in "Display name", with: 'benitobeans'
+      fill_in "Password", with: 'password'
+      fill_in "Password confirmation", with: 'password'
+      click_button "Create User"
+    end
 
-    visit user_path(user2)
-    refute_content page, 'bree bird'
+    visit user_path(users(:two))
+    refute_content page, 'breebird'
   end
 
 
   
 
   test "logged in user cannot create items" do
-    user1 = User.create({full_name: 'benny bean', password: 'password'})
     visit root_path
-    click_on "Login"
+    click_on "Sign up or Log in"
 
-    fill_in "email", with: 'ben@example.com'
-    fill_in "Password", with: 'password'
-    click_button "Login"
+    within "#new_user" do
+      fill_in "Email", with: 'benji@example.com'
+      fill_in "Full name", with: 'Benjamin Franklin'
+      fill_in "Display name", with: 'benitobeans'
+      fill_in "Password", with: 'password'
+      fill_in "Password confirmation", with: 'password'
+      click_button "Create User"
+    end
 
-    visit new_item_path
+    visit new_item_path(restaurants(:one))
     refute_content page, "Create an Item"
   end
 end

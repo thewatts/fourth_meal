@@ -1,0 +1,22 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: "Bill"
+  last_name: "Cheatem"
+  street_address: "14 Derby Ct."
+  city: "Aniston"
+  state: "AL"
+  zipcode: 12394
+  email: "billyc@bluegrass.com"
+  user_id: 
+
+two:
+  first_name: "Benjamin"
+  last_name: "Lewis"
+  street_address: "123 MyStreet"
+  city: "MyTown"
+  state: "CO"
+  zipcode: 80220
+  email: "test@example.com"
+  user_id: users(:one).id

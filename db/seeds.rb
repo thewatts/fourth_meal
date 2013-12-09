@@ -354,16 +354,16 @@ user4 = User.create(email: "benjamin@example.com",
 
 # ORDERS
 
-order1 = Order.create(status: 'unpaid', user_id: user1.id)
-order2 = Order.create(status: 'unpaid', user_id: user2.id)
-order3 = Order.create(status: 'unpaid', user_id: user3.id)
-order4 = Order.create(status: 'unpaid', user_id: user4.id)
-order5 = Order.create(status: 'unpaid', user_id: user1.id)
-order6 = Order.create(status: 'paid', user_id: user2.id)
-order7 = Order.create(status: 'unpaid', user_id: user3.id)
-order8 = Order.create(status: 'paid', user_id: user4.id)
-order9 = Order.create(status: 'unpaid', user_id: user1.id)
-order10 = Order.create(status: 'paid', user_id: user2.id)
+order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
+order2 = Order.create(status: 'unpaid', user_id: user2.id, restaurant_id: ono.id)
+order3 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: ono.id)
+order4 = Order.create(status: 'unpaid', user_id: user4.id, restaurant_id: ono.id)
+order5 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: billy.id)
+order6 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: billy.id)
+order7 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: billy.id)
+order8 = Order.create(status: 'paid', user_id: user4.id, restaurant_id: adam.id)
+order9 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: adam.id)
+order10 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: adam.id)
 
 
 # ORDER ITEMS

@@ -1,12 +1,11 @@
 <header id="body-header" class="grid-container">
 
   <div class="grid-100" id="restaurant-logo">
-    <h2 id="restaurant-title"><%= @restaurant.name %></h2>
-    <h3><%= @restaurant.description %></h3>
-    <%# restaurant.logo_image image_tag 'logo-ono.gif', id:"logo-image" %>
-    <% if session[:current_order] %>
-      <%= link_to "View Your Cart", order_path(session[:current_restaurant], session[:current_order]) %>
-    <% end %>
+    <h1 id="restaurant-title"><%= @restaurant.name %></h2><%# restaurant.logo_image image_tag 'logo-ono.gif', id:"logo-image" %>
+  </div>
+
+  <div id="menu-greeting" class="grid-100">
+    <h2><%= @restaurant.description %></h3>
   </div>
 
 </header>

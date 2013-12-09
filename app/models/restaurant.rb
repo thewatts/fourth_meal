@@ -1,6 +1,7 @@
 class Restaurant < ActiveRecord::Base
   has_many :categories
   has_many :items
+  has_many :orders
 
   validates :name, presence: true
   validates :description, presence: true

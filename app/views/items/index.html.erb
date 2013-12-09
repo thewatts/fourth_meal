@@ -1,9 +1,8 @@
 <%= render 'header' %>
 
 <section class="grid-container menu-view">
-  <div id="cart-total" class="grid-100">
-  </div>
+  <% if items_in_cart? %>
+    <%= render 'layouts/view_order_link' %>
+  <% end %>
   <%= render partial: 'items/item', collection: @items %>
 </section>
-
-

@@ -2,33 +2,56 @@ require "test_helper"
 
 class UsersTest < ActiveSupport::TestCase
 
-  test "it_validates_its_attributes" do
-    @user = User.new
-    @user.save
-    assert @user.invalid?
+  def create_valid_user
+    @user = User.create(email:"teeest@example.com", display_name:"benjammin", full_name:"Benjamin B Lewis, esq.", password:"password", password_confirmation: "password")
   end
 
-  test "it_invalid_email" do
-    @user = User.create(:email => "Smith@example.com")
-    assert @user.invalid?
+  def setup
+    create_valid_user
+  end
+
+  test "it is valid with valid attributes" do
+    assert @user.valid?
+  end
+
+  test "it validates email" do
+    @user.update(email: nil)
+    refute @user.valid?
   end
 
  
   test "it_validates_full_name" do
-    @user = User.create(:full_name => "George Branson")
-    assert @user.invalid?
+    @user.update(full_name: nil)
+    refute @user.valid?
   end
 
   test "it_validates_display_name" do 
-    @user = User.create(:display_name => "Hashrocket")
-    assert @user.invalid?
+    @user.update(display_name: nil)
+    refute @user.valid?
+  end 
+
+  test "it_is_not_a_super_by_default" do 
+    refute @user.super
+    @user.update(super: true)
+    assert @user.super
   end 
 
   test "it can have one or more orders" do
-    create_valid_user
-    order1 = Order.create(:status => 'unpaid', :user_id => @user.id)
-    order2 = Order.create(:status => 'unpaid', :user_id => @user.id)
+    order = orders(:one)
+    order.update(user: @user)
+    order2 = orders(:two)
+    order2.update(user: @user)
+
     assert @user.orders.count == 2
   end
- 
+
+  test "it can have one or more addresses" do
+    address = addresses(:one)
+    address.update(user_id: @user.id)
+    address2 = addresses(:two)
+    address2.update(user_id: @user.id)
+
+    assert @user.addresses.count == 2
+  end
+
 end
