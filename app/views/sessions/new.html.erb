@@ -14,7 +14,7 @@
       <p><%= submit_tag "Log In", class: "button" %></p>
     <% end %>
 
-    <% if current_order %>
+    <% if session[:current_restaurant] && current_order %>
       <br/>
       <h1>Checkout As A Guest</h1>
       <br/>

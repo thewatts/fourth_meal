@@ -20,9 +20,6 @@ class ViewersCantSeeOtherUserTest < Capybara::Rails::TestCase
     refute_content page, 'breebird'
   end
 
-
-  
-
   test "logged in user cannot create items" do
     visit root_path
     click_on "Sign up or Log in"
