@@ -2,8 +2,8 @@
   <div class="grid-100" id="transaction-container">
     <h1>Transaction Details</h1>
     <div id="transaction-details">
-      <p class="order-item-details">Name: <%= @transaction.first_name %>
-      <%= @transaction.last_name %></p>
+      <p class="order-item-details">
+      <%= render partial: "addresses/current_address", model: @address %>
       <% @transaction.order.order_items.each do |oi| %>
         <div class="order-item-details">
           <p>Item: <%= oi.item.title %></p>
@@ -12,7 +12,6 @@
         </div>
       <% end %>
       <p class="order-item-details">Total: <%= number_to_currency(order_total(@transaction.order.order_items)) %></p>
-      <p class="order-item-details">Zipcode: <%= @transaction.zipcode %></p>
     </div>
   </div>
 </div>
