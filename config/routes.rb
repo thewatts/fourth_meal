@@ -27,27 +27,41 @@ OnoBurrito::Application.routes.draw do
     get "/admin" => "admin#index"
   end
 
-  namespace :admin do
-    get '/' => "dashboard#index", as: :admin
+  # constraints Subdomain do
 
-    # get '/edit' => "dashboards#edit", as: :edit_store
-    # put '/update' => "dashboards#update", as: :update_store
+    # namespace :admin do
+    #   get '/' => "dashboard#index", as: :admin
 
-    # post '/role' => "roles#create", as: :create_role
-    # delete '/role' => "roles#destroy", as: :revoke_role
+      # get '/edit' => "dashboards#edit", as: :edit_store
+      # put '/update' => "dashboards#update", as: :update_store
 
-    # get :dashboard, to: "orders#index", as: :dashboard
+      # post '/role' => "roles#create", as: :create_role
+      # delete '/role' => "roles#destroy", as: :revoke_role
 
-    # resources :products do
-    #   member do
-    #     post :toggle_status
-    #   end
-    # end
+      # get :dashboard, to: "orders#index", as: :dashboard
 
-    # resources :orders, only: [ :show, :update ]
-    # resources :order_items, only: [ :update, :destroy ]
-    # resources :categories, except: [ :show ]
-  end
+      # resources :products do
+      #   member do
+      #     post :toggle_status
+      #   end
+      # end
+
+      # resources :orders, only: [ :show, :update ]
+      # resources :order_items, only: [ :update, :destroy ]
+      # resources :categories, except: [ :show ]
+
+  #   end
+  # end
+
+  # namespace :super do
+  #   resources :restaurants, only: [ :index ] do
+  #     member do
+  #       put :approve
+  #       put :decline
+  #       put :toggle_online_status
+  #     end
+  #   end
+  # end
 
 
 end
