@@ -25,7 +25,28 @@ OnoBurrito::Application.routes.draw do
     get '/' => 'items#index', as: :restaurant_root
     get "menu/:category_slug" => "items#in_category", as: "menu_items"
     get "/admin" => "admin#index"
+  end
 
+  namespace :admin do
+    get '/' => "dashboard#index", as: :admin
+
+    # get '/edit' => "dashboards#edit", as: :edit_store
+    # put '/update' => "dashboards#update", as: :update_store
+
+    # post '/role' => "roles#create", as: :create_role
+    # delete '/role' => "roles#destroy", as: :revoke_role
+
+    # get :dashboard, to: "orders#index", as: :dashboard
+
+    # resources :products do
+    #   member do
+    #     post :toggle_status
+    #   end
+    # end
+
+    # resources :orders, only: [ :show, :update ]
+    # resources :order_items, only: [ :update, :destroy ]
+    # resources :categories, except: [ :show ]
   end
 
 
