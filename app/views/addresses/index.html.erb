@@ -1,0 +1,27 @@
+<section id="shop_more" class="grid-container">
+  <ul>
+    <% @addresses.each do |address| %>
+      <div class="grid-30">
+        <li>
+          <%= address.first_name + " " + address.last_name %><br/>
+          <%= address.street_address %><br/>
+          <%= address.city + ", " + address.state %><br/>
+          <%= address.zipcode %><br/>
+          <%= address.email %><br/>    
+          <%= link_to "Ship to this address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button grid-25 prefix-65", id:"transaction-button" %>
+        </li><br/><br/><br/>
+      </div>
+    <% end %>
+  </ul>
+
+  <br/>
+
+  <div class="grid-100">
+
+    <p>Or choose a new address:</p>
+
+  </div>
+
+  <%# render "addresses/address_form" %>
+</section>
+

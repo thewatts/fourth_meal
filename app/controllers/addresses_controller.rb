@@ -1,5 +1,9 @@
 class AddressesController < ApplicationController
 
+  def index
+    @addresses = current_user.addresses
+  end
+
   def create
     @address = Address.create(address_params)
     if @address.save

@@ -22,7 +22,7 @@
   </div>
 
   <div class="grid-100">
-    <%= button_to "Checkout", new_transaction_path(session[:current_restaurant]), 
+    <%= button_to "Checkout", addresses_path, 
       :method => :get, class: "button grid-25 prefix-65", 
       id:"checkout-button" %>
   </div>
