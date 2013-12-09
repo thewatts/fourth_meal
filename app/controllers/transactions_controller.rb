@@ -2,8 +2,9 @@ class TransactionsController < ApplicationController
   
   def new
     @transaction = Transaction.new
+    session[:current_address] = params[:address_id]
     if current_user
-      @address = current_user.addresses.last || Address.new
+      @address = current_user.addresses.find_by_id(session[:current_address]) || Address.new
       render :new
     else
       redirect_to new_session_path

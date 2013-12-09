@@ -8,8 +8,7 @@
           <%= address.city + ", " + address.state %><br/>
           <%= address.zipcode %><br/>
           <%= address.email %><br/>    
-          <%= button_to "Ship to this address", new_transaction_path(session[:current_restaurant]), :method => :get, class: "button grid-25 prefix-65", 
-              id:"transaction-button" %>
+          <%= link_to "Ship to this address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button grid-25 prefix-65", id:"transaction-button" %>
         </li><br/><br/><br/>
       </div>
     <% end %>
