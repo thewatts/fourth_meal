@@ -363,6 +363,14 @@ user_role2 = RestaurantUser.create(user_id: user5.id,
                                   restaurant_id: ono.id,
                                   role: "owner")
 
+user_role3 = RestaurantUser.create(user_id: user5.id,
+                                  restaurant_id: billy.id,
+                                  role: "owner")
+
+user_role4 = RestaurantUser.create(user_id: user5.id,
+                                  restaurant_id: adam.id,
+                                  role: "owner")
+
 # ORDERS
 
 order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
