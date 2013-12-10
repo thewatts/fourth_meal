@@ -33,6 +33,7 @@ class TransactionsController < ApplicationController
     if @transaction.save
       @transaction.pay!
       clear_current_order
+      TransactionNotifier.user_email(current_user, @transaction).deliver
       flash[:notice] = "Successfully submitted your order!"
       redirect_to transaction_path(session[:current_restaurant], @transaction)
     else
