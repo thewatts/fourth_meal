@@ -23,4 +23,10 @@ class RestaurantUserTest < ActiveSupport::TestCase
     assert_equal "employee", user.restaurant_users.first.role
   end
 
+  test "a user's role is customer by default" do
+    user = users(:two)
+    assert_equal "customer", user.restaurant_users.first.role
+    assert_equal "owner", user.restaurant_users.last.role
+  end
+
 end
