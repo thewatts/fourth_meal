@@ -6,24 +6,17 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.authenticate(params[:email], params[:password])
-    if @user && session[:current_order]
+    if @user
       session[:user_id] = @user.id
       flash[:notice] = "Logged in!"
-      if current_restaurant
+      if session[:forwarding_path]
+        redirect_to session[:forwarding_path]
+      elsif current_restaurant
         redirect_to restaurant_root_path(session[:current_restaurant])
-      else 
-        redirect_to root_path
-      end
-    elsif @user
-      session[:user_id] = @user.id
-      flash[:notice] = "Logged in!"
-      if current_restaurant
-        redirect_to restaurant_root_path(session[:current_restaurant])
-      else 
+      else
         redirect_to root_path
       end
     else
-      @user = User.new
       flash[:notice] = "Invalid email or password"
       render :new
     end

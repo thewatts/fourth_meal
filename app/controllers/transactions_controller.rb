@@ -3,6 +3,7 @@ class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new
     session[:current_address] = params[:address_id]
+    session[:forwarding_path] = addresses_path(session[:current_restaurant])
     if current_user && session[:current_address]
       @address = current_user.addresses.find_by_id(session[:current_address])
       render :new
@@ -42,7 +43,6 @@ class TransactionsController < ApplicationController
   def show
     @transaction = Transaction.find_by(id: params[:id])
     @address = Address.find(@transaction.address_id)
-    fail
     if current_user
       if current_user.id == @transaction.order.user_id
         render :show
