@@ -1,0 +1,13 @@
+one:
+  restaurant: one
+  user: one
+  role: "employee"
+
+two:
+  restaurant: two
+  user: two
+  role: "owner"
+
+three:
+  restaurant: one 
+  user: two

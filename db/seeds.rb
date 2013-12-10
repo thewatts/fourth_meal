@@ -350,6 +350,10 @@ user4 = User.create(email: "benjamin@example.com",
   display_name: "bennybeans", 
   password: "password")
 
+user_role = RestaurantUser.create(user_id: user4.id,
+                                  restaurant_id: ono.id,
+                                  role: "owner")
+
 
 
 # ORDERS

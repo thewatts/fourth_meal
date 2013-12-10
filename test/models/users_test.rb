@@ -54,4 +54,8 @@ class UsersTest < ActiveSupport::TestCase
     assert @user.addresses.count == 2
   end
 
+  test "it has restaurant users" do 
+    assert_includes users(:one).restaurant_users, restaurant_users(:one)
+  end
+
 end
