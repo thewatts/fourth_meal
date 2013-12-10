@@ -12,7 +12,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "it has items" do
-    assert_equal items(:one), categories(:one).items.first 
+    assert_includes categories(:one).items, items(:one)
   end
 
   test "it belongs to a restaurant" do 
