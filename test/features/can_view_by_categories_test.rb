@@ -7,7 +7,7 @@ class CanViewByCategoriesTest < Capybara::Rails::TestCase
     click_on "KFC"
     click_on "Brunch"
     assert_content page, "Hello!"
-    refute_content page, "Mashed Potatoes"
+    refute_content page, "Chicken Drumsticks"
   end
 
 end
