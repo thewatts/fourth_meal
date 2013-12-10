@@ -6,9 +6,9 @@ def seed_items(restaurant, count)
       desc = Faker::Lorem.sentence(word_count = 5)
       restaurant.items.create!( title: title,
                                 description: desc,
-                                price: rand(20) + 1
-                                photo: 
-                                retired: false
+                                price: rand(20) + 1,
+                                photo: File.open("app/assets/images/BREAKFAST.png", 'r'),
+                                retired: false,
                                 restaurant_id: restaurant.id)
     rescue
       puts "Item already exists! Trying again..."
@@ -36,8 +36,8 @@ def seed_item_categories(restaurant, count)
   count.times do |i|
     begin
       puts "Seeding item category ##{i} for #{restaurant.name}..."
-      item_id = restaurant.items.find(i)
-      category_id = restaurant.categories.find(rand(restaurant.categories.length))
+      item_id = restaurant.items[i].id
+      category_id = restaurant.categories[rand(5)].id
       ItemCategory.create!( item_id: item_id,
                             category_id: category_id)
     rescue
@@ -65,31 +65,31 @@ end
 user1 = User.create(email: "demo+franklin@jumpstartlab.com", 
   full_name: "Franklin Webber", 
   display_name: "", 
-  password: "password"
+  password: "password",
   password_confirmation: "password")
 
 user2 = User.create(email: "demo+jeff@jumpstartlab.com", 
   full_name: "Jeff", 
   display_name: "j3",
-  password: "password"
+  password: "password",
   password_confirmation: "password")
 
 user3 = User.create(email: "demo+katrina@jumpstartlab.com", 
   full_name: "Katrina Owen", 
   display_name: "kytrynx", 
-  password: "password"
+  password: "password",
   password_confirmation: "password")
 
 user4 = User.create(email: "benjamin@example.com", 
   full_name: "Ben Lewis", 
   display_name: "bennybeans", 
-  password: "password"
+  password: "password",
   password_confirmation: "password")
 
 user5 = User.create(email: "navyosu@gmail.com", 
   full_name: "Billy G", 
   display_name: "billybeans", 
-  password: "password"
+  password: "password",
   password_confirmation: "password")
 
 seed_users(10)
@@ -472,38 +472,37 @@ restaurants.each { |rest| seed_item_categories(rest, 10) }
 
 # # ORDER ITEMS
 
-user_role3 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: billy.id,
-                                  role: "owner")
+# user_role3 = RestaurantUser.create(user_id: user5.id,
+#                                   restaurant_id: billy.id,
+#                                   role: "owner")
 
-user_role4 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: adam.id,
-                                  role: "owner")
+# user_role4 = RestaurantUser.create(user_id: user5.id,
+#                                   restaurant_id: adam.id,
+#                                   role: "owner")
 
-# ORDERS
+# # ORDERS
 
-order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
-order2 = Order.create(status: 'unpaid', user_id: user2.id, restaurant_id: ono.id)
-order3 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: ono.id)
-order4 = Order.create(status: 'unpaid', user_id: user4.id, restaurant_id: ono.id)
-order5 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: billy.id)
-order6 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: billy.id)
-order7 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: billy.id)
-order8 = Order.create(status: 'paid', user_id: user4.id, restaurant_id: adam.id)
-order9 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: adam.id)
-order10 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: adam.id)
+# order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
+# order2 = Order.create(status: 'unpaid', user_id: user2.id, restaurant_id: ono.id)
+# order3 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: ono.id)
+# order4 = Order.create(status: 'unpaid', user_id: user4.id, restaurant_id: ono.id)
+# order5 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: billy.id)
+# order6 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: billy.id)
+# order7 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: billy.id)
+# order8 = Order.create(status: 'paid', user_id: user4.id, restaurant_id: adam.id)
+# order9 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: adam.id)
+# order10 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: adam.id)
 
 
-# ORDER ITEMS
+# # ORDER ITEMS
 
-order_item1 = OrderItem.create(order_id: order1.id, item_id: burrito.id, quantity: 1)
-order_item2 = OrderItem.create(order_id: order2.id, item_id: breakfast_burrito.id, quantity: 2)
-order_item3 = OrderItem.create(order_id: order3.id, item_id: naked_burrito.id, quantity: 3)
-order_item4 = OrderItem.create(order_id: order4.id, item_id: taco_gumbo.id, quantity: 4)
-order_item5 = OrderItem.create(order_id: order5.id, item_id: sig_veggie_burrito.id, quantity: 5)
-order_item6 = OrderItem.create(order_id: order6.id, item_id: taco_salad.id, quantity: 4)
-order_item7 = OrderItem.create(order_id: order7.id, item_id: kids_meal.id, quantity: 3)
-order_item8 = OrderItem.create(order_id: order8.id, item_id: kids_quesadilla.id, quantity: 2)
-order_item9 = OrderItem.create(order_id: order9.id, item_id: kids_burrito.id, quantity: 1)
-order_item10 = OrderItem.create(order_id: order10.id, item_id: kids_taco.id, quantity: 2)
->>>>>>> master
+# order_item1 = OrderItem.create(order_id: order1.id, item_id: burrito.id, quantity: 1)
+# order_item2 = OrderItem.create(order_id: order2.id, item_id: breakfast_burrito.id, quantity: 2)
+# order_item3 = OrderItem.create(order_id: order3.id, item_id: naked_burrito.id, quantity: 3)
+# order_item4 = OrderItem.create(order_id: order4.id, item_id: taco_gumbo.id, quantity: 4)
+# order_item5 = OrderItem.create(order_id: order5.id, item_id: sig_veggie_burrito.id, quantity: 5)
+# order_item6 = OrderItem.create(order_id: order6.id, item_id: taco_salad.id, quantity: 4)
+# order_item7 = OrderItem.create(order_id: order7.id, item_id: kids_meal.id, quantity: 3)
+# order_item8 = OrderItem.create(order_id: order8.id, item_id: kids_quesadilla.id, quantity: 2)
+# order_item9 = OrderItem.create(order_id: order9.id, item_id: kids_burrito.id, quantity: 1)
+# order_item10 = OrderItem.create(order_id: order10.id, item_id: kids_taco.id, quantity: 2)
