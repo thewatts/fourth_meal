@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   def find_or_create_order
     if find_order
-      @current_order = order
+      @current_order = find_order
     else
       create_order
     end
