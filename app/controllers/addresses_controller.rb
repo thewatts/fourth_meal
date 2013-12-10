@@ -10,9 +10,9 @@ class AddressesController < ApplicationController
     update_user
     if @address.save
       session[:current_address] = @address.id
-      flash.notice = "Your address was successfully added."
+      success_message
     else
-      flash.notice = "Errors prevented the address from being saved: #{@address.errors.full_messages}"
+      failure_message
     end
     find_redirect
   end
@@ -34,6 +34,14 @@ class AddressesController < ApplicationController
 
   def update_user
     @address.update(user_id: current_user.id) if current_user
+  end
+
+  def success_message
+    flash.notice = "Your address was successfully added."
+  end
+
+  def failure_message
+    flash.notice = "Errors prevented the address from being saved: #{@address.errors.full_messages}"
   end
 
   def address_params

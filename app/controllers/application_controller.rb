@@ -58,9 +58,7 @@ class ApplicationController < ActionController::Base
     order_total(current_order.order_items).to_i
   end
 
-  def items_in_cart?
-    current_order.order_items.count > 0
-  end
+  
 
 
 
