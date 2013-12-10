@@ -1,5 +1,5 @@
-class TransactionMailer < ActionMailer::Base
-  default from: "customer_service@platable.com"
+class TransactionNotifier < ActionMailer::Base
+  default from: "customer_service@noshify.com"
 
   # def welcome_email(user)
   #   @user = user
@@ -10,11 +10,16 @@ class TransactionMailer < ActionMailer::Base
   def user_email(user, transaction)
     @user = user
     @transaction = transaction
-    @order = @transaction.order
-    @address = @transaction.address
-    @total = order_total(@order.order_items)
+    @address = Address.find(@transaction.address_id)
+    @total = order_total(@transaction.order.order_items)
     @url = "noshify.herokuapp.com"
-    mail(to: @transaction.email, subject: "Order Confirmation for #{@transaction.restaurant.name} on Noshify!")
+    # binding.pry
+    @restaurant = Restaurant.find(@transaction.order.restaurant_id)
+    mail(to: @address.email, subject: "Order Confirmation for #{@restaurant.name} on Noshify!")
+  end
+
+  def order_total(order_items)
+    order_items.inject(0) {|sum, i| sum += (i.item.price * i.quantity) }
   end
 
 end
