@@ -472,13 +472,38 @@ restaurants.each { |rest| seed_item_categories(rest, 10) }
 
 # # ORDER ITEMS
 
-# order_item1 = OrderItem.create(order_id: order1.id, item_id: burrito.id, quantity: 1)
-# order_item2 = OrderItem.create(order_id: order2.id, item_id: breakfast_burrito.id, quantity: 2)
-# order_item3 = OrderItem.create(order_id: order3.id, item_id: naked_burrito.id, quantity: 3)
-# order_item4 = OrderItem.create(order_id: order4.id, item_id: taco_gumbo.id, quantity: 4)
-# order_item5 = OrderItem.create(order_id: order5.id, item_id: sig_veggie_burrito.id, quantity: 5)
-# order_item6 = OrderItem.create(order_id: order6.id, item_id: taco_salad.id, quantity: 4)
-# order_item7 = OrderItem.create(order_id: order7.id, item_id: kids_meal.id, quantity: 3)
-# order_item8 = OrderItem.create(order_id: order8.id, item_id: kids_quesadilla.id, quantity: 2)
-# order_item9 = OrderItem.create(order_id: order9.id, item_id: kids_burrito.id, quantity: 1)
-# order_item10 = OrderItem.create(order_id: order10.id, item_id: kids_taco.id, quantity: 2)
+user_role3 = RestaurantUser.create(user_id: user5.id,
+                                  restaurant_id: billy.id,
+                                  role: "owner")
+
+user_role4 = RestaurantUser.create(user_id: user5.id,
+                                  restaurant_id: adam.id,
+                                  role: "owner")
+
+# ORDERS
+
+order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
+order2 = Order.create(status: 'unpaid', user_id: user2.id, restaurant_id: ono.id)
+order3 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: ono.id)
+order4 = Order.create(status: 'unpaid', user_id: user4.id, restaurant_id: ono.id)
+order5 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: billy.id)
+order6 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: billy.id)
+order7 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: billy.id)
+order8 = Order.create(status: 'paid', user_id: user4.id, restaurant_id: adam.id)
+order9 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: adam.id)
+order10 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: adam.id)
+
+
+# ORDER ITEMS
+
+order_item1 = OrderItem.create(order_id: order1.id, item_id: burrito.id, quantity: 1)
+order_item2 = OrderItem.create(order_id: order2.id, item_id: breakfast_burrito.id, quantity: 2)
+order_item3 = OrderItem.create(order_id: order3.id, item_id: naked_burrito.id, quantity: 3)
+order_item4 = OrderItem.create(order_id: order4.id, item_id: taco_gumbo.id, quantity: 4)
+order_item5 = OrderItem.create(order_id: order5.id, item_id: sig_veggie_burrito.id, quantity: 5)
+order_item6 = OrderItem.create(order_id: order6.id, item_id: taco_salad.id, quantity: 4)
+order_item7 = OrderItem.create(order_id: order7.id, item_id: kids_meal.id, quantity: 3)
+order_item8 = OrderItem.create(order_id: order8.id, item_id: kids_quesadilla.id, quantity: 2)
+order_item9 = OrderItem.create(order_id: order9.id, item_id: kids_burrito.id, quantity: 1)
+order_item10 = OrderItem.create(order_id: order10.id, item_id: kids_taco.id, quantity: 2)
+>>>>>>> master

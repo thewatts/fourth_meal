@@ -33,7 +33,8 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item])
     add_item_to_order
     flash.notice = "Item was added to your cart!"
-    redirect_to order_path(session[:current_restaurant], @order.id)
+    #redirect_to order_path(session[:current_restaurant], @order.id)
+    redirect_to :back
   end
 
   def destroy
