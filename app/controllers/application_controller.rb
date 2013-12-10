@@ -8,10 +8,15 @@ class ApplicationController < ActionController::Base
   helper_method :current_order
   helper_method :current_order_total
   helper_method :items_in_cart?
+  helper_method :order_total
 
   def current_order
     session[:orders] ||= {}
     @current_order ||= find_or_create_order
+  end
+
+  def order_total(order_items)
+    order_items.inject(0) {|sum, i| sum += (i.item.price * i.quantity) }
   end
 
   def find_or_create_order

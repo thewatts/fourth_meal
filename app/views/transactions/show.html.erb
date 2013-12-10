@@ -11,7 +11,7 @@
           <p>Subtotal: <%= number_to_currency(oi.item.price*oi.quantity) %></p>
         </div>
       <% end %>
-      <p class="order-item-details">Total: <%= number_to_currency(order_total(@transaction.order.order_items)) %></p>
+      <p class="order-item-details">Total: <%= number_to_currency(@total) %></p>
     </div>
   </div>
 </div>
