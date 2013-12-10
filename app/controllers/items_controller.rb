@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
 
   def load_category
-    @categories = current_restaurant.categories.all
+    @categories = current_restaurant.categories
   end
 
   def in_category
