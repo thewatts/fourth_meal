@@ -10,5 +10,4 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 10, order_total(orders(:two).order_items)
   end
 
-
 end
