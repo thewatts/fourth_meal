@@ -2,13 +2,13 @@
   <ul>
     <% @addresses.each do |address| %>
       <div class="grid-30 address-panel">
-        <li>
+        <li class="list">
           <%= address.first_name + " " + address.last_name %><br/>
           <%= address.street_address %><br/>
           <%= address.city + ", " + address.state %><br/>
           <%= address.zipcode %><br/>
           <%= address.email %><br/>    
-          <%= link_to "Ship to this address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button grid-25 prefix-65", id:"transaction-button" %>
+          <%= link_to "Ship to this address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button", id:"transaction-button" %>
         </li><br/><br/><br/>
       </div>
     <% end %>
