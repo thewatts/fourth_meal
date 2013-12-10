@@ -7,18 +7,14 @@ class AddressesController < ApplicationController
 
   def create
     @address = Address.create(address_params)
-    @address.update(user_id: current_user.id) if current_user
+    update_user
     if @address.save
       session[:current_address] = @address.id
       flash.notice = "Your address was successfully added."
     else
       flash.notice = "Errors prevented the address from being saved: #{@address.errors.full_messages}"
     end
-    if current_user
-      redirect_to addresses_path(session[:current_restaurant])
-    else
-      redirect_to guest_transaction_path(session[:current_restaurant])
-    end  
+    find_redirect
   end
 
   def change
@@ -27,6 +23,19 @@ class AddressesController < ApplicationController
   end
 
   private
+
+  def find_redirect
+    if current_user
+      redirect_to addresses_path(session[:current_restaurant])
+    else
+      redirect_to guest_transaction_path(session[:current_restaurant])
+    end  
+  end
+
+  def update_user
+    @address.update(user_id: current_user.id) if current_user
+  end
+
   def address_params
     params.require(:address).permit(:first_name, :last_name, :street_address, :city, :state, :zipcode, :email)
   end
