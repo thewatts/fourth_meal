@@ -4,8 +4,8 @@ one:
 
 two:
   item: two
-  category: two
+  category: one
 
 three:
   item: three
-  category: one
+  category: two

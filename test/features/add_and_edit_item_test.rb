@@ -3,8 +3,10 @@ require './test/test_helper'
 class AddAndEditItemTest < Capybara::Rails::TestCase
 
   def test_stocker_can_create_an_item
-    visit '/onoburrito'
-    assert page.has_content?('On the Menu')
+    skip
+    visit root_path
+    click_on "KFC"
+    assert page.has_content?('Kentucky Fried Wonder')
  
     # click_on "Sign up or Log in"
 

@@ -12,8 +12,9 @@ class MenuTest < Capybara::Rails::TestCase
     visit root_path
     click_on "KFC"
     click_on 'Brunch'
+
     within ("#main-body") do
-      assert_content page, "#item_#{items(:two).id}"
+      assert_css "#item_#{items(:two).id}"
       assert_content page, "Mashed Potatoes"
     end
     click_on 'Linner'
