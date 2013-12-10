@@ -29,4 +29,13 @@ class RestaurantUserTest < ActiveSupport::TestCase
     assert_equal "owner", user.restaurant_users.last.role
   end
 
+  test "a user can only have one of three roles" do 
+    restaurant_user = RestaurantUser.new(user: users(:one), 
+                                         restaurant: restaurants(:one),
+                                         role: "Invalid")
+    refute restaurant_user.valid?
+  end
+
+
+
 end
