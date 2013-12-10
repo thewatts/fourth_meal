@@ -20,7 +20,6 @@ class ItemsController < ApplicationController
     load_category
     @items = @restaurant.items.active
     @page_title = "Full Menu"
-    fail
   end
 
   def update
