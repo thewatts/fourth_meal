@@ -1,7 +1,5 @@
 class ItemsController < ApplicationController
   layout "application"
-  before_action :load_category, :only => [:index, :in_category]
-
 
   def load_category
     @categories = current_restaurant.categories
@@ -9,7 +7,8 @@ class ItemsController < ApplicationController
 
   def in_category
     @restaurant = Restaurant.find_by_slug(params[:restaurant])
-    @category = current_restaurant.categories.find_by_slug(params[:category_slug])
+    load_category
+    @category = @categories.find_by_slug(params[:category_slug])
     @items = @category.items.active
     @page_title = @category.title
     render :index
@@ -18,8 +17,10 @@ class ItemsController < ApplicationController
   def index
     @restaurant = Restaurant.find_by_slug(params[:restaurant])
     session[:current_restaurant] = @restaurant.to_param
+    load_category
     @items = @restaurant.items.active
     @page_title = "Full Menu"
+    fail
   end
 
   def update
