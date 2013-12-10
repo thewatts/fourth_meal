@@ -30,4 +30,8 @@ class RestaurantTest < ActiveSupport::TestCase
     assert_includes restaurants(:one).orders, orders(:one)
   end
 
+  test "it has restaurant users" do 
+    assert_includes restaurants(:one).restaurant_users, restaurant_users(:one)
+  end  
+
 end
