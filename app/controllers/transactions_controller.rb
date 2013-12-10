@@ -32,6 +32,9 @@ class TransactionsController < ApplicationController
       @transaction.pay!
       clear_current_order
       TransactionNotifier.user_email(current_user, @transaction).deliver
+      current_restaurant.restaurant_users.where(role: "owner").each do |ru|
+        TransactionNotifier.user_email(ru.user, @transaction).deliver
+      end
       flash[:notice] = "Successfully submitted your order!"
       redirect_to transaction_path(session[:current_restaurant], @transaction)
     else

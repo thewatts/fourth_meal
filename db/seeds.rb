@@ -350,11 +350,18 @@ user4 = User.create(email: "benjamin@example.com",
   display_name: "bennybeans", 
   password: "password")
 
+user5 = User.create(email: "navyosu@gmail.com", 
+  full_name: "Billy G", 
+  display_name: "billybeans", 
+  password: "password")
+
 user_role = RestaurantUser.create(user_id: user4.id,
                                   restaurant_id: ono.id,
                                   role: "owner")
 
-
+user_role2 = RestaurantUser.create(user_id: user5.id,
+                                  restaurant_id: ono.id,
+                                  role: "owner")
 
 # ORDERS
 
