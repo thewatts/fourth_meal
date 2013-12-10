@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  include ApplicationHelper
   
   # delegate :allow?, to: :current_permission
 
@@ -13,10 +14,6 @@ class ApplicationController < ActionController::Base
   def current_order
     session[:orders] ||= {}
     @current_order ||= find_or_create_order
-  end
-
-  def order_total(order_items)
-    order_items.inject(0) {|sum, i| sum += (i.item.price * i.quantity) }
   end
 
   def find_or_create_order
