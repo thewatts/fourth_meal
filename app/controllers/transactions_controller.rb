@@ -26,6 +26,7 @@ class TransactionsController < ApplicationController
 
   def create
     # @address = Address.find(session[:current_address]) if session[:current_address]
+
     @transaction = Transaction.create(order_id: current_order.id, 
                                       address_id: session[:current_address],
                                       stripe_token: params[:stripe_token])
@@ -43,14 +44,6 @@ class TransactionsController < ApplicationController
   def show
     @transaction = Transaction.find_by(id: params[:id])
     @address = Address.find(@transaction.address_id)
-    if current_user
-      if current_user.id == @transaction.order.user_id
-        render :show
-      end
-    else
-      @transaction = nil
-      redirect_to restaurant_root_path(session[:current_restaurant])
-    end
   end
 
   private

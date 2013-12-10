@@ -35,15 +35,16 @@
 
     <%= form_for(@transaction) do |f| %>
 
-
-      <script
-        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="pk_test_czwzkTp2tactuLOEOqbMTRzG"
-        data-amount=""
-        data-name="Ono-Burrito"
-        data-description="Your Order"
-        data-image="">
-      </script>
+      <% if session[:current_address] %>
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_czwzkTp2tactuLOEOqbMTRzG"
+          data-amount=""
+          data-name="Ono-Burrito"
+          data-description="Your Order"
+          data-image="">
+        </script>
+      <% end %>
 
     <% end %>
 
