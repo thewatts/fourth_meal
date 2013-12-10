@@ -6,11 +6,11 @@ adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a
 
 # CATEGORIES
 
-entrees = Category.create(title: "Entrees")
-combos = Category.create(title: "Combos")
-kids = Category.create(title: "Kids Menu")
-add_ons = Category.create(title: "Add Ons")
-beverages = Category.create(title: "Beverages")
+entrees = Category.create(title: "Entrees", restaurant_id: ono.id)
+combos = Category.create(title: "Combos", restaurant_id: ono.id)
+kids = Category.create(title: "Kids Menu", restaurant_id: billy.id)
+add_ons = Category.create(title: "Add Ons", restaurant_id: adam.id)
+beverages = Category.create(title: "Beverages", restaurant_id: adam.id)
 
 
 # ITEMS

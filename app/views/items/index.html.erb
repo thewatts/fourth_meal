@@ -4,5 +4,5 @@
   <% if items_in_cart? %>
     <%= render 'layouts/view_order_link' %>
   <% end %>
-  <%= render partial: 'items/item', collection: @items %>
+  <%= render @items %>
 </section>
