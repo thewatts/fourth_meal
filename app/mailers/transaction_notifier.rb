@@ -13,9 +13,8 @@ class TransactionNotifier < ActionMailer::Base
     @address = Address.find(@transaction.address_id)
     @total = order_total(@transaction.order.order_items)
     @url = "noshify.herokuapp.com"
-    # binding.pry
     @restaurant = Restaurant.find(@transaction.order.restaurant_id)
-    mail(to: @address.email, subject: "Order Confirmation for #{@restaurant.name} on Noshify!")
+    mail(to: @user.email, subject: "Order Confirmation for #{@restaurant.name} on Noshify!")
   end
 
   def order_total(order_items)
