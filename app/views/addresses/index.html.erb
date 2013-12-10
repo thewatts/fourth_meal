@@ -1,7 +1,7 @@
-<section id="shop_more" class="grid-container">
+<section id="shop_more" class="grid-container" id="address-container">
   <ul>
     <% @addresses.each do |address| %>
-      <div class="grid-30">
+      <div class="grid-30 address-panel">
         <li>
           <%= address.first_name + " " + address.last_name %><br/>
           <%= address.street_address %><br/>

@@ -7,14 +7,18 @@ class AddressesController < ApplicationController
 
   def create
     @address = Address.create(address_params)
-    @address.update(user_id: current_user.id)
+    @address.update(user_id: current_user.id) if current_user
     if @address.save
       session[:current_address] = @address.id
       flash.notice = "Your address was successfully added."
     else
       flash.notice = "Errors prevented the address from being saved: #{@address.errors.full_messages}"
     end
-    redirect_to addresses_path(session[:current_restaurant])
+    if current_user
+      redirect_to addresses_path(session[:current_restaurant])
+    else
+      redirect_to guest_transaction_path(session[:current_restaurant])
+    end  
   end
 
   def change

@@ -38,6 +38,8 @@ class CanLogInAndOutTest < Capybara::Rails::TestCase
       fill_in "Password", with: 'password'
       click_button "Log In"
     end
+
+    assert_content page, "Logged in"
     click_on "Log out"
     assert_content page, "Logged out"
   end
