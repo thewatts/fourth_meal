@@ -1,0 +1,54 @@
+  <div id="page-wrapper">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Edit Menu <small>edit all menu items</small></h1>
+        <ol class="breadcrumb">
+          <li><i class="fa fa-dashboard"></i> Dashboard</li>
+          <li><i class="fa fa-dashboard"></i> Edit Menu</li>
+        </ol>
+
+      </div>
+    </div><!-- /.row -->
+    <table class="table table-hover">
+    <tr>
+        <th>Item Name</th>
+
+        <th>Description</th>
+
+        <th>Price</th>
+
+        <th>Image</th>
+
+        <th>Category</th>
+        
+        <th>Retire</th>
+        
+        <th>Edit</th>
+
+    </tr>
+    <% @items.each do |item|  %>
+    <tr>
+        <td><%= item.title %></td>
+
+        <td><%= item.description %></td>
+
+        <td><%= number_to_currency(item.price) %></td>
+
+        <td><%= item.photo_file_name %></td>
+
+        <td><% item.categories.each do |c| %>
+            <%= c.title %>
+        <% end %></td>
+
+        <td>
+            <%= button_to "retire", admin_item_path(session[:current_restaurant], item), {class: "btn btn-danger", :method => :delete} %>
+        </td>
+        <td>
+            <%= link_to "edit", edit_admin_item_path(session[:current_restaurant], item), {class: "btn btn-info"} %>
+        </td>
+    </tr>
+    <% end %>
+</table>
+
+  </div><!-- /#page-wrapper -->

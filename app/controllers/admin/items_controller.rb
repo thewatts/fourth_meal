@@ -3,16 +3,16 @@ class Admin::ItemsController < ApplicationController
   layout 'admin'
 
   def index
-    @items = Item.all
+    @items = current_restaurant.items
   end
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
+    @item.retire
 
-    flash.notice = "#{@item.name} removed from Menu!"
+    flash.notice = "#{@item.title} was removed from the menu!"
 
-    redirect_to admin_items_path
+    redirect_to admin_items_path(session[:current_restaurant])
   end
 
   def new

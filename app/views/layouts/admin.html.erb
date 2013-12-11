@@ -72,6 +72,12 @@
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
+      
+      <div class="grid-container" id="flash-section">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => "flash_#{name}", :class => "grid-100" %>
+        <% end %>
+      </div>
 
       <%= yield %>
 

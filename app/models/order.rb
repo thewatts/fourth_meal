@@ -12,4 +12,8 @@ class Order < ActiveRecord::Base
   def items_in_cart?
     self.order_items.count > 0
   end
+
+  def total_price
+    self.order_items.inject(0) {|sum, i| sum += (i.item.price * i.quantity) }
+  end
 end

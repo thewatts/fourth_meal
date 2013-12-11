@@ -23,4 +23,8 @@ class Item < ActiveRecord::Base
     where(:retired => false)
   end
 
+  def retire
+    self.update(retired: true)
+  end
+
 end
