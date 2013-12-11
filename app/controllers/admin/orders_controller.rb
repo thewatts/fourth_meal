@@ -4,15 +4,17 @@ class Admin::OrdersController < ApplicationController
   
   def index
     @orders = Order.all
-
+    authorize! :manage, @orders
   end
 
   def show
     @order = Order.find(params[:id])
+    authorize! :manage, @order
   end
 
   def destroy
     @order = Order.find(params[:id])
+    authorize! :manage, @order
     @order.destroy
 
     flash.notice = "Order number #{@order.id} removed!"

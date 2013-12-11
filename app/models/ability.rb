@@ -3,6 +3,8 @@ class Ability
 
   def initialize(user, session)
     # Define abilities for the passed in user here. For example:
+
+      alias_action :create, :read, :update, :destroy, :to => :crud
     
       user ||= User.new # guest user (not logged in)
       current_restaurant = Restaurant.find_by_slug(session[:current_restaurant]) || Restaurant.find_by_slug(params[:restaurant])
