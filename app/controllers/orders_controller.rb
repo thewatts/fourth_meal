@@ -9,11 +9,8 @@ class OrdersController < ApplicationController
   def show
     @page_title = "Your Order"
     @order = current_order
-    @order_items = @order.order_items
     @items = current_restaurant.items.active
-    if @order_items.count < 1
-      redirect_to restaurant_root_path(session[:current_restaurant])
-    end
+    empty_order_redirect
   end
 
   def create
@@ -63,6 +60,12 @@ class OrdersController < ApplicationController
       :order_id => current_order.id, 
       :item_id => @item.id, 
       :quantity => 1)
+  end
+
+  def empty_order_redirect
+    if !@order.items_in_cart?
+      redirect_to restaurant_root_path(session[:current_restaurant])
+    end
   end
 
 end

@@ -1,7 +1,7 @@
 <%= render 'header' %>
 
 <section class="grid-container menu-view">
-  <% if items_in_cart? %>
+  <% if current_order.items_in_cart? %>
     <%= render 'layouts/view_order_link' %>
   <% end %>
   <%= render @items %>
