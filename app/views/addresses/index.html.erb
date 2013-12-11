@@ -8,7 +8,7 @@
           <%= address.city + ", " + address.state %><br/>
           <%= address.zipcode %><br/>
           <%= address.email %><br/>    
-          <%= link_to "Ship to this address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button", id:"transaction-button" %>
+          <%= link_to "Use This Billing Address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button", id:"transaction-button" %>
         </li><br/><br/><br/>
       </div>
     <% end %>

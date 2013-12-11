@@ -2,10 +2,12 @@ class SessionsController < ApplicationController
 
   def new
     @user = User.new
+    @address = Address.new unless session[:current_address]
   end
 
   def create
     @user = User.authenticate(params[:email], params[:password])
+
     if @user
       session[:user_id] = @user.id
       flash[:notice] = "Logged in!"
@@ -15,7 +17,18 @@ class SessionsController < ApplicationController
     end
   end
 
+  def checkout_as_guest
+    @transaction = Transaction.new
+    if session[:current_address]
+      @address = Address.find(session[:current_address])
+    else
+      @address = Address.new
+    end
+    render :new
+  end
+
   def destroy
+    session[:forward_path] = nil
     session[:current_order] = nil
     session[:user_id] = nil
     redirect_to root_url, :notice => "Logged out!"
@@ -34,8 +47,8 @@ class SessionsController < ApplicationController
   end
 
   def invalid_login_redirect
-    flash[:notice] = "Invalid email or password"
-    render :new
+    flash[:notice] = "Invalid email or password."
+    redirect_to log_in_path
   end
 
 end

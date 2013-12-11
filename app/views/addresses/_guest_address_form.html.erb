@@ -1,4 +1,4 @@
-<%= form_for @address do |f| %>
+<%= form_for @address, url: guest_transaction_path(session[:current_restaurant]) do |f| %>
 
   <%= render "shared/errors", model: @address %>
 
@@ -39,6 +39,6 @@
     </tr>
    
   </table>
-  <%= f.submit "Add This Billing Address", class:'button-small button', id: 'ship-to-address' %>
+  <%= f.submit "Use This Billing Address", class:'button-small button', id: 'ship-to-address' %>
 
 <% end %>

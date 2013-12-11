@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  
+
   def new
     @transaction = Transaction.new
     session[:current_address] = params[:address_id]
@@ -9,6 +9,17 @@ class TransactionsController < ApplicationController
       render :new
     else
       find_redirect
+    end
+  end
+
+  def add_guest_address
+    @address = Address.create(address_params)
+    if @address.save 
+      session[:current_address] = @address.id
+      redirect_to guest_transaction_path(session[:current_restaurant])
+    else
+      flash.notice = "Your address failed to save"
+      redirect_to :back
     end
   end
 
@@ -33,7 +44,7 @@ class TransactionsController < ApplicationController
   def show
     @transaction = Transaction.find_by(id: params[:id])
     @address = Address.find(@transaction.address_id)
-    @total = order_total(@transaction.order.order_items)
+    total = order_total(@transaction.order.order_items)
   end
 
   private
@@ -68,7 +79,7 @@ class TransactionsController < ApplicationController
   end
 
   def create_transaction
-    @transaction = Transaction.create(order_id: current_order.id, 
+    @transaction = Transaction.new(order_id: current_order.id, 
                                       address_id: session[:current_address],
                                       stripe_token: params["stripeToken"])
   end
@@ -76,6 +87,7 @@ class TransactionsController < ApplicationController
   def process_saved_transaction
     @transaction.pay!
     clear_current_order
+    clear_checkout_session_data
     @owner = current_restaurant.find_owner
     @address = Address.find(@transaction.address_id)
     send_transaction_emails
@@ -83,6 +95,14 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:stripe_token, :address, :stripe_email)
+  end
+
+  def address_params
+    params.require(:address).permit(:first_name, :last_name, :street_address, :city, :state, :zipcode, :email)
+
+  def clear_checkout_session_data
+    session[:forwarding_path] = nil
+    session[:current_address] = nil
   end
 
 end
