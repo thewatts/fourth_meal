@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:forward_path] = nil
+    session[:forwarding_path] = nil
     session[:current_order] = nil
     session[:user_id] = nil
     redirect_to root_url, :notice => "Logged out!"

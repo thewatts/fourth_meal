@@ -10,6 +10,9 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       current_order.update(user: @user) if current_order
       find_redirect
+    elsif @user.save
+      flash.notice = "Signed up!"
+      redirect_to root_path
     else
       flash.notice = "There were errors that prevented your account from saving: #{@user.errors.full_messages}"
       redirect_to log_in_path
