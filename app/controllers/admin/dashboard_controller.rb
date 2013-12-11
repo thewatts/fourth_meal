@@ -4,8 +4,11 @@ class Admin::DashboardController < ApplicationController
 
   def index
     @orders = current_restaurant.orders.all 
+    authorize! :read, @orders
     # @users = current_restaurant.users.all
     @items = current_restaurant.items.all
+    authorize! :read, @items
+ 
     # @order_items = current_restaurant.order_items.all
     @total_sales = total_sales
     render :index

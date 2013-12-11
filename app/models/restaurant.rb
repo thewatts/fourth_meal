@@ -17,7 +17,13 @@ class Restaurant < ActiveRecord::Base
   end
 
   def find_owner
-    self.restaurant_users.where(role: "owner").last.user 
+    owners.last
+  end
+
+  def owners
+    self.restaurant_users.where(role: "owner").collect do |ru|
+      ru.user
+    end
   end
 
 end

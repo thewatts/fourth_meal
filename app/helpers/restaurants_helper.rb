@@ -5,3 +5,5 @@ module RestaurantsHelper
     @current_restaurant
   end
 end
+
+
