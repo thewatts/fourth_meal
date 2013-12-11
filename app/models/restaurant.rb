@@ -16,4 +16,8 @@ class Restaurant < ActiveRecord::Base
     all.detect{|c| c.to_param == target}
   end
 
+  def find_owner
+    self.restaurant_users.where(role: "owner").last.user 
+  end
+
 end
