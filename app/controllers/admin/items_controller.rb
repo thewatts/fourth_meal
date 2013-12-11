@@ -37,7 +37,7 @@ class Admin::ItemsController < ApplicationController
   private
 
   def toggle_status_message
-    @item.retired ? activate_message : retire_message
+    @item.retired ? retire_message : activate_message
   end
 
   def retire_message

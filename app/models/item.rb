@@ -35,5 +35,9 @@ class Item < ActiveRecord::Base
     self.id <=> other.id
   end
 
+  def active?
+    self.retired ? false : true
+  end
+
 
 end

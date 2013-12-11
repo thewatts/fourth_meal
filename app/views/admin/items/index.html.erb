@@ -43,7 +43,7 @@
             <%= c.title %>
         <% end %></td>
 
-        <td><%= item.retired %>
+        <td><%= item.active? %>
 
         <td>
             <%= button_to "retire", admin_item_path(session[:current_restaurant], item), {class: "btn btn-danger", :method => :delete} %>
