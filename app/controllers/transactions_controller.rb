@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  
+
   def new
     @transaction = Transaction.new
     session[:current_address] = params[:address_id]
@@ -44,7 +44,7 @@ class TransactionsController < ApplicationController
   def show
     @transaction = Transaction.find_by(id: params[:id])
     @address = Address.find(@transaction.address_id)
-    @total = order_total(@transaction.order.order_items)
+    total = order_total(@transaction.order.order_items)
   end
 
   private
@@ -87,6 +87,7 @@ class TransactionsController < ApplicationController
   def process_saved_transaction
     @transaction.pay!
     clear_current_order
+    clear_checkout_session_data
     @owner = current_restaurant.find_owner
     @address = Address.find(@transaction.address_id)
     send_transaction_emails
@@ -98,6 +99,10 @@ class TransactionsController < ApplicationController
 
   def address_params
     params.require(:address).permit(:first_name, :last_name, :street_address, :city, :state, :zipcode, :email)
+
+  def clear_checkout_session_data
+    session[:forwarding_path] = nil
+    session[:current_address] = nil
   end
 
 end
