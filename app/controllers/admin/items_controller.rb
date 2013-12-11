@@ -27,11 +27,19 @@ class Admin::ItemsController < ApplicationController
     @item = current_restaurant.items.build
   end
 
+  def edit
+    @item = current_restaurant.items.find(params[:id])
+  end
+
   def update
     @item = current_restaurant.items.find(params[:id])
-    @item.update(item_params)
-    flash.notice = "#{@item.title} was updated"
-    redirect_to edit_item_path(@item.id)
+    @item.update(admin_item_params)
+    if @item.save
+      flash.notice = "#{@item.title} was updated"
+    else
+      flash.notice = "Errors prevented the item from being edited: #{@item.errors.full_messages}"
+    end
+    redirect_to admin_items_path(session[:current_restaurant])
   end
 
   private
