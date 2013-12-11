@@ -11,7 +11,6 @@ gem 'thin'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'paperclip'
 gem 'faker'
-gem 'cancan'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'

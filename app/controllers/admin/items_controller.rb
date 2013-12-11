@@ -1,15 +1,13 @@
 class Admin::ItemsController < ApplicationController
-  # before_action :can_access
+  before_action :owner_access
   layout 'admin'
 
   def index
     @items = current_restaurant.items.sort
-    authorize! :manage, @items
   end
 
   def destroy
     @item = current_restaurant.items.find(params[:id])
-    authorize! :manage, @item
     @item.toggle_status
     toggle_status_message
     redirect_to admin_items_path(session[:current_restaurant])
@@ -17,7 +15,6 @@ class Admin::ItemsController < ApplicationController
 
   def create
     @item = current_restaurant.items.build(admin_item_params)
-    authorize! :manage, @item
     if @item.save
       flash.notice = "#{@item.title} was added to the menu!"
     else
@@ -28,17 +25,14 @@ class Admin::ItemsController < ApplicationController
 
   def new
     @item = current_restaurant.items.build
-    authorize! :manage, @item
   end
 
   def edit
     @item = current_restaurant.items.find(params[:id])
-    authorize! :manage, @item
   end
 
   def update
     @item = current_restaurant.items.find(params[:id])
-    authorize! :manage, @item
     @item.update(admin_item_params)
     if @item.save
       flash.notice = "#{@item.title} was updated"

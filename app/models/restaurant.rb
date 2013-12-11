@@ -26,4 +26,18 @@ class Restaurant < ActiveRecord::Base
     end
   end
 
+  def employees
+    self.restaurant_users.where(role: "employee").collect do |ru|
+      ru.user
+    end
+  end
+
+  def is_owner?(user)
+    owners.include?(user)
+  end
+
+  def is_employee?(user)
+    employees.include?(user)
+  end
+
 end
