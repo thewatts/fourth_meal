@@ -61,6 +61,7 @@ class TransactionsController < ApplicationController
     if current_user
       redirect_to addresses_path(session[:current_restaurant])
     else
+      flash[:checking_out] = true
       redirect_to new_session_path
     end
   end
