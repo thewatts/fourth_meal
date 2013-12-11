@@ -23,8 +23,17 @@ class Item < ActiveRecord::Base
     where(:retired => false)
   end
 
-  def retire
-    self.update(retired: true)
+  def toggle_status
+    if self.retired
+      self.update(:retired => false)
+    else
+      self.update(:retired => true)
+    end
   end
+
+  def <=> (other)
+    self.id <=> other.id
+  end
+
 
 end
