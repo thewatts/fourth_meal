@@ -2,7 +2,7 @@ def seed_items(restaurant, count)
   count.times do |i|
     begin
       puts "Seeding item ##{i} for #{restaurant.name}..."
-      title = Faker::Lorem.words(2).join(" ") + rand(10).to_s
+      title = Faker::Lorem.words(2).join(" ")
       desc = Faker::Lorem.sentence(word_count = 5)
       restaurant.items.create!( title: title,
                                 description: desc,
