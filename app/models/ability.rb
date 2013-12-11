@@ -10,7 +10,12 @@ class Ability
       current_restaurant = Restaurant.find_by_slug(session[:current_restaurant]) || Restaurant.find_by_slug(params[:restaurant])
 
       if current_restaurant.owners.include?(user)
-        can :manage, current_restaurant.items
+        can :manage, :all
+
+        # can :manage, Transaction, { :restaurant => current_restaurant }
+        # can :manage, RestaurantUser, { :restaurant => current_restaurant }
+        
+
       else
         can :read, :all
       end
