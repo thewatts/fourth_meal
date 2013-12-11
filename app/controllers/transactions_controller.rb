@@ -99,6 +99,7 @@ class TransactionsController < ApplicationController
 
   def address_params
     params.require(:address).permit(:first_name, :last_name, :street_address, :city, :state, :zipcode, :email)
+  end
 
   def clear_checkout_session_data
     session[:forwarding_path] = nil
