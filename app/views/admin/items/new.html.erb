@@ -10,7 +10,7 @@
       
     </div>
   </div><!-- /.row -->
-  <%= form_for(@item) do |f| %>
+  <%= form_for @item, url: {action: "create"} do |f| %>
     <ul>
     <% @item.errors.full_messages.each do |error| %>
       <li><%= error %></li>
@@ -26,14 +26,14 @@
     </p>
     <p>
       <%= f.label :price %><br />
-      <%= f.text_area :price %>
+      <%= f.text_field :price %>
     </p>
     <p> 
-      <%# f.label :item_categories %><br />
-      <%# f.text_field :item_categories %>
+      <%= f.label :retired %>
+      <%= f.check_box :retired %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit class: "button" %>
     </p>
   <% end %>
 

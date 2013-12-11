@@ -7,32 +7,49 @@ class Admin::ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
+    @item = current_restaurant.items.find(params[:id])
     @item.toggle_status
-    toggle_active_message
-    find_toggle_message[@item.retired]
+    toggle_status_message
+    redirect_to admin_items_path(session[:current_restaurant])
+  end
+
+  def create
+    @item = current_restaurant.items.build(admin_item_params)
+    if @item.save
+      flash.notice = "#{@item.title} was added to the menu!"
+    else
+      flash.notice = "Errors prevented the item from being created: #{@item.errors.full_messages}"
+    end
     redirect_to admin_items_path(session[:current_restaurant])
   end
 
   def new
-    @item = Item.new
+    @item = current_restaurant.items.build
+  end
+
+  def update
+    @item = current_restaurant.items.find(params[:id])
+    @item.update(item_params)
+    flash.notice = "#{@item.title} was updated"
+    redirect_to edit_item_path(@item.id)
   end
 
   private
 
-  def find_toggle_message
-    {false => toggle_active_message, true => toggle_inactive_message}
+  def toggle_status_message
+    @item.retired ? activate_message : retire_message
   end
 
-  def toggle_active_message
+  def retire_message
+    flash.notice = "#{@item.title} was retired from the menu!"
+  end
+
+  def activate_message
     flash.notice = "#{@item.title} was added to the menu!"
   end
 
-  def toggle_inactive_message
-    flash.notice = "#{@item.title} was removed from the menu!"
+  def admin_item_params
+    params.require(:item).permit(:title, :description, :price, :retired)
   end
 
-  def admin_item_params
-    params.require(:item).permit(:name, :description, :price, :category_id, :image_url)
-  end
 end
