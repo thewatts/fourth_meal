@@ -12,6 +12,7 @@
         </div>
       <% end %>
       <p class="order-item-details">Total: <%= number_to_currency(@total) %></p>
+      <p>Save this link to view this transaction in the future: <%= link_to root_url + request.path.to_s[1..-1] %></p>
     </div>
   </div>
 </div>

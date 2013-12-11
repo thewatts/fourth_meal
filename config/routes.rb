@@ -19,6 +19,7 @@ OnoBurrito::Application.routes.draw do
     resources :orders
     resources :order_items
     get '/transactions/guest' => 'transactions#checkout_as_guest', as: "guest_transaction"
+    post '/transactions/guest' => 'transactions#add_guest_address', as: "guest_address"
     resources :transactions, only: [:new, :create, :show]
     resources :admin_orders
     resources :admin_items

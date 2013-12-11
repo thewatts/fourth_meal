@@ -14,6 +14,17 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def add_guest_address
+    @address = Address.create(address_params)
+    if @address.save 
+      session[:current_address] = @address.id
+      redirect_to guest_transaction_path(session[:current_restaurant])
+    else
+      flash.notice = "Your address failed to save"
+      redirect_to :back
+    end
+  end
+
   def checkout_as_guest
     @transaction = Transaction.new
     if session[:current_address]
@@ -25,9 +36,9 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.create(order_id: current_order.id, 
-                                      address_id: session[:current_address],
-                                      stripe_token: params["stripeToken"])
+    @transaction = Transaction.new(order_id: current_order.id, 
+                                   address_id: session[:current_address],
+                                   stripe_token: params["stripeToken"])
     if @transaction.save
       @transaction.pay!
       clear_current_order
@@ -53,6 +64,10 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:stripe_token, :address, :stripe_email)
+  end
+
+  def address_params
+    params.require(:address).permit(:first_name, :last_name, :street_address, :city, :state, :zipcode, :email)
   end
 
 end
