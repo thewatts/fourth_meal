@@ -4,9 +4,9 @@ class AdminController < ApplicationController
 
   def index
     @orders = current_restaurant.orders.all 
-    @users = current_restaurant.users.all
+    # @users = current_restaurant.users.all
     @items = current_restaurant.items.all
-    @order_items = current_restaurant.order_items.all
+    # @order_items = current_restaurant.order_items.all
     @total_sales = total_sales
     render :index
   end
