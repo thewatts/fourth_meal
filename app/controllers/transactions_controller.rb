@@ -44,7 +44,6 @@ class TransactionsController < ApplicationController
   def show
     @transaction = Transaction.find_by(id: params[:id])
     @address = Address.find(@transaction.address_id)
-    total = order_total(@transaction.order.order_items)
   end
 
   private

@@ -11,4 +11,8 @@ class Transaction < ActiveRecord::Base
     TransactionNotifier.user_email(address.email, transaction, link).deliver
     TransactionNotifier.user_email(owner.email, transaction, link).deliver
   end
+
+  def total
+    order.total_price
+  end
 end
