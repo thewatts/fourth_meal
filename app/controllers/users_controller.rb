@@ -9,12 +9,10 @@ class UsersController < ApplicationController
     if current_restaurant && @user.save
       session[:user_id] = @user.id
       current_order.update(user: @user) if current_order
-      redirect_to session[:forwarding_path] || restaurant_root_path(session[:current_restaurant]), :notice => "Signed up!"
-    elsif @user.save
-      session[:user_id] = @user.id
-      redirect_to root_path, :notice => "Signed up!"
+      find_redirect
     else
-      render "sessions/new", notice: "FAIL"
+      flash.notice = "There were errors that prevented your account from saving: #{@user.errors.full_messages}"
+      redirect_to log_in_path
     end
   end
 
@@ -36,6 +34,16 @@ class UsersController < ApplicationController
   end
 
 private
+
+  def find_redirect
+    if session[:forwarding_path]
+      redirect_to session[:forwarding_path]
+    elsif session[:current_restaurant]
+      redirect_to restaurant_root_path(session[:current_restaurant]), :notice => "Signed up!"
+    else
+      redirect_to root_path, :notice => "Signed up!"
+    end
+  end
     
   def set_user
     @user = user.find(params[:id])
