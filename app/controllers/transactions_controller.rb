@@ -74,11 +74,6 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def send_transaction_emails
-    TransactionNotifier.user_email(@address.email, @transaction).deliver
-    TransactionNotifier.user_email(@owner.email, @transaction).deliver
-  end
-
   def create_transaction
     @transaction = Transaction.new(order_id: current_order.id, 
                                       address_id: session[:current_address],
@@ -91,7 +86,8 @@ class TransactionsController < ApplicationController
     clear_checkout_session_data
     @owner = current_restaurant.find_owner
     @address = Address.find(@transaction.address_id)
-    send_transaction_emails
+    @link = root_url + request.path.to_s[1..-1]
+    Transaction.send_transaction_emails(@address, @owner, @transaction, @link)
   end
 
   def transaction_params

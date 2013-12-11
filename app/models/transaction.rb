@@ -6,4 +6,9 @@ class Transaction < ActiveRecord::Base
     order.status = "paid" 
     order.save
   end
+
+  def self.send_transaction_emails(address, owner, transaction, link)
+    TransactionNotifier.user_email(address.email, transaction, link).deliver
+    TransactionNotifier.user_email(owner.email, transaction, link).deliver
+  end
 end
