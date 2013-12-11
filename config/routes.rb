@@ -20,12 +20,15 @@ OnoBurrito::Application.routes.draw do
     resources :order_items
     get '/transactions/guest' => 'transactions#checkout_as_guest', as: "guest_transaction"
     resources :transactions, only: [:new, :create, :show]
-    resources :admin_orders
-    resources :admin_items
     get 'menu' => 'items#index', as: :menu
     get '/' => 'items#index', as: :restaurant_root
     get "menu/:category_slug" => "items#in_category", as: "menu_items"
-    get "/admin" => "admin#index"
+
+    namespace :admin do
+      get "/" => "dashboard#index"
+      resources :orders
+      resources :items
+    end
   end
 
 end
