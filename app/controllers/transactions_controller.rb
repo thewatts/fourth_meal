@@ -86,7 +86,7 @@ class TransactionsController < ApplicationController
     clear_checkout_session_data
     @owner = current_restaurant.find_owner
     @address = Address.find(@transaction.address_id)
-    @link = root_url + request.path.to_s[1..-1]
+    @link = root_url + transaction_path(session[:current_restaurant], @transaction)
     Transaction.send_transaction_emails(@address, @owner, @transaction, @link)
   end
 
