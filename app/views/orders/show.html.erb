@@ -1,4 +1,4 @@
-<% if items_in_cart? %>
+<% if current_order.items_in_cart? %>
   <section id="current_order" class="grid-container"> 
     <%= render partial: 'order', locals: {:order => @order} %>
   </section>

@@ -13,5 +13,6 @@
       <% end %>
       <p class="order-item-details">Total: <%= number_to_currency(@total) %></p>
     </div>
+    <p>Go back to <%= link_to current_restaurant.name, restaurant_root_path(session[:current_restaurant]) %>?<p>
   </div>
 </div>
