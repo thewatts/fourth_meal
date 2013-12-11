@@ -6,4 +6,8 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :item
 
+  def add_one
+    self.update(:quantity => quantity + 1)
+  end
+
 end

@@ -31,9 +31,8 @@ class OrdersController < ApplicationController
     @order = current_order
     session[:current_order] = @order.id
     @item = Item.find(params[:item])
-    add_item_to_order
+    add_or_increment_item
     flash.notice = "Item was added to your cart!"
-    #redirect_to order_path(session[:current_restaurant], @order.id)
     redirect_to :back
   end
 
@@ -46,21 +45,24 @@ class OrdersController < ApplicationController
 
   private
 
-  def order_params
-    params.permit(:something)
+  def add_or_increment_item
+    if existing_order_item
+      @order_item = existing_order_item
+      @order_item.add_one
+    else
+      add_item
+    end
   end
 
-  def add_item_to_order
-    if current_order.order_items.find_by_item_id(params[:item])
-      @order_item = current_order.order_items.find_by_item_id(params[:item])
-      current_count = @order_item.quantity
-      @order_item.update(:quantity => current_count + 1)
-    else
-      @order_item = OrderItem.create(
-        :order_id => current_order.id, 
-        :item_id => @item.id, 
-        :quantity => 1)
-    end
+  def existing_order_item
+    current_order.order_items.find_by_item_id(params[:item])
+  end
+
+  def add_item
+    @order_item = OrderItem.create(
+      :order_id => current_order.id, 
+      :item_id => @item.id, 
+      :quantity => 1)
   end
 
 end
