@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
 
   def new
     @user = User.new
+    @address = Address.new unless session[:current_address]
   end
 
   def create
@@ -13,6 +14,16 @@ class SessionsController < ApplicationController
     else
       invalid_login_redirect
     end
+  end
+
+  def checkout_as_guest
+    @transaction = Transaction.new
+    if session[:current_address]
+      @address = Address.find(session[:current_address])
+    else
+      @address = Address.new
+    end
+    render :new
   end
 
   def destroy
