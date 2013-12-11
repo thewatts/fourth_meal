@@ -15,19 +15,13 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.create(:status => "unpaid", :user_id => 1)
-    if params[:item]
-      item = Item.find(params[:item])
-      @order.order_items.build(item: item, quantity: 1) 
-      @order.save
-    end 
+    add_item_to_order
     redirect_to order_path(session[:current_restaurant], @order.id)
   end
 
   def update
-    current_order.save
-    @order = current_order
-    session[:current_order] = @order.id
-    @item = Item.find(params[:item])
+    update_order
+    @item = current_restaurant.items.find(params[:item])
     add_or_increment_item
     flash.notice = "Item was added to your cart!"
     redirect_to :back
@@ -49,6 +43,20 @@ class OrdersController < ApplicationController
     else
       add_item
     end
+  end
+
+  def add_item_to_order
+    if params[:item]
+      item = Item.find(params[:item])
+      @order.order_items.build(item: item, quantity: 1) 
+      @order.save
+    end 
+  end
+
+  def update_order
+    current_order.save
+    @order = current_order
+    session[:current_order] = @order.id
   end
 
   def existing_order_item
