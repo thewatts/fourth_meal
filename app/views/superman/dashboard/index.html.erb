@@ -1,0 +1,62 @@
+    <div id="page-wrapper">
+
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>All Restaurants <small>All Restaurants In The System</small></h1>
+          <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i> Dashboard</li>
+            <li><i class="fa fa-dashboard"></i> All Restaurants</li>
+          </ol>
+          
+        </div>
+      </div><!-- /.row -->
+
+          <table class="table table-hover">
+              <tr>
+                  <th>ID #</th>
+
+                  <th>Title</th>
+
+                  <th>Description</th>
+
+                  <th>Url</th>
+                  
+                  <th>Owners</th>
+
+                  <th>Date Created</th>
+
+                  <th>Active?</th>
+
+                  <th>(De)Activate</th>
+
+                  <th>Administer</th>
+              </tr>
+              <% @restaurants.each do |restaurant|  %>
+              <tr>
+                  <td><%= restaurant.id %></td>
+
+                  <td><%= restaurant.name %></td>
+
+                  <td><%= restaurant.description %></td>
+
+                  <td><%= root_url + restaurant.to_param[1..-1] %></td>
+
+                  <td><% restaurant.owners.each do |o| %>
+                        <%= o.full_name %>
+                      <% end %>
+                  </td>
+
+                  <td><%= restaurant.created_at.strftime('%m/%d/%Y') %></td>
+
+                  <td><%= restaurant.active? %></td>
+
+                  <td><%= button_to "retire", superman_restaurant_path(restaurant), {class: "btn btn-danger", :method => :delete} %></td>
+
+                  <td><%= link_to "administer", restaurant_root_path(restaurant.id), {class: "btn btn-info"} %></td>
+              </tr>
+          <% end %>
+      </table>
+
+    </div><!-- /#page-wrapper -->
+
+  </div><!-- /#wrapper -->

@@ -1,0 +1,2 @@
+module Superman::RestaurantsHelper
+end

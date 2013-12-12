@@ -1,12 +1,18 @@
 OnoBurrito::Application.routes.draw do
+  root :to => "restaurants#index"
+
   get "/log_out" => "sessions#destroy"
   get "/log_in" => "sessions#new", as: "log_in"
   get "/sign_up" => "users#new"
 
+  namespace :superman do
+    get "/" => "dashboard#index"
+    resources :restaurants
+  end
+  
   resources :users
   resources :sessions
   resources :restaurants
-  root :to => "restaurants#index"
 
 
   scope ":restaurant" do

@@ -40,4 +40,24 @@ class Restaurant < ActiveRecord::Base
     employees.include?(user)
   end
 
+  def active?
+    self.active
+  end
+
+  def activate
+    self.update(active: true)
+  end
+
+  def deactivate
+    self.update(active: false)
+  end
+
+  def toggle_status
+    self.active? ? deactivate : activate
+  end
+
+  def <=> (other)
+    self.id <=> other.id
+  end
+
 end
