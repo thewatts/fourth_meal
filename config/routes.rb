@@ -7,7 +7,11 @@ OnoBurrito::Application.routes.draw do
 
   namespace :superman do
     get "/" => "dashboard#index"
+    get "/approval" => "restaurants#index", as: "approval"
+    get "/rejected" => "restaurants#rejected", as: "rejected"
     resources :restaurants
+    post "/restaurants/approve" => "restaurants#approve", as: "approve"
+    post "/restaurants/reject" => "restaurants#reject", as: "reject"
   end
   
   resources :users

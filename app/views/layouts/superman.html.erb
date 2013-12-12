@@ -43,8 +43,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><%= link_to "Restaurants", superman_path %><i class="fa fa-dashboard"></i></li>            
-            </li>
+            <li><%= link_to "All Restaurants", superman_path %><i class="fa fa-dashboard"></i></li>            
+            <li><%= link_to "Pending Approval", superman_approval_path %><i class="fa fa-dashboard"></i></li>
+            <li><%= link_to "Rejected", superman_rejected_path %><i class="fa fa-dashboard"></i></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">

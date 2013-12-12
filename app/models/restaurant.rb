@@ -61,4 +61,24 @@ class Restaurant < ActiveRecord::Base
     self.id <=> other.id
   end
 
+  def approve
+    self.update(status: 'approved')
+  end
+
+  def approved?
+    self.status == "approved?"
+  end
+
+  def reject
+    self.update(status: 'rejected')
+  end
+
+  def rejected?
+    self.status == "rejected"
+  end
+
+  def pending?
+    self.status == "pending"
+  end
+
 end

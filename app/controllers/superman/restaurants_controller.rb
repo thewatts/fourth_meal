@@ -1,10 +1,32 @@
 class Superman::RestaurantsController < ApplicationController
+  layout 'superman'
   before_action :ensure_user
   before_action :super_access
+
+  def index
+    @restaurants = Restaurant.where(:status => "pending")
+  end
+
+  def rejected
+    @restaurants = Restaurant.where(:status => "rejected")
+  end
+
   def destroy
     @restaurant = Restaurant.find_by_slug(params[:id])
     @restaurant.toggle_status
     toggle_status_message
+    redirect_to superman_path
+  end
+
+  def approve
+    @restaurant = Restaurant.find_by_slug(params[:format])
+    @restaurant.approve
+    redirect_to superman_path
+  end
+
+  def reject
+    @restaurant = Restaurant.find_by_slug(params[:format])
+    @restaurant.reject
     redirect_to superman_path
   end
 
