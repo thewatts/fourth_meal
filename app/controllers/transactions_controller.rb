@@ -75,8 +75,8 @@ class TransactionsController < ApplicationController
 
   def create_transaction
     @transaction = Transaction.new(order_id: current_order.id, 
-                                      address_id: session[:current_address],
-                                      stripe_token: params["stripeToken"])
+                                   address_id: session[:current_address],
+                                   stripe_token: params["stripeToken"])
   end
 
   def process_saved_transaction
