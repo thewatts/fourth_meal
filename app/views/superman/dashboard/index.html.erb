@@ -25,6 +25,8 @@
 
                   <th>Date Created</th>
 
+                  <th>Status</th>
+
                   <th>Active?</th>
 
                   <th>(De)Activate</th>
@@ -47,6 +49,8 @@
                   </td>
 
                   <td><%= restaurant.created_at.strftime('%m/%d/%Y') %></td>
+
+                  <td><%= restaurant.status %></td>
 
                   <td><%= restaurant.active? %></td>
 
