@@ -22,7 +22,7 @@
               <p>Subtotal: <%= number_to_currency(oi.item.price*oi.quantity) %></p>
             </div>
           <% end %>
-          <p class="order-item-details">Total: <%= number_to_currency(@total) %></p>
+          <p class="order-item-details">Total: <%= number_to_currency(@transaction.total) %></p>
         </div>
         <p>To see your full order information, please visit: <%= @link %></p>
       </div>
