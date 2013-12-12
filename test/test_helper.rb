@@ -4,6 +4,8 @@ require 'rails/test_help'
 require 'minitest/rails/capybara'
 # require './test/helpers/minitest_helper'
 
+
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
   include Capybara::DSL

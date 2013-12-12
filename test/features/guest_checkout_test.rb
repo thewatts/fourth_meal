@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class MenuTest < Capybara::Rails::TestCase
+class GuestCheckoutTest < Capybara::Rails::TestCase
 
   def test_guest_can_checkout_without_signing_up
     visit root_path

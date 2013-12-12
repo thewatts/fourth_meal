@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class MenuTest < Capybara::Rails::TestCase
+class SupermanTest < Capybara::Rails::TestCase
 
   def setup
     @superman = User.create(full_name: "Clark Kent", display_name: "Superman", email: 'ckent@dailyplanet.com', password: 'kryptonite', password_confirmation: 'kryptonite', :super => true)
