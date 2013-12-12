@@ -1,0 +1,23 @@
+<h3>Edit Restaurant Details</h3>
+<%= form_for :restaurante do |f| %>
+  <ul>
+  <% @restaurant.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <strong>Photo</strong><br/>
+    <em>none</em>
+  </p>
+  <p>
+    <%= f.submit "Save Restaurant", class: "button" %>
+  </p>
+<% end %>

@@ -37,6 +37,8 @@ OnoBurrito::Application.routes.draw do
 
     namespace :admin do
       get "/" => "dashboard#index"
+      post "/" => "restaurants#update"
+      resources :restaurants
       resources :orders
       resources :items
     end

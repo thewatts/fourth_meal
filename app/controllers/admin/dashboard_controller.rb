@@ -3,13 +3,11 @@ class Admin::DashboardController < ApplicationController
   layout 'admin'
 
   def index
-    @orders = current_restaurant.orders.all 
-    # @users = current_restaurant.users.all
-    @items = current_restaurant.items.all
- 
-    # @order_items = current_restaurant.order_items.all
-    @total_sales = total_sales
-    render :index
+    @restaurant = current_restaurant
+  end
+
+  def update
+    @restaurant = Restaurant.find_by_slug(params[:restaurant])
   end
 
   def total_sales
@@ -17,6 +15,12 @@ class Admin::DashboardController < ApplicationController
     completed_orders.collect do |order|
       order.total_price
     end.reduce(:+)
+  end
+
+  private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :description)
   end
 
 end
