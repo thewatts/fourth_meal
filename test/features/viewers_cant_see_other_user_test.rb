@@ -33,7 +33,7 @@ class ViewersCantSeeOtherUserTest < Capybara::Rails::TestCase
       click_button "Create User"
     end
 
-    visit new_item_path(restaurants(:one))
+    visit new_admin_item_path(restaurants(:one))
     refute_content page, "Create an Item"
   end
 end

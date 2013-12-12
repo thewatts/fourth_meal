@@ -9,9 +9,6 @@ class ItemsController < ApplicationController
     render :index
   end
 
-  def new
-    unauthorized
-  end
 
   def index
     @items = @restaurant.items.active
