@@ -4,4 +4,8 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.all
   end
 
+  def new
+    @restaurant = Restaurant.new
+  end
+
 end
