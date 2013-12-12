@@ -6,8 +6,9 @@ one:
 two:
   restaurant: two
   user: two
-  role: "owner"
+  role: "employee"
 
 three:
-  restaurant: one 
-  user: two
+  restaurant: two 
+  user: one
+  role: "owner"
