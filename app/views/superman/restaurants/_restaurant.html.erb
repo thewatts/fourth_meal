@@ -1,4 +1,4 @@
-<tr>
+<tr <%="id=#{restaurant.to_param}_row"%>>
   <td><%= restaurant.id %></td>
 
   <td><%= restaurant.name %></td>
@@ -18,14 +18,14 @@
 
   <td><%= restaurant.active? %></td>
 
-  <td><%= button_to "X", superman_approve_path(restaurant), {class: "btn btn-danger", :method => :approve} %></td>
+  <td><%= button_to "X", superman_approve_path(restaurant), {class: "btn btn-danger", id: "approve_button", :method => :approve} %></td>
 
   <% unless restaurant.rejected? %>
-  <td><%= button_to "X", superman_reject_path(restaurant), {class: "btn btn-danger", :method => :reject} %></td>
+  <td><%= button_to "X", superman_reject_path(restaurant), {class: "btn btn-danger", id: "reject_button", :method => :reject} %></td>
   
 
-  <td><%= button_to "X", superman_restaurant_path(restaurant), {class: "btn btn-danger", :method => :delete} %></td>
+  <td><%= button_to "X", superman_restaurant_path(restaurant), {class: "btn btn-danger", id: "toggle_active_button", :method => :delete} %></td>
 
-  <td><%= link_to "administer", admin_path(restaurant.to_param), {class: "btn btn-info"} %></td>
+  <td><%= link_to "administer", admin_path(restaurant.to_param), {class: "btn btn-info", id: "administer_link"} %></td>
   <% end %>
 </tr>
