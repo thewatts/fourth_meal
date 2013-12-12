@@ -11,6 +11,7 @@ class UsersController < ApplicationController
       current_order.update(user: @user) if current_order
       find_redirect
     elsif @user.save
+      session[:user_id] = @user.id
       flash.notice = "Signed up!"
       redirect_to root_path
     else
