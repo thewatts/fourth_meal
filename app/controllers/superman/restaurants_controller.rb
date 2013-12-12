@@ -21,13 +21,13 @@ class Superman::RestaurantsController < ApplicationController
   def approve
     @restaurant = Restaurant.find_by_slug(params[:format])
     @restaurant.approve
-    redirect_to superman_path
+    redirect_to superman_path, :notice => "#{@restaurant.name} was approved!"
   end
 
   def reject
     @restaurant = Restaurant.find_by_slug(params[:format])
     @restaurant.reject
-    redirect_to superman_path
+    redirect_to superman_path, :notice => "#{@restaurant.name} was rejected!"
   end
 
   private
