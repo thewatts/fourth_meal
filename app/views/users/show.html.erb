@@ -6,11 +6,7 @@
 
   <div class="grid-50">
     <h1 id="edit-your-account">Your Addresses</h1>
-    <%= render 'addresses/address' %>
-  </div>
-
-  <div class="grid-100">
-    <%= link_to "Create New Restaurant", new_restaurant_path %>
+    <%= render @addresses %>
   </div>
 
   <div class="grid-100">
@@ -21,4 +17,4 @@
 
 <% content_for :title do %>
   Your Account
-<% end %> 
+<% end %>
