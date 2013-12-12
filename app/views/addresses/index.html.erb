@@ -1,17 +1,6 @@
 <section id="shop_more" class="grid-container" id="address-container">
   <ul>
-    <% @addresses.each do |address| %>
-      <div class="grid-30 address-panel">
-        <li class="list">
-          <%= address.first_name + " " + address.last_name %><br/>
-          <%= address.street_address %><br/>
-          <%= address.city + ", " + address.state %><br/>
-          <%= address.zipcode %><br/>
-          <%= address.email %><br/>    
-          <%= link_to "Use This Billing Address", new_transaction_path(session[:current_restaurant], address_id: address.id), class: "button", id:"transaction-button" %>
-        </li><br/><br/><br/>
-      </div>
-    <% end %>
+    <%= render @address %>
   </ul>
 
   <br/>
@@ -22,6 +11,8 @@
 
   </div>
 
-  <%= render "addresses/address_form" %>
+  <div class="grid-100">
+    <%= render "addresses/address_form" %>
+  </div>
 </section>
 
