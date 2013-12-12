@@ -18,6 +18,17 @@ class RestaurantTest < ActiveSupport::TestCase
     refute restaurant.valid?
   end
 
+  test "it validates status is pending, rejected, or approved" do
+    restaurant = restaurants(:one)
+    assert restaurant.valid?
+    restaurant.update(:status => "rejected")
+    assert restaurant.valid?
+    restaurant.update_attributes(:status => "pending")
+    assert restaurant.valid?
+    restaurant.update_attributes(:status => "Nebuchadnezzar")
+    refute restaurant.valid?
+  end
+
   test "it has categories" do
     assert_includes restaurants(:one).categories, categories(:one)
   end

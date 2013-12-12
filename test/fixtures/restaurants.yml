@@ -1,7 +1,11 @@
 one:
   name: "KFC"
   description: "Kentucky Fried Wonder"
+  active: true
+  status: "approved"
 
 two:
   name: "McDonalds"
   description: "Have you had your break today?"
+  active: true
+  status: "approved"

@@ -6,6 +6,7 @@ class Restaurant < ActiveRecord::Base
 
   validates :name, presence: true
   validates :description, presence: true
+  validates_inclusion_of :status, :in => ["pending", "rejected", "approved"]
 
   def to_param
     name.downcase.gsub(" ", "_")
