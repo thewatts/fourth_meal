@@ -1,5 +1,5 @@
 <h3>Edit Restaurant Details</h3>
-<%= form_for :restaurante do |f| %>
+<%= form_for [:admin, @restaurant], url: admin_restaurant_path(@restaurant, @restaurant.id), method: :put do |f| %>
   <ul>
   <% @restaurant.errors.full_messages.each do |error| %>
     <li><%= error %></li>
