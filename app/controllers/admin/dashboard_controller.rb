@@ -7,7 +7,7 @@ class Admin::DashboardController < ApplicationController
   end
 
   def update
-    @restaurant = Restaurant.find_by_slug(params[:restaurant])
+    @restaurant = Restaurant.find_by_slug(params[:restaurant_slug])
   end
 
   def total_sales

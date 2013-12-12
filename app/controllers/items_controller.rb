@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
   private
 
   def load_restaurant
-    @restaurant = Restaurant.find_by_slug(params[:restaurant])
+    @restaurant = Restaurant.find_by_slug(params[:restaurant_slug])
     session[:current_restaurant] = @restaurant.to_param
   end
 
