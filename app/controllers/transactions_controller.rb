@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-
+  before_action :check_active
   def new
     @transaction = Transaction.new
     session[:current_address] = params[:address_id]

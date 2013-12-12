@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
-
+  before_action :check_active
   def index
     @addresses = current_user.addresses
     @address = Address.new

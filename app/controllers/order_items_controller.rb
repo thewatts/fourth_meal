@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-
+  before_action :check_active
   def destroy
     OrderItem.find(params[:id]).destroy
     if items_in_cart?

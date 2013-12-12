@@ -66,7 +66,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def approved?
-    self.status == "approved?"
+    self.status == "approved"
   end
 
   def reject

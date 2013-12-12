@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   layout "application"
-  before_action :load_restaurant, :load_category, only: [:in_category, :index]
+  before_action :check_active, :load_restaurant, :load_category, only: [:in_category, :index]
 
   def in_category
     @category = @restaurant.categories.find_by_slug(params[:category_slug])

@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   layout 'home'
   def index
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant.where(:active => true).sort
   end
 
   def new

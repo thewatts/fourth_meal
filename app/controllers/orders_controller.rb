@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-
+  before_action :check_active
   helper_method :add_item_to_order
 
   def new
