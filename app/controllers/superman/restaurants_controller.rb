@@ -1,4 +1,6 @@
 class Superman::RestaurantsController < ApplicationController
+  before_action :ensure_user
+  before_action :super_access
   def destroy
     @restaurant = Restaurant.find_by_slug(params[:id])
     @restaurant.toggle_status

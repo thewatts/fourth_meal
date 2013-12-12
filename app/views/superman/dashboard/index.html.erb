@@ -50,9 +50,9 @@
 
                   <td><%= restaurant.active? %></td>
 
-                  <td><%= button_to "retire", superman_restaurant_path(restaurant), {class: "btn btn-danger", :method => :delete} %></td>
+                  <td><%= button_to "(de)activate", superman_restaurant_path(restaurant), {class: "btn btn-danger", :method => :delete} %></td>
 
-                  <td><%= link_to "administer", restaurant_root_path(restaurant.id), {class: "btn btn-info"} %></td>
+                  <td><%= link_to "administer", admin_path(restaurant.to_param), {class: "btn btn-info"} %></td>
               </tr>
           <% end %>
       </table>

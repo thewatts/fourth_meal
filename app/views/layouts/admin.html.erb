@@ -55,6 +55,7 @@
           
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li><a href="#">Logged in as <%= current_user.full_name if current_user %></a></li>
+            <li><%= link_to "Visit Superman Panel", superman_path if current_user.superman? %></li>
             <li><%= link_to "Log Out", log_out_path %></li>
           </ul>
         </div><!-- /.navbar-collapse -->
