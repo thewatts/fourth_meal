@@ -8,8 +8,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.send_transaction_emails(address, owner, transaction, link)
-    TransactionNotifier.user_email(address.email, transaction, link).deliver
-    TransactionNotifier.user_email(owner.email, transaction, link).deliver
+    MyMailer.perform(address, owner, transaction, link)
   end
 
   def total

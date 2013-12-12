@@ -1,7 +1,7 @@
 def seed_items(restaurant, count)
   count.times do |i|
     begin
-      # puts "Seeding item ##{i} for #{restaurant.name}..."
+      puts "Seeding item ##{i} for #{restaurant.name}..."
       title = Faker::Lorem.words(2).join(" ")
       desc = Faker::Lorem.sentence(word_count = 5)
       restaurant.items.create!( title: title,
@@ -11,22 +11,21 @@ def seed_items(restaurant, count)
                                 retired: false,
                                 restaurant_id: restaurant.id)
     rescue
-      # puts "Item already exists! Trying again..."
+      puts "Item already exists! Trying again..."
       retry
     end
   end
 end
 
-
 def seed_categories(restaurant, count)
   count.times do |i|
     begin
-      # puts "Creating category #{i} for #{restaurant.name}..."
+      puts "Creating category #{i} for #{restaurant.name}..."
       title = Faker::Lorem.words(2).join(" ")
       restaurant.categories.create!(title: title,
                                     restaurant_id: restaurant.id)
     rescue
-      # puts "Category already exists! Trying again..."
+      puts "Category already exists! Trying again..."
       retry
     end
   end
@@ -35,21 +34,54 @@ end
 def seed_item_categories(restaurant, count)
   count.times do |i|
     begin
-      # puts "Seeding item category ##{i} for #{restaurant.name}..."
+      puts "Seeding item category ##{i} for #{restaurant.name}..."
       item_id = restaurant.items[i].id
       category_id = restaurant.categories[rand(5)].id
       ItemCategory.create!( item_id: item_id,
                             category_id: category_id)
     rescue
-      # puts "Item category already exists! Trying again..."
+      puts "Item category already exists! Trying again..."
       retry
     end
   end
 end
 
+# RESTAURANTS
+
+ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros")
+billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'")
+adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?")
+ben = Restaurant.create(name: "Ben's Beer", description: "Good Head!")
+taste_of_india = Restaurant.create(name: "Taste of India", description: "Delicacies from India")
+le_central = Restaurant.create(name: "Le Central", description: "High Brow Cuisine")
+parsley = Restaurant.create(name: "Parsley", description: "Hippie Food")
+gorgonzola = Restaurant.create(name: "Gorgonzola", description: "Cheese Boards Deluxe")
+coltandgrey = Restaurant.create(name: "Colt and Grey", description: "We Use It All...Yes, Even The Brains")
+englishtea = Restaurant.create(name: "English Tea House", description: "Tea Time!!!")
+
+restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgrey, englishtea]
+
+def seed_10_restaurants
+  10.times do |i|
+    puts "Creating restaurant #{i + 1}"
+    Restaurant.create(name: restaurants[i].name + "#{i}",
+                      description: restaurants[i].description)
+end
+
+
+def seed_restaurants(count)
+  count / 10.times do |i|
+    seed_10_restaurants
+    break if i <= 10
+  end
+
+end
+
+
+
 def seed_users(count)
   count.times do |i|
-    # puts "Creating user #{i}"
+    puts "Creating user #{i}"
     User.create(full_name: "user_number#{i}",
                 display_name: "user#{i}",
                 email: "user#{i}@example.com",
@@ -62,45 +94,44 @@ end
 
 # USERS
 
-user1 = User.create(email: "demo+franklin@jumpstartlab.com", 
+frank = User.create(email: "demo+franklin@jumpstartlab.com", 
   full_name: "Franklin Webber", 
   display_name: "", 
   password: "password",
   password_confirmation: "password")
 
-user2 = User.create(email: "demo+jeff@jumpstartlab.com", 
+jeff = User.create(email: "demo+jeff@jumpstartlab.com", 
   full_name: "Jeff", 
   display_name: "j3",
   password: "password",
   password_confirmation: "password")
 
-user3 = User.create(email: "demo+katrina@jumpstartlab.com", 
+katrina = User.create(email: "demo+katrina@jumpstartlab.com", 
   full_name: "Katrina Owen", 
   display_name: "kytrynx", 
   password: "password",
-  password_confirmation: "password")
+  password_confirmation: "password",
+  :super => true)
 
-user4 = User.create(email: "benjamin@example.com", 
+ben = User.create(email: "benjamin@example.com", 
   full_name: "Ben Lewis", 
   display_name: "bennybeans", 
   password: "password",
   password_confirmation: "password")
 
-user5 = User.create(email: "navyosu@gmail.com", 
+billy = User.create(email: "navyosu@gmail.com", 
   full_name: "Billy G", 
   display_name: "billybeans", 
   password: "password",
   password_confirmation: "password")
 
+adam = User.create(email: "adam.dev89@gmail.com", 
+  full_name: "Adam", 
+  display_name: "adambeans", 
+  password: "password",
+  password_confirmation: "password")
+
 seed_users(10)
-
-# RESTAURANTS
-
-ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros")
-billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'")
-adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?")
-
-restaurants = [ono, billy, adam]
 
 # RESTAURANT USERS
 
@@ -108,27 +139,34 @@ user_role2 = RestaurantUser.create(user_id: user5.id,
                                   restaurant_id: ono.id,
                                   role: "owner")
 
-user_role3 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: billy.id,
-                                  role: "owner")
-
-user_role4 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: adam.id,
-                                  role: "owner")
-
 
 
 # CATEGORIES
 
-restaurants.each { |rest| seed_categories(rest, 5000) }
+restaurants.each { |rest| seed_categories(rest, 5) }
 
 # ITEMS
 
-restaurants.each { |rest| seed_items(rest, 10000) }
+restaurants.each { |rest| seed_items(rest, 10) }
 
 # ITEM CATEGORIES
 
-restaurants.each { |rest| seed_item_categories(rest, 1000) }
+restaurants.each { |rest| seed_item_categories(rest, 10) }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # entrees = Category.create(title: "Entrees", restaurant_id: ono.id)
 # combos = Category.create(title: "Combos", restaurant_id: ono.id)

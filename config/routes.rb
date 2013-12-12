@@ -1,4 +1,6 @@
+require 'sidekiq/web'
 OnoBurrito::Application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   root :to => "restaurants#index"
 
   get "/log_out" => "sessions#destroy"

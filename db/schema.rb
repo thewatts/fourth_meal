@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20131212041213) do
   create_table "restaurants", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active",      default: false

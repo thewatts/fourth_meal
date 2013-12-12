@@ -9,11 +9,25 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :status, :in => ["pending", "rejected", "approved"]
 
   def to_param
-    name.downcase.gsub(" ", "_")
-    name.downcase.gsub(/\W/, "")
+    name.parameterize
   end
 
   def self.find_by_slug(target)
+    where(slug: target).first
+    SELECT * FROM restaurants WHERE slug = 'our_slug' LIMIT 1
+    A
+    a_rest
+
+    B..
+    C..
+    O
+    OR
+    orange_rest
+    OUR_S
+    our_slug
+    OUR_O
+    our_other_slug
+
     all.detect{|c| c.to_param == target}
   end
 
