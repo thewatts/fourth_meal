@@ -21,9 +21,7 @@ OnoBurrito::Application.routes.draw do
 
   scope ":restaurant" do
     resources :contacts
-    resources :items do
-      :item_categories
-    end
+    resources :items, only: [:index, :in_category]
     resources :locations
     resources :addresses
     resources :orders

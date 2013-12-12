@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
     render :index
   end
 
+
   def index
     @items = @restaurant.items.active
     @page_title = "Full Menu"

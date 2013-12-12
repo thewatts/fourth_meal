@@ -20,7 +20,8 @@ class AuthHelperTest < ActionView::TestCase
   end
 
   test "owner_access returns true if user is owner" do
-    assert restaurants(:two).is_owner?(users(:one))
+    @current_user = users(:three)
+    assert restaurants(:two).is_owner?(users(:three))
     assert owner_access
     restaurant_users(:three).update(role: "employee")
     refute owner_access

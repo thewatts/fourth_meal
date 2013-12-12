@@ -11,9 +11,10 @@ class CanMakeAnOrderTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
+    click_on "View Your Order"
     assert_content page, 'Your Current Order'
     assert_content page, "Mashed Potatoes"
-    
+
   end
 
   test "can add multiple items to order without logging in" do
@@ -28,6 +29,7 @@ class CanMakeAnOrderTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
+    click_on "View Your Order"
     assert_content page, 'Your Current Order'
     assert_content page, "Mashed Potatoes"
     assert_content page, "Chicken Drumsticks"
@@ -45,6 +47,7 @@ class CanMakeAnOrderTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
+    click_on "View Your Order"
     assert_content page, 'Your Current Order'
     assert_content page, "Mashed Potatoes"
     within("#current_order") do
@@ -60,6 +63,7 @@ class CanMakeAnOrderTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
+    click_on "View Your Order"
     assert_content page, 'Your Current Order'
     assert_content page, "Mashed Potatoes"
 
@@ -70,6 +74,7 @@ class CanMakeAnOrderTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
+    click_on "View Your Order"
     assert_content page, 'Your Current Order'
     refute_content page, "Mashed Potatoes"
     assert_content page, "Big Mac"

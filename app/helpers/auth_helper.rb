@@ -17,5 +17,6 @@ module AuthHelper
 
   def unauthorized
     redirect_to root_url, :notice => "You're not authorized to do that!"
+    false
   end
 end
