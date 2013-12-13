@@ -9,8 +9,7 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :status, :in => ["pending", "rejected", "approved"]
 
   def to_param
-    name.downcase.gsub(" ", "_")
-    name.downcase.gsub(/\W/, "")
+    slug || name.parameterize
   end
 
   def self.find_by_slug(target)

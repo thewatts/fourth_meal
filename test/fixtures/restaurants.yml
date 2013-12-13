@@ -3,21 +3,25 @@ one:
   description: "Kentucky Fried Wonder"
   active: true
   status: "approved"
+  slug: "kfc"
 
 two:
   name: "McDonalds"
   description: "Have you had your break today?"
   active: true
   status: "approved"
+  slug: "mcdonalds"
 
 three:
   name: "Taco Bell"
   description: "It's a Late Nite Thing"
   active: false
   status: "pending"
+  slug: "taco-bell"
 
 four:
   name: "Pizza Hut"
   description: "Come to the hut"
   active: false
   status: "pending"
+  slug: "pizza-hut"
