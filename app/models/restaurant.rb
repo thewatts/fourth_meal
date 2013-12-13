@@ -12,6 +12,10 @@ class Restaurant < ActiveRecord::Base
     slug || name.parameterize
   end
 
+  def generate_slug
+    self.update(slug: name.parameterize)
+  end
+
   def self.find_by_slug(target)
     all.detect{|c| c.to_param == target}
   end
