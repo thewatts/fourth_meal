@@ -13,11 +13,15 @@ class RestaurantsController < ApplicationController
     verify_logged_in_user
     @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.save
+
       @restaurant.restaurant_users.create(:restaurant => @restaurant, 
                                           :user => current_user, 
                                           :role => "owner")
+
       flash.notice = "Your request has been submitted. 
                       You will be emailed when your restaurant is approved."
+
+      notify_super_of_request
       redirect_to root_path
     else
       render :new
@@ -25,6 +29,12 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def notify_super_of_request
+    @superman = User.where(:super => true).first
+    @link = root_url + superman_approval_path
+    SuperNotifier.super_email(current_user, @superman, @link, @restaurant).deliver
+  end
 
   def verify_logged_in_user
     unless current_user
