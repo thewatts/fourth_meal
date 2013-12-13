@@ -20,16 +20,15 @@ class CreateRestaurantTest < Capybara::Rails::TestCase
     # click_on "Account Profile"
     # assert_content page, "Edit Your Account Info"
 
-    click_on "Create A New Restaurant"
-
+    click_on "Create New Restaurant"
     assert_content page, "Creating A New Restaurant"
 
     fill_in "Name", with: "Jeff's Gelato"
     fill_in "Description", with: "Frozen Goodness"
-    
-    click_on "Submit Restaurant"
 
-    assert_content page, "Your restaurant has been submitted and is pending review. We will email you when your restaurant is ready to go live."
+    click_on "Create Restaurant"
+
+assert_content page, "Your request has been submitted. You will be emailed when your restaurant is approved."
 
   end
 
