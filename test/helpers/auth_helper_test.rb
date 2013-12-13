@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthHelperTest < ActionView::TestCase  
+class AuthHelperTest < ActionView::TestCase
   attr_reader :current_user, :current_restaurant
 
   def setup
@@ -31,7 +31,7 @@ class AuthHelperTest < ActionView::TestCase
     assert restaurants(:two).is_employee?(users(:two))
     @current_user = users(:two)
     assert employee_access
-    restaurant_users(:two).update(role: "owner")
+    restaurant_users(:two).update(role: "customer")
     refute employee_access
   end
 

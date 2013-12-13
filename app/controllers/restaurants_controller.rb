@@ -18,7 +18,7 @@ class RestaurantsController < ApplicationController
                                           :role => "owner")
       flash.notice = "Your request has been submitted. 
                       You will be emailed when your restaurant is approved."
-      redirect_to user_path(current_user)
+      redirect_to root_path
     else
       render :new
     end
