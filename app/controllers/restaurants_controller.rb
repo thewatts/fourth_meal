@@ -31,8 +31,9 @@ class RestaurantsController < ApplicationController
   private
 
   def notify_super_of_request
-    superman = User.where(:super => true).first
-    SuperNotifier.super_email(current_user, superman, link).deliver
+    @superman = User.where(:super => true).first
+    @link = root_url + superman_approval_path
+    SuperNotifier.super_email(current_user, @superman, link).deliver
     # TransactionNotifier.super_email(owner.email, current_user, link).deliver
   end
 

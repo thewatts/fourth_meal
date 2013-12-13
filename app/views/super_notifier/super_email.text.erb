@@ -1,19 +1,11 @@
-Your Order at <%= @restaurant.name %> Was Received!
+New Restaurant <%= @restaurant.name %> was created!
 ==============================================================
 
-Great news, your order is on the way!
+<%= @user.name %> created this restaurant, and it is pending your approval!
 
-You card has been charged <%= number_to_currency(@transaction.total) %>
-
-Here are your order details:
+Here are the restaurant details:
 
 Restaurant Name: <%= @restaurant.name %>
-Time Order was placed: <%= @transaction.created_at %>
-Status: <%= @transaction.order.status %>
-Items: <% @transaction.order.order_items.each do |oi| %>
-<%= oi.item.title %> - <%= oi.quantity %>
-<% end %>
-
-Total: <%= number_to_currency(@transaction.total) %>
+Restaurant Description: <%= @restaurant.description %>
 
 To see your full order information, please visit: <%= @link %>
