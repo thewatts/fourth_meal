@@ -1,4 +1,5 @@
 class Admin::DashboardController < ApplicationController
+  before_action :ensure_user
   before_action :owner_access
   layout 'admin'
 

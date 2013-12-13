@@ -11,7 +11,7 @@ class RestaurantAdminTest < Capybara::Rails::TestCase
 
   def test_admin_views_the_admin_panel
     # Admin page is unavailable to guests
-    visit restaurant_root_path(restaurants(:one))
+    visit admin_path(restaurants(:one))
     assert_content page, "You must be logged in to do that!"
 
     # Admin logs in
@@ -26,9 +26,8 @@ class RestaurantAdminTest < Capybara::Rails::TestCase
     visit restaurant_root_path(restaurants(:one))
     refute_content page, "You're not authorized to do that!"
     
-
     # Admin logs out and is redirected to the home page
-    click_on "Log Out"
+    click_on "Log out"
     assert_equal root_path, page.current_path
   end
 
