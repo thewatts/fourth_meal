@@ -9,6 +9,7 @@ class Admin::DashboardController < ApplicationController
 
   def update
     @restaurant = Restaurant.find_by_slug(params[:restaurant_slug])
+    @restaurant.update(restaurant_params)
   end
 
   def total_sales
@@ -21,7 +22,7 @@ class Admin::DashboardController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description)
+    params.require(:restaurant).permit(:name, :description, :slug)
   end
 
 end
