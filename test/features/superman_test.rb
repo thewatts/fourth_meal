@@ -2,20 +2,11 @@ require './test/test_helper'
 
 class SupermanTest < Capybara::Rails::TestCase
 
-  def setup
-    @superman = User.create(full_name: "Clark Kent", display_name: "Superman", email: 'ckent@dailyplanet.com', password: 'kryptonite', password_confirmation: 'kryptonite', :super => true)
-    @superwoman = User.create(full_name: "Lois Lane", display_name: "Superwoman", email: 'llane@aol.com', password: 'password', password_confirmation: 'password', :super => true)
-  end
-
-  def teardown
-    # @superman.destroy!
-  end
-
   def test_superman_views_the_admin_panel
+    @superman = User.create(full_name: "Clark Kent", display_name: "Superman", email: 'ckent@dailyplanet.com', password: 'kryptonite', password_confirmation: 'kryptonite', :super => true)
     # Superman page is unavailable to guests
     visit superman_path
     assert_content page, "You must be logged in to do that!"
-
     # Superman logs in
     visit root_path
     click_on "Sign up or Log in"
@@ -34,12 +25,13 @@ class SupermanTest < Capybara::Rails::TestCase
     assert_content page, "Administer"
 
     # Superman logs out and is redirected to the home page
-    click_on "Log Out"
+    click_on "Log out"
     assert_equal root_path, page.current_path
+    @superman.destroy
   end
 
   def test_superman_views_approves_and_rejects_pending_restaurants
-
+    @superman = User.create(full_name: "Clark Kent", display_name: "Superman", email: 'ckent@dailyplanet.com', password: 'kryptonite', password_confirmation: 'kryptonite', :super => true)
     # Can't view a pending restaurant
     visit restaurant_root_path(restaurants(:three).id)
     assert_equal root_path, page.current_path
@@ -56,7 +48,7 @@ class SupermanTest < Capybara::Rails::TestCase
 
     # Superman views all restaurants
     visit superman_path
-    within "#tacobell_row" do
+    within "#taco-bell_row" do
       refute_content page, "approved"
     end
 
@@ -65,13 +57,13 @@ class SupermanTest < Capybara::Rails::TestCase
     assert_content page, "Pending Restaurants"
 
     # Superman approves a restaurant
-    within "#tacobell_row" do
+    within "#taco-bell_row" do
       assert_content page, "Taco Bell"
       assert_content page, "pending"
       find("#approve_button").click
     end
     assert_content page, "Taco Bell was approved!"
-    within "#tacobell_row" do
+    within "#taco-bell_row" do
       assert_content page, "approved"
     end
 
@@ -85,7 +77,7 @@ class SupermanTest < Capybara::Rails::TestCase
     assert_content page, "Pending Restaurants"
 
     # Superman rejects a restaurant
-    within "#pizzahut_row" do
+    within "#pizza-hut_row" do
       assert_content page, "Pizza Hut"
       assert_content page, "pending"
       find("#reject_button").click
@@ -93,20 +85,22 @@ class SupermanTest < Capybara::Rails::TestCase
 
     # Superman is redirected to the restaurant listing and no longer sees Pizza Hut
     assert_content page, "Pizza Hut was rejected!"
-    refute page.has_css?("#pizzahut_row")
+    refute page.has_css?("#pizza-hut_row")
 
     #Superman views rejected restaurants to confirm restaurant shows up there
     click_on "Rejected"
     assert_content page, "Rejected Restaurants"
-    within "#pizzahut_row" do
+    within "#pizza-hut_row" do
       assert_content page, "rejected"
     end
 
     # Superman logs out
-    click_on "Log Out"
+    click_on "Log out"
+    @superman.destroy
   end
 
   def test_superwoman_administers_a_restaurant
+    @superwoman = User.create(full_name: "Lois Lane", display_name: "Superwoman", email: 'llane@aol.com', password: 'password', password_confirmation: 'password', :super => true)
     # Superwoman logs in
     visit root_path
     click_on "Sign up or Log in"
@@ -153,7 +147,8 @@ class SupermanTest < Capybara::Rails::TestCase
     assert_content page, "The Whopper was retired from the menu!"
 
     # Superwoman logs out
-    click_on "Log Out"
+    click_on "Log out"
+    @superwoman.destroy
   end
 
 end

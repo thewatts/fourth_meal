@@ -54,10 +54,7 @@ class RestaurantAdminTest < Capybara::Rails::TestCase
     within "#the-whopper-row" do
       click_on "retire"
     end
-    # save_and_open_page
     assert_content page, "The Whopper was retired from the menu!"
-
-    save_and_open_page
     
     # Admin logs out and is redirected to the home page
     click_on "Log out"
