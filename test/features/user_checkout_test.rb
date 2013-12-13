@@ -4,16 +4,14 @@ class UserCheckoutTest < Capybara::Rails::TestCase
 
   def test_user_can_checkout_after_signing_up
     visit root_path
-    click_on "KFC"
-    
 
-
-    visit root_path
     click_on "KFC"
 
     within "#item_#{items(:two).id}" do
       click_on "Add to Cart"
     end
+
+    click_on "View Your Order"
 
     assert_content page, 'Your Current Order'
     assert_content page, "Mashed Potatoes"
@@ -43,11 +41,12 @@ class UserCheckoutTest < Capybara::Rails::TestCase
     fill_in "State", with: "HI"
     fill_in "Zipcode", with: 22884
     fill_in "Email", with: "Benji@yeehaw.com"
-    click_on "Use This Billing Address"
+
+    click_on "Add This Billing Address"
 
     assert_content page, "Your address was successfully added."
     within ".address-panel" do
-      click_on "Use This Billing Address"
+      click_on "Use Address"
     end
 
     assert_content page, "Transaction Information"
@@ -79,6 +78,8 @@ class UserCheckoutTest < Capybara::Rails::TestCase
       click_on "Add to Cart"
     end
 
+    click_on "View Your Order"
+
     assert_content page, 'Your Current Order'
     assert_content page, "Mashed Potatoes"
     click_on "Checkout"
@@ -104,11 +105,12 @@ class UserCheckoutTest < Capybara::Rails::TestCase
     fill_in "State", with: "HI"
     fill_in "Zipcode", with: 22884
     fill_in "Email", with: "Benji@yeehaw.com"
-    click_on "Use This Billing Address"
+
+    click_on "Add This Billing Address"
 
     assert_content page, "Your address was successfully added."
     within ".address-panel" do
-      click_on "Use This Billing Address"
+      click_on "Use Address"
     end
 
     assert_content page, "Transaction Information"
