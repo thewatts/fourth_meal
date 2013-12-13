@@ -17,7 +17,8 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.find_by_slug(target)
-    all.detect{|c| c.to_param == target}
+    # all.detect{|c| c.to_param == target}
+    where(slug: target).first
   end
 
   def find_owner
