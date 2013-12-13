@@ -2,15 +2,10 @@ require './test/test_helper'
 
 class RestaurantAdminTest < Capybara::Rails::TestCase
 
-  def setup
-    @admin = User.create(full_name: "Joan of Arc", display_name: "Joan A.", email: 'jarc@thestake.fr', password: 'martyr', password_confirmation: 'martyr')
-    RestaurantUser.create(user: @admin, restaurant: restaurants(:one), role: "owner")
-  end
-
-  def teardown
-  end
-
   def test_admin_views_the_admin_panel
+    @admin = User.create(full_name: "Joan of Arc", display_name: "Joan A.", email: 'jarc@thestake.fr', password: 'martyr', password_confirmation: 'martyr')
+    @ru = RestaurantUser.create(user: @admin, restaurant: restaurants(:one), role: "owner")
+
     # Admin page is unavailable to guests
     visit admin_path(restaurants(:one))
     assert_content page, "You must be logged in to do that!"
@@ -59,6 +54,8 @@ class RestaurantAdminTest < Capybara::Rails::TestCase
     # Admin logs out and is redirected to the home page
     click_on "Log out"
     assert_equal root_path, page.current_path
+    @admin.destroy
+    @ru.destroy
   end
 
 end
