@@ -3,9 +3,10 @@ class Admin::RestaurantsController < ApplicationController
   layout 'admin'
 
   def update
-    @restaurant = Restaurant.find_by_slug(params[:restaurant_slug])
+    @restaurant = Restaurant.find(params[:id])
     @restaurant.update(restaurant_params)
-    redirect_to admin_path(session[:current_restaurant])
+    session[:current_restaurant] = @restaurant.to_param
+    redirect_to admin_path(session[:current_restaurant]), :notice => "#{@restaurant.name} was updated!"
   end
 
   def show

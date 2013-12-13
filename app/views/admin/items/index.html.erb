@@ -30,7 +30,7 @@
 
   </tr>
   <% @items.each do |item|  %>
-  <tr>
+  <tr <%= "id=" +"#{item.title.parameterize}-row" %>>
       <td><%= item.title %></td>
 
       <td><%= item.description %></td>

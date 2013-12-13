@@ -4,9 +4,11 @@ class SupermanTest < Capybara::Rails::TestCase
 
   def setup
     @superman = User.create(full_name: "Clark Kent", display_name: "Superman", email: 'ckent@dailyplanet.com', password: 'kryptonite', password_confirmation: 'kryptonite', :super => true)
+    @superwoman = User.create(full_name: "Lois Lane", display_name: "Superwoman", email: 'llane@aol.com', password: 'password', password_confirmation: 'password', :super => true)
   end
 
   def teardown
+    # @superman.destroy!
   end
 
   def test_superman_views_the_admin_panel
@@ -101,6 +103,57 @@ class SupermanTest < Capybara::Rails::TestCase
     end
 
     # Superman logs out
+    click_on "Log Out"
+  end
+
+  def test_superwoman_administers_a_restaurant
+    # Superwoman logs in
+    visit root_path
+    click_on "Sign up or Log in"
+    within "#login-form" do
+      fill_in "Email", with: 'llane@aol.com'
+      fill_in "Password", with: 'password'
+      click_button "Log In"
+    end
+    assert_content page, "Logged in"
+
+    # Superwoman administers McDonalds
+    visit superman_path
+    within "#mcdonalds_row" do
+      click_on "administer"
+    end
+    assert_content page, "Manage Your Restaurant"
+    assert_content page, "Edit Restaurant Details"
+
+    # Superwoman changes McDonalds to Burger King
+    within ".edit_restaurant" do
+      fill_in "Name", with: "Burger King"
+      fill_in "Description", with: "Flame Broiled, Dawg!"
+      click_button "Save Restaurant"
+    end
+    assert_content page, "Burger King was updated!"
+    assert_content page, "Flame Broiled, Dawg!"
+
+    # Superwoman adds an item
+    click_on "Create New Item"
+    assert_content page, "Create New Menu Item"
+
+    within "#new_item" do
+      fill_in "Title", with: "The Whopper"
+      fill_in "Description", with: "Beats a big mac"
+      fill_in "Price", with: 6
+      click_on "Create Item"
+    end
+    assert_content page, "The Whopper was added to the menu!"
+
+    # Superwoman retires an item
+    within "#the-whopper-row" do
+      click_on "retire"
+    end
+    # save_and_open_page
+    assert_content page, "The Whopper was retired from the menu!"
+
+    # Superwoman logs out
     click_on "Log Out"
   end
 
