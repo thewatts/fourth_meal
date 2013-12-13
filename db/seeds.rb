@@ -33,11 +33,13 @@ restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgo
 
 
 restaurants.each do |r|
-  clone_restaurant(r, 1000)
+  # clone_restaurant(r, 1000)
+  clone_restaurant(r, 10)
 end
 
 def clone_restaurant(restaurant, count)
   count.times do |i|
+    puts "creating restaurant #{i}..."
     r = restaurant.dup
     r.update(
       name: restaurant.name + "#{i}",
@@ -90,6 +92,26 @@ adam = User.create(email: "adam.dev89@gmail.com",
   display_name: "adambeans", 
   password: "password",
   password_confirmation: "password")
+
+def seed_users(count)
+  count.times do |i|
+    puts "Creating user #{i}"
+    User.create(
+      full_name: "user_number#{i}",
+      display_name: "user#{i}",
+      email: "user#{i}@example.com",
+      password: "password",
+      password_confirmation: "password")
+  end
+end
+
+# seed_users(100000)
+seed_users(100)
+
+
+
+
+
 
 
 
@@ -156,16 +178,7 @@ end
 
 
 
-def seed_users(count)
-  count.times do |i|
-    puts "Creating user #{i}"
-    User.create(full_name: "user_number#{i}",
-                display_name: "user#{i}",
-                email: "user#{i}@example.com",
-                password: "password",
-                password_confirmation: "password")
-  end
-end
+
 
 
 
