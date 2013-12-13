@@ -119,7 +119,8 @@ def seed_restaurant_users(rest_id, role, count)
   end
 
   count.times do |i|
-    begin "Seeding #{role} number #{i} for restaurant #{rest_id}..."
+    begin 
+      puts "Seeding #{role} number #{i} for restaurant #{rest_id}..."
       RestaurantUser.create(
         restaurant_id: rest_id,
         user_id: User.all[rand(@size)],
@@ -133,25 +134,25 @@ end
 
 @size = User.all.size
 
-restaurants.each { |r| seed_restaurant_users(r.id, "employee", 2) }
-restaurants.each { |r| seed_restaurant_users(r.id, "owner", 2) }
+# Restaurant.all.each { |r| seed_restaurant_users(r.id, "employee", 2) }
+# Restaurant.all.each { |r| seed_restaurant_users(r.id, "owner", 2) }
 
 
 
 
 # ITEMS
 
-def seed_items(restaurant, menu, count)
+def seed_items(restaurant, menu, adjectives, count)
   count.times do |i|
     begin
       puts "Seeding item number #{i} for #{restaurant.name}..."
       title = menu[rand(5)] + "_#{i}"
-      desc = title + ". It's so good!"
+      desc = "#{title}. Oh so #{adjectives[rand(5)]}!"
       item = restaurant.items.create( 
         title: title,
         description: desc,
         price: rand(20) + 1,
-        photo: File.open("app/assets/images/seed/#{rand(10)}.jpg", 'r'),
+        photo: File.open("app/assets/images/seed/#{restaurant.slug}/#{rand(5) + 1}.jpg", 'r'),
         retired: false,
         restaurant_id: restaurant.id)
     rescue
@@ -164,28 +165,30 @@ end
 
 restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgray, englishtea]
 ono_menu = ["Taco Gumbo", "Steak Burrito", "Breakfast Burrito", "Taco Salad", "Signature Vegetable Burrito"]
-billy_menu = ["Pulled Pork", "Braised Ribs", "Chitlins", "Corn Bread", "Spicy Black Bean Burger"]
-adam_menu = ["Pepperoni Pizza", "Deep Dish Pie", "Calzone", "Garden Salad", "Coke"]
-ben_menu = ["India Pale Ale", "Signature Red Ale", "Guiness", "Beer Cheese Soup", "French Fries"]
-taste_menu = ["Madras Sanbar", "Naan", "Saag Paneer", "Mango Lassi", "Aloo Gobi"]
+billy_menu = ["Pulled Pork", "Braised Ribs", "Chitlins", "BBQ Pork", "Cook's Favorite"]
+adam_menu = ["Pepperoni Pizza", "Deep Dish Pie", "Calzone", "Chef's Pizza", "Veggie Special"]
+ben_menu = ["India Pale Ale", "Signature Red Ale", "Guiness", "English Stout", "PBR"]
+taste_menu = ["Madras Sanbar", "Naan", "Saag Paneer", "Aloo Chat", "Aloo Gobi"]
 le_central_menu = ["Foie Gras", "Le Buche de Noel", "Salade Perigourdine", "Goose of the Week", "Oie Normande"]
-parsley_menu = ["Tree Hugger", "Fig and Brie", "Mediterranean Tuna", "Carrot and Mint Juice", "Pinto Bean Soup"]
-gorgonzola_menu = ["Gorgonzola Plate", "Brie Plate", "Crostini and Fig Plate", "Chardonnay", "Chianti"]
+parsley_menu = ["Tree Hugger", "Parsley Salad", "Tofu Delight", "Light Faire", "Daily Special"]
+gorgonzola_menu = ["Gorgonzola Plate", "Brie Plate", "Specialty Plate", "Camembere Plate", "Gouda Plate"]
 colt_menu = ["Peameal Bacon", "Braunschweiger", "Shropshire Blue Cheddar", "Local Duroc Pork Brains", "Toasted Oat Farfalle"]
-englishtea_menu = ["Kensington", "Wimbledon", "Covent Garden", "Ploughman's Lunch", "Earl Grey"]
+englishtea_menu = ["Kensington", "Wimbledon", "Covent Garden", "Ploughman's Lunch", "Earl Grey Platter"]
 
-menu_lookup = { ono => ono_menu, 
-                billy => billy_menu,
-                adam => adam_menu,
-                ben => ben_menu,
-                taste_of_india => taste_menu,
-                le_central => le_central_menu,
-                parsley => parsley_menu,
-                gorgonzola => gorgonzola_menu,
-                coltandgray => colt_menu,
-                englishtea => englishtea_menu}
+menu_lookup = { ono.slug => ono_menu, 
+                billy.slug => billy_menu,
+                adam.slug => adam_menu,
+                ben.slug => ben_menu,
+                taste_of_india.slug => taste_menu,
+                le_central.slug => le_central_menu,
+                parsley.slug => parsley_menu,
+                gorgonzola.slug => gorgonzola_menu,
+                coltandgray.slug => colt_menu,
+                englishtea.slug => englishtea_menu}
 
-restaurants.each { |rest| seed_items(rest, menu_lookup[rest], 20) }
+superlatives = ["great", "delicious", "moutwatering", "classy", "appetizing"]
+
+Restaurant.all.each { |rest| seed_items(rest, menu_lookup[rest.slug], superlatives, 20) }
 
 
 
@@ -195,11 +198,11 @@ restaurants.each { |rest| seed_items(rest, menu_lookup[rest], 20) }
 cats = ["Entrees", "Appetizers", "Dessert", "Beverages", "Specialties", 
   "Apéritifs", "Digestifs", "Vegetarian", "Salads", "Kids Menu"]
 
-def seed_categories(restaurant, category_name, count)
+def seed_categories(restaurant, categories, count)
   count.times do |i|
     begin
       puts "Creating category #{i} for #{restaurant.name}..."
-      restaurant.categories.create(title: category_name,
+      restaurant.categories.create(title: categories[rand(10)],
                                   restaurant_id: restaurant.id)
     rescue
       binding.pry
@@ -209,7 +212,7 @@ def seed_categories(restaurant, category_name, count)
   end
 end
 
-restaurants.each { |rest| seed_categories(rest, cats[rand(10)], 5) }
+Restaurant.all.each { |rest| seed_categories(rest, cats, 5) }
 
 
 
@@ -231,5 +234,5 @@ def seed_item_categories(restaurant, count)
   end
 end
 
-restaurants.each { |rest| seed_item_categories(rest, 20) }
+Restaurant.all.each { |rest| seed_item_categories(rest, 20) }
 
