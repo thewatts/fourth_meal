@@ -33,7 +33,7 @@ class RestaurantsController < ApplicationController
   def notify_super_of_request
     @superman = User.where(:super => true).first
     @link = root_url + superman_approval_path
-    SuperNotifier.super_email(current_user, @superman, @link).deliver
+    SuperNotifier.super_email(current_user, @superman, @link, @restaurant).deliver
   end
 
   def verify_logged_in_user
