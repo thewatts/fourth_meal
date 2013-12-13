@@ -28,7 +28,7 @@ class CreateRestaurantTest < Capybara::Rails::TestCase
 
     click_on "Create Restaurant"
 
-assert_content page, "Your request has been submitted. You will be emailed when your restaurant is approved."
+    assert_content page, "Your request has been submitted. You will be emailed when your restaurant is approved."
 
   end
 
