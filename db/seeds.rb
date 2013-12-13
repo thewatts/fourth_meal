@@ -13,29 +13,23 @@
 
 #approved
 ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros", slug: "ono-burrito", status: "approved", active: true)
-billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'", slug: "ono-burrito", status: "approved", active: true)
-adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?"), slug: "ono-burrito", status: "approved", active: true
-ben = Restaurant.create(name: "Ben's Beer", description: "Good Head!", slug: "ono-burrito", status: "approved", active: true)
-taste_of_india = Restaurant.create(name: "Taste of India", description: "Delicacies from India", slug: "ono-burrito", status: "approved", active: true)
+billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'", slug: "billys-bbq", status: "approved", active: true)
+adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?", slug: "adams-pizza", status: "approved", active: true)
+ben = Restaurant.create(name: "Ben's Beer", description: "Good Head!", slug: "bens-beer", status: "approved", active: true)
+taste_of_india = Restaurant.create(name: "Taste of India", description: "Delicacies from India", slug: "taste-of-india", status: "approved", active: true)
 
 #offline
-le_central = Restaurant.create(name: "Le Central", description: "High Brow Cuisine", slug: "ono-burrito", status: "approved", active: false)
+le_central = Restaurant.create(name: "Le Central", description: "High Brow Cuisine", slug: "le-central", status: "approved", active: false)
 
 #pending
-parsley = Restaurant.create(name: "Parsley", description: "Hippie Food", slug: "ono-burrito", status: "pending", active: false)
-gorgonzola = Restaurant.create(name: "Gorgonzola", description: "Cheese Boards Deluxe", slug: "ono-burrito", status: "pending", active: false)
+parsley = Restaurant.create(name: "Parsley", description: "Hippie Food", slug: "parsley", status: "pending", active: false)
+gorgonzola = Restaurant.create(name: "Gorgonzola", description: "Cheese Boards Deluxe", slug: "gorgonzola", status: "pending", active: false)
 
 #rejected
-coltandgrey = Restaurant.create(name: "Colt and Grey", description: "We Use It All...Yes, Even The Brains", slug: "ono-burrito", status: "rejected", active: false)
-englishtea = Restaurant.create(name: "English Tea House", description: "Tea Time!!!", slug: "ono-burrito", status: "rejected", active: false)
+coltandgray = Restaurant.create(name: "Colt and Gray", description: "We Use It All...Yes, Even The Brains", slug: "colt-and-gray", status: "rejected", active: false)
+englishtea = Restaurant.create(name: "English Tea House", description: "Tea Time!!!", slug: "english-tea-house", status: "rejected", active: false)
 
-restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgrey, englishtea]
-
-
-restaurants.each do |r|
-  # clone_restaurant(r, 1000)
-  clone_restaurant(r, 10)
-end
+restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgray, englishtea]
 
 def clone_restaurant(restaurant, count)
   count.times do |i|
@@ -47,6 +41,12 @@ def clone_restaurant(restaurant, count)
       slug: restaurant.slug + "#{i}")
   end
 end
+
+restaurants.each {|r| clone_restaurant(r, 10) }
+# restaurants.each {|r| clone_restaurant(r, 1000) }
+
+
+
 
 
 
@@ -75,21 +75,21 @@ katrina = User.create(email: "demo+katrina@jumpstartlab.com",
   password_confirmation: "password",
   :super => true)
 
-ben = User.create(email: "benjamin@example.com", 
+benny = User.create(email: "bennlewis@gmail.com", 
   full_name: "Ben Lewis", 
   display_name: "bennybeans", 
   password: "password",
   password_confirmation: "password")
 
-billy = User.create(email: "navyosu@gmail.com", 
+billyo = User.create(email: "navyosu@gmail.com", 
   full_name: "Billy G", 
   display_name: "billybeans", 
   password: "password",
   password_confirmation: "password")
 
-adam = User.create(email: "adam.dev89@gmail.com", 
+addy = User.create(email: "adam.dev89@gmail.com", 
   full_name: "Adam", 
-  display_name: "adambeans", 
+  display_name: "addybeans", 
   password: "password",
   password_confirmation: "password")
 
@@ -97,9 +97,9 @@ def seed_users(count)
   count.times do |i|
     puts "Creating user #{i}"
     User.create(
-      full_name: "user_number#{i}",
-      display_name: "user#{i}",
-      email: "user#{i}@example.com",
+      full_name: "user_number_#{i}",
+      display_name: "user_#{i}",
+      email: "user_#{i}@example.com",
       password: "password",
       password_confirmation: "password")
   end
@@ -111,43 +111,110 @@ seed_users(100)
 
 
 
+# RESTAURANT USERS
 
+def seed_restaurant_users(rest_id, role, count)
+  unless ['customer', 'employee', 'owner'].include?(role)
+    throw ArgumentError "Role must be customer, employee, or owner" 
+  end
 
-
-
-
-def seed_items(restaurant, count)
   count.times do |i|
-    begin
-      puts "Seeding item ##{i} for #{restaurant.name}..."
-      title = Faker::Lorem.words(2).join(" ")
-      desc = Faker::Lorem.sentence(word_count = 5)
-      restaurant.items.create!( title: title,
-                                description: desc,
-                                price: rand(20) + 1,
-                                photo: File.open("app/assets/images/BREAKFAST.png", 'r'),
-                                retired: false,
-                                restaurant_id: restaurant.id)
+    begin "Seeding #{role} number #{i} for restaurant #{rest_id}..."
+      RestaurantUser.create(
+        restaurant_id: rest_id,
+        user_id: User.all[rand(@size)],
+        role: role)
     rescue
-      puts "Item already exists! Trying again..."
+      puts "Failed to create role! Trying again..."
       retry
     end
   end
 end
 
-def seed_categories(restaurant, count)
+@size = User.all.size
+
+restaurants.each { |r| seed_restaurant_users(r.id, "employee", 2) }
+restaurants.each { |r| seed_restaurant_users(r.id, "owner", 2) }
+
+
+
+
+# ITEMS
+
+def seed_items(restaurant, menu, count)
+  count.times do |i|
+    begin
+      puts "Seeding item number #{i} for #{restaurant.name}..."
+      title = menu[rand(5)] + "_#{i}"
+      desc = title + ". It's so good!"
+      item = restaurant.items.create( 
+        title: title,
+        description: desc,
+        price: rand(20) + 1,
+        photo: File.open("app/assets/images/seed/#{rand(10)}.jpg", 'r'),
+        retired: false,
+        restaurant_id: restaurant.id)
+    rescue
+      binding.pry
+      puts "Item failed to create! Trying again..."
+      retry
+    end
+  end
+end
+
+restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgray, englishtea]
+ono_menu = ["Taco Gumbo", "Steak Burrito", "Breakfast Burrito", "Taco Salad", "Signature Vegetable Burrito"]
+billy_menu = ["Pulled Pork", "Braised Ribs", "Chitlins", "Corn Bread", "Spicy Black Bean Burger"]
+adam_menu = ["Pepperoni Pizza", "Deep Dish Pie", "Calzone", "Garden Salad", "Coke"]
+ben_menu = ["India Pale Ale", "Signature Red Ale", "Guiness", "Beer Cheese Soup", "French Fries"]
+taste_menu = ["Madras Sanbar", "Naan", "Saag Paneer", "Mango Lassi", "Aloo Gobi"]
+le_central_menu = ["Foie Gras", "Le Buche de Noel", "Salade Perigourdine", "Goose of the Week", "Oie Normande"]
+parsley_menu = ["Tree Hugger", "Fig and Brie", "Mediterranean Tuna", "Carrot and Mint Juice", "Pinto Bean Soup"]
+gorgonzola_menu = ["Gorgonzola Plate", "Brie Plate", "Crostini and Fig Plate", "Chardonnay", "Chianti"]
+colt_menu = ["Peameal Bacon", "Braunschweiger", "Shropshire Blue Cheddar", "Local Duroc Pork Brains", "Toasted Oat Farfalle"]
+englishtea_menu = ["Kensington", "Wimbledon", "Covent Garden", "Ploughman's Lunch", "Earl Grey"]
+
+menu_lookup = { ono => ono_menu, 
+                billy => billy_menu,
+                adam => adam_menu,
+                ben => ben_menu,
+                taste_of_india => taste_menu,
+                le_central => le_central_menu,
+                parsley => parsley_menu,
+                gorgonzola => gorgonzola_menu,
+                coltandgray => colt_menu,
+                englishtea => englishtea_menu}
+
+restaurants.each { |rest| seed_items(rest, menu_lookup[rest], 20) }
+
+
+
+
+# CATEGORIES
+
+cats = ["Entrees", "Appetizers", "Dessert", "Beverages", "Specialties", 
+  "Apéritifs", "Digestifs", "Vegetarian", "Salads", "Kids Menu"]
+
+def seed_categories(restaurant, category_name, count)
   count.times do |i|
     begin
       puts "Creating category #{i} for #{restaurant.name}..."
-      title = Faker::Lorem.words(2).join(" ")
-      restaurant.categories.create!(title: title,
-                                    restaurant_id: restaurant.id)
+      restaurant.categories.create(title: category_name,
+                                  restaurant_id: restaurant.id)
     rescue
+      binding.pry
       puts "Category already exists! Trying again..."
       retry
     end
   end
 end
+
+restaurants.each { |rest| seed_categories(rest, cats[rand(10)], 5) }
+
+
+
+
+# ITEM CATEGORIES
 
 def seed_item_categories(restaurant, count)
   count.times do |i|
@@ -158,440 +225,11 @@ def seed_item_categories(restaurant, count)
       ItemCategory.create!( item_id: item_id,
                             category_id: category_id)
     rescue
-      puts "Item category already exists! Trying again..."
+      puts "Item category failed to create! Trying again..."
       retry
     end
   end
 end
 
+restaurants.each { |rest| seed_item_categories(rest, 20) }
 
-
-
-def seed_restaurants(count)
-  count.times do |i|
-    puts "Creating restaurant #{i + 1}"
-    Restaurant.create(name: restaurants[i].name + "#{i}",
-                      description: restaurants[i].description)
-  end
-
-end
-
-
-
-
-
-
-
-
-
-# RESTAURANT USERS
-
-user_role2 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: ono.id,
-                                  role: "owner")
-
-
-
-# CATEGORIES
-
-restaurants.each { |rest| seed_categories(rest, 5) }
-
-# ITEMS
-
-restaurants.each { |rest| seed_items(rest, 10) }
-
-# ITEM CATEGORIES
-
-restaurants.each { |rest| seed_item_categories(rest, 10) }
-
-seed_users(10)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# entrees = Category.create(title: "Entrees", restaurant_id: ono.id)
-# combos = Category.create(title: "Combos", restaurant_id: ono.id)
-# kids = Category.create(title: "Kids Menu", restaurant_id: billy.id)
-# add_ons = Category.create(title: "Add Ons", restaurant_id: adam.id)
-# beverages = Category.create(title: "Beverages", restaurant_id: adam.id)
-
-
-# ITEMS
-
-# Entrees
-
-# burrito = Item.create(
-#   title: "Steak Burrito", 
-#   description: "Mouthwatering slab of meat wrapped in white flour.", 
-#   price: 5.99, 
-#   photo: File.open("app/assets/images/BURRITO.png", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: burrito.id,
-#   category_id: entrees.id
-#   )
-
-# breakfast_burrito = Item.create(
-#   title: "Breakfast Burrito", 
-#   description: "Eggs and meat!", 
-#   price: 3.99, 
-#   photo: File.open("app/assets/images/BREAKFAST.png", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: breakfast_burrito.id,
-#   category_id: entrees.id
-#   )
-
-# naked_burrito = Item.create(
-#   title: "Naked Burrito", 
-#   description: "Get lucky with a naked burrito.", 
-#   price: 5.99, 
-#   photo: File.open("app/assets/images/NAKED_BURRITO.png", 'r'),
-#   retired: false,
-#   restaurant_id: adam.id)
-  
-
-# ItemCategory.create(
-#   item_id: naked_burrito.id,
-#   category_id: entrees.id
-#   )
-
-# taco_gumbo = Item.create(
-#   title: "Taco Gumbo", 
-#   description: "Good for a cold day.", 
-#   price: 4.99, 
-#   photo: File.open("app/assets/images/C2_TACO_GUMBO.png", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: taco_gumbo.id,
-#   category_id: entrees.id
-#   )
-
-# sig_veggie_burrito = Item.create(
-#   title: "Signature Vegetable Burrito", 
-#   description: "Vegetarian is caveman speak for bad hunter.", 
-#   price: 4.99, 
-#   photo: File.open("app/assets/images/SIG_VEGGIE_BURRITO.png", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: sig_veggie_burrito.id,
-#   category_id: entrees.id
-#   )
-
-# taco_salad = Item.create(
-#   title: "Taco Salad", 
-#   description: "It's 'healthy'.", 
-#   price: 5.99, 
-#   photo: File.open("app/assets/images/TACO_SALAD.png", 'r'),
-#   retired: false,
-#   restaurant_id: adam.id)
-  
-
-# ItemCategory.create(
-#   item_id: taco_salad.id,
-#   category_id: entrees.id
-#   )
-
-
-
-# # Kids Menu
-
-# kids_meal = Item.create(
-#   title: "Kids Meal", 
-#   description: "Comes with a plastic toy.", 
-#   price: 3.99, 
-#   photo: File.open("app/assets/images/KIDS_LEADING.png", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: kids_meal.id,
-#   category_id: kids.id
-#   )
-
-# kids_taco = Item.create(
-#   title: "Kids Taco", 
-#   description: "It's like the big one, only smaller.", 
-#   price: 3.99, 
-#   photo: File.open("app/assets/images/KIDS_TACO.png", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: kids_taco.id,
-#   category_id: kids.id
-#   )
-
-# kids_quesadilla = Item.create(
-#   title: "Kids Quesadilla", 
-#   description: "It's like the big one, only smaller.", 
-#   price: 3.99, 
-#   photo: File.open("app/assets/images/KIDS_QUESADILLA.png", 'r'),
-#   retired: false,
-#   restaurant_id: adam.id)
-  
-
-# ItemCategory.create(
-#   item_id: kids_quesadilla.id,
-#   category_id: kids.id
-#   )
-
-# kids_burrito = Item.create(
-#   title: "Kids Naked Burrito", 
-#   description: "It's like the big one, only smaller.", 
-#   price: 3.99, 
-#   photo: File.open("app/assets/images/KIDS_NAKED_BURRITO.png", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: kids_burrito.id,
-#   category_id: kids.id
-#   )
-
-
-
-# # Combos
-
-# taco_tortilla_soup = Item.create(
-#   title: "Taco Torilla Soup", 
-#   description: "Es Muy Picante.", 
-#   price: 6.99, 
-#   photo: File.open("app/assets/images/C2_TACO_TORT_SOUP.png", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: taco_tortilla_soup.id,
-#   category_id: combos.id
-#   )
-
-# nacho_dilla = Item.create(
-#   title: "Nacho Dilla", 
-#   description: "Eat one every dia.", 
-#   price: 6.99, 
-#   photo: File.open("app/assets/images/C2_NACHO_DILLA.png", 'r'),
-#   retired: false,
-#   restaurant_id: adam.id)
-  
-
-# ItemCategory.create(
-#   item_id: nacho_dilla.id,
-#   category_id: combos.id
-#   )
-
-# ItemCategory.create(
-#   item_id: nacho_dilla.id,
-#   category_id: entrees.id
-#   )
-
-# taco_w_gumbo_soup = Item.create(
-#   title: "Taco With Gumbo Soup", 
-#   description: "You must be hungry!", 
-#   price: 6.99, 
-#   photo: File.open("app/assets/images/C2_TACO_GUMBO.png", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: taco_w_gumbo_soup.id,
-#   category_id: combos.id
-#   )
-
-# taco_w_naked_burrito = Item.create(
-#   title: "Taco With A Naked Burrito", 
-#   description: "You must be hungry!", 
-#   price: 6.99, 
-#   photo: File.open("app/assets/images/C2_TACO_NAKED-BURRITO.png", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: taco_w_naked_burrito.id,
-#   category_id: combos.id
-#   )
-
-# two_naked_tacos = Item.create(
-#   title: "Two Naked Tacos", 
-#   description: "Two tacos caught in bed together!", 
-#   price: 6.99, 
-#   photo: File.open("app/assets/images/C2_TACO_NAKED_TACO.png", 'r'),
-#   retired: false,
-#   restaurant_id: adam.id)
-  
-
-# ItemCategory.create(
-#   item_id: two_naked_tacos.id,
-#   category_id: combos.id
-#   )
-
-# ItemCategory.create(
-#   item_id: two_naked_tacos.id,
-#   category_id: entrees.id
-#   )
-
-
-
-# # Add-ons
-
-# nachos = Item.create(
-#   title: "Three Cheese Nachos", 
-#   description: "That's 'not-cho' cheese!", 
-#   price: 5.99, 
-#   photo: File.open("app/assets/images/3_CHEESE_NACHOS.png", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: nachos.id,
-#   category_id: add_ons.id
-#   )
-
-# ItemCategory.create(
-#   item_id: nachos.id,
-#   category_id: entrees.id
-#   )
-
-# chips_dip = Item.create(
-#   title: "Chips and Dip", 
-#   description: "Crunchy and smooth.", 
-#   price: 4.99, 
-#   photo: File.open("app/assets/images/CHIPS_DIP.png", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: chips_dip.id,
-#   category_id: add_ons.id
-#   )
-
-
-
-# # Beverages
-
-# beer = Item.create(
-#   title: "Beer", 
-#   description: "Beer beer beer beer.", 
-#   price: 3.99, 
-#   photo: File.open("app/assets/images/beers.jpeg", 'r'),
-#   retired: false,
-#   restaurant_id: adam.id)
-  
-
-# ItemCategory.create(
-#   item_id: beer.id,
-#   category_id: beverages.id
-#   )
-
-# soda = Item.create(
-#   title: "Soda", 
-#   description: "Sodee pop.", 
-#   price: 1.99, 
-#   photo: File.open("app/assets/images/soda.jpg", 'r'),
-#   retired: false,
-#   restaurant_id: ono.id)
-  
-
-# ItemCategory.create(
-#   item_id: soda.id,
-#   category_id: beverages.id
-#   )
-
-# margarita = Item.create(
-#   title: "Margaritas", 
-#   description: "Blended margs for your enjoyment.", 
-#   price: 5.99, 
-#   photo: File.open("app/assets/images/cocktails.jpg", 'r'),
-#   retired: false,
-#   restaurant_id: billy.id)
-  
-
-# ItemCategory.create(
-#   item_id: margarita.id,
-#   category_id: beverages.id
-#   )
-
-# # USERS
-
-
-
-# # ORDERS
-
-# order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
-# order2 = Order.create(status: 'unpaid', user_id: user2.id, restaurant_id: ono.id)
-# order3 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: ono.id)
-# order4 = Order.create(status: 'unpaid', user_id: user4.id, restaurant_id: ono.id)
-# order5 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: billy.id)
-# order6 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: billy.id)
-# order7 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: billy.id)
-# order8 = Order.create(status: 'paid', user_id: user4.id, restaurant_id: adam.id)
-# order9 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: adam.id)
-# order10 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: adam.id)
-
-
-# # ORDER ITEMS
-
-# user_role3 = RestaurantUser.create(user_id: user5.id,
-#                                   restaurant_id: billy.id,
-#                                   role: "owner")
-
-# user_role4 = RestaurantUser.create(user_id: user5.id,
-#                                   restaurant_id: adam.id,
-#                                   role: "owner")
-
-# # ORDERS
-
-# order1 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: ono.id)
-# order2 = Order.create(status: 'unpaid', user_id: user2.id, restaurant_id: ono.id)
-# order3 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: ono.id)
-# order4 = Order.create(status: 'unpaid', user_id: user4.id, restaurant_id: ono.id)
-# order5 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: billy.id)
-# order6 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: billy.id)
-# order7 = Order.create(status: 'unpaid', user_id: user3.id, restaurant_id: billy.id)
-# order8 = Order.create(status: 'paid', user_id: user4.id, restaurant_id: adam.id)
-# order9 = Order.create(status: 'unpaid', user_id: user1.id, restaurant_id: adam.id)
-# order10 = Order.create(status: 'paid', user_id: user2.id, restaurant_id: adam.id)
-
-
-# # ORDER ITEMS
-
-# order_item1 = OrderItem.create(order_id: order1.id, item_id: burrito.id, quantity: 1)
-# order_item2 = OrderItem.create(order_id: order2.id, item_id: breakfast_burrito.id, quantity: 2)
-# order_item3 = OrderItem.create(order_id: order3.id, item_id: naked_burrito.id, quantity: 3)
-# order_item4 = OrderItem.create(order_id: order4.id, item_id: taco_gumbo.id, quantity: 4)
-# order_item5 = OrderItem.create(order_id: order5.id, item_id: sig_veggie_burrito.id, quantity: 5)
-# order_item6 = OrderItem.create(order_id: order6.id, item_id: taco_salad.id, quantity: 4)
-# order_item7 = OrderItem.create(order_id: order7.id, item_id: kids_meal.id, quantity: 3)
-# order_item8 = OrderItem.create(order_id: order8.id, item_id: kids_quesadilla.id, quantity: 2)
-# order_item9 = OrderItem.create(order_id: order9.id, item_id: kids_burrito.id, quantity: 1)
-# order_item10 = OrderItem.create(order_id: order10.id, item_id: kids_taco.id, quantity: 2)
