@@ -150,7 +150,6 @@ class SupermanTest < Capybara::Rails::TestCase
     within "#the-whopper-row" do
       click_on "retire"
     end
-    # save_and_open_page
     assert_content page, "The Whopper was retired from the menu!"
 
     # Superwoman logs out
