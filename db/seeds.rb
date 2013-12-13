@@ -1,3 +1,99 @@
+# The data:
+# At least 10,000 restaurants
+# Broken into 30 regions
+# At least 20 items per restaurant
+# At least 3 categories per restaurant
+# 100,000 users
+# 2 restaurant admins per restaurant
+# 2 stockers per restaurant
+# 2 platform administrators
+
+
+# RESTAURANTS
+
+#approved
+ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros", slug: "ono-burrito", status: "approved", active: true)
+billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'", slug: "ono-burrito", status: "approved", active: true)
+adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?"), slug: "ono-burrito", status: "approved", active: true
+ben = Restaurant.create(name: "Ben's Beer", description: "Good Head!", slug: "ono-burrito", status: "approved", active: true)
+taste_of_india = Restaurant.create(name: "Taste of India", description: "Delicacies from India", slug: "ono-burrito", status: "approved", active: true)
+
+#offline
+le_central = Restaurant.create(name: "Le Central", description: "High Brow Cuisine", slug: "ono-burrito", status: "approved", active: false)
+
+#pending
+parsley = Restaurant.create(name: "Parsley", description: "Hippie Food", slug: "ono-burrito", status: "pending", active: false)
+gorgonzola = Restaurant.create(name: "Gorgonzola", description: "Cheese Boards Deluxe", slug: "ono-burrito", status: "pending", active: false)
+
+#rejected
+coltandgrey = Restaurant.create(name: "Colt and Grey", description: "We Use It All...Yes, Even The Brains", slug: "ono-burrito", status: "rejected", active: false)
+englishtea = Restaurant.create(name: "English Tea House", description: "Tea Time!!!", slug: "ono-burrito", status: "rejected", active: false)
+
+restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgrey, englishtea]
+
+
+restaurants.each do |r|
+  clone_restaurant(r, 1000)
+end
+
+def clone_restaurant(restaurant, count)
+  count.times do |i|
+    r = restaurant.dup
+    r.update(
+      name: restaurant.name + "#{i}",
+      status: restaurant.status,
+      slug: restaurant.slug + "#{i}")
+  end
+end
+
+
+
+
+
+# USERS
+
+frank = User.create(email: "demo+franklin@jumpstartlab.com", 
+  full_name: "Franklin Webber", 
+  display_name: "", 
+  password: "password",
+  password_confirmation: "password",
+  :super => true)
+
+jeff = User.create(email: "demo+jeff@jumpstartlab.com", 
+  full_name: "Jeff", 
+  display_name: "j3",
+  password: "password",
+  password_confirmation: "password",
+  :super => true)
+
+katrina = User.create(email: "demo+katrina@jumpstartlab.com", 
+  full_name: "Katrina Owen", 
+  display_name: "kytrynx", 
+  password: "password",
+  password_confirmation: "password",
+  :super => true)
+
+ben = User.create(email: "benjamin@example.com", 
+  full_name: "Ben Lewis", 
+  display_name: "bennybeans", 
+  password: "password",
+  password_confirmation: "password")
+
+billy = User.create(email: "navyosu@gmail.com", 
+  full_name: "Billy G", 
+  display_name: "billybeans", 
+  password: "password",
+  password_confirmation: "password")
+
+adam = User.create(email: "adam.dev89@gmail.com", 
+  full_name: "Adam", 
+  display_name: "adambeans", 
+  password: "password",
+  password_confirmation: "password")
+
+
+
+
 def seed_items(restaurant, count)
   count.times do |i|
     begin
@@ -16,7 +112,6 @@ def seed_items(restaurant, count)
     end
   end
 end
-
 
 def seed_categories(restaurant, count)
   count.times do |i|
@@ -47,6 +142,20 @@ def seed_item_categories(restaurant, count)
   end
 end
 
+
+
+
+def seed_restaurants(count)
+  count.times do |i|
+    puts "Creating restaurant #{i + 1}"
+    Restaurant.create(name: restaurants[i].name + "#{i}",
+                      description: restaurants[i].description)
+  end
+
+end
+
+
+
 def seed_users(count)
   count.times do |i|
     puts "Creating user #{i}"
@@ -60,60 +169,12 @@ end
 
 
 
-# USERS
 
-user1 = User.create(email: "demo+franklin@jumpstartlab.com", 
-  full_name: "Franklin Webber", 
-  display_name: "", 
-  password: "password",
-  password_confirmation: "password")
-
-user2 = User.create(email: "demo+jeff@jumpstartlab.com", 
-  full_name: "Jeff", 
-  display_name: "j3",
-  password: "password",
-  password_confirmation: "password")
-
-user3 = User.create(email: "demo+katrina@jumpstartlab.com", 
-  full_name: "Katrina Owen", 
-  display_name: "kytrynx", 
-  password: "password",
-  password_confirmation: "password")
-
-user4 = User.create(email: "benjamin@example.com", 
-  full_name: "Ben Lewis", 
-  display_name: "bennybeans", 
-  password: "password",
-  password_confirmation: "password")
-
-user5 = User.create(email: "navyosu@gmail.com", 
-  full_name: "Billy G", 
-  display_name: "billybeans", 
-  password: "password",
-  password_confirmation: "password")
-
-seed_users(10)
-
-# RESTAURANTS
-
-ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros")
-billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'")
-adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?")
-
-restaurants = [ono, billy, adam]
 
 # RESTAURANT USERS
 
 user_role2 = RestaurantUser.create(user_id: user5.id,
                                   restaurant_id: ono.id,
-                                  role: "owner")
-
-user_role3 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: billy.id,
-                                  role: "owner")
-
-user_role4 = RestaurantUser.create(user_id: user5.id,
-                                  restaurant_id: adam.id,
                                   role: "owner")
 
 
@@ -129,6 +190,21 @@ restaurants.each { |rest| seed_items(rest, 10) }
 # ITEM CATEGORIES
 
 restaurants.each { |rest| seed_item_categories(rest, 10) }
+
+seed_users(10)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # entrees = Category.create(title: "Entrees", restaurant_id: ono.id)
 # combos = Category.create(title: "Combos", restaurant_id: ono.id)
