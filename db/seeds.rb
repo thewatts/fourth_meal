@@ -91,8 +91,8 @@ time = Benchmark.measure do
     end
   end
 
-  restaurants.each {|r| clone_restaurant(r, cities, 10) }
-  # restaurants.each {|r| clone_restaurant(r, cities, 1000) }
+  # restaurants.each {|r| clone_restaurant(r, cities, 10) }
+  restaurants.each {|r| clone_restaurant(r, cities, 1000) }
 
 
 
@@ -154,8 +154,8 @@ time = Benchmark.measure do
     end
   end
 
-  # seed_users(100000)
-  seed_users(100)
+  seed_users(100000)
+  # seed_users(100)
 
 
 
@@ -251,7 +251,8 @@ time = Benchmark.measure do
     count.times do |i|
       begin
         puts "Creating category #{i} for #{restaurant.name}..."
-        restaurant.categories.create(title: categories[rand(10)],
+        category = categories[rand(10)]
+        restaurant.categories.create(title: category,
                                     restaurant_id: restaurant.id)
       rescue
         binding.pry
