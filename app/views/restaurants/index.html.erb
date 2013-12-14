@@ -1,3 +1,11 @@
+<div class="grid-100">
+  <%= form_tag(restaurants_path, method: "get") do %>
+    <p>
+      <%= text_field_tag :query, params[:query] %>
+      <%= submit_tag "Search", name: nil, class: "button" %>
+    </p>
+  <% end %>
+</div>
 <div id="welcome-message">
   <h1>Welcome to Noshify!</h1>
   <p>Noshify is your online restaurant ordering solution! Hungry? Plase browse 
@@ -9,10 +17,14 @@
     application, wait for approval, add your products, and start selling today.
     Thanks for visiting! Bon apetit!</p>
 </div>
-<% @locations.each do |l|%>
-  <div class="grid-container">
-    <h1><%= l.city %></h1>
-    <%= render l.restaurants.where(:active => true) %>
-  </div>
+<% if @locations %>
+  <% @locations.each do |l|%>
+    <div class="grid-container">
+      <h1><%= l.city %></h1>
+      <%= render l.restaurants.where(:active => true) %>
+    </div>
+  <% end %>
+<% else %>
+  <%= render @restaurants %>
 <% end %>
 
