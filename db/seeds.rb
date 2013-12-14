@@ -12,38 +12,82 @@ require 'benchmark'
 
 time = Benchmark.measure do 
 
+  # CITIES
 
+  denver = Location.create(city: "Denver")
+  dc = Location.create(city: "Washington, D.C.")
+  nyc = Location.create(city: "New York City")
+  atlanta = Location.create(city: "Atlanta")
+  philadelphia = Location.create(city: "Philadelphia")
+
+  pittsburgh = Location.create(city: "Pittsburgh")
+  boston = Location.create(city: "Boston")
+  charlotte = Location.create(city: "Charlotte")
+  miami = Location.create(city: "Miami")
+  burlington = Location.create(city: "Burlington")
+
+  baltimore = Location.create(city: "Baltimore")
+  minneapolis = Location.create(city: "Minneapolis")
+  chicago = Location.create(city: "Chicago")
+  madison = Location.create(city: "Madison")
+  cincinnati = Location.create(city: "Cincinatti")
+
+  albuquerque = Location.create(city: "Albuquerque")
+  santa_fe = Location.create(city: "Santa Fe")
+  colorado_springs = Location.create(city: "Colorado Springs")
+  boulder = Location.create(city: "Boulder")
+  slc = Location.create(city: "Salt Lake City")
+
+  austin = Location.create(city: "Austin")
+  dallas = Location.create(city: "Dallas")
+  seattle = Location.create(city: "Seattle")
+  portland = Location.create(city: "Portland")
+  la = Location.create(city: "Los Angeles")
+
+  sf = Location.create(city: "San Francisco")
+  san_diego = Location.create(city: "San Diego")
+  honolulu = Location.create(city: "Honolulu")
+  anchorage = Location.create(city: "Anchorage")
+  detroit = Location.create(city: "Detriot")
+
+  cities = [denver, dc, nyc, atlanta, philadelphia,
+            pittsburgh, boston, charlotte, miami, burlington,
+            baltimore, minneapolis, chicago, madison, cincinnati,
+            albuquerque, santa_fe, colorado_springs, boulder, slc,
+            austin, dallas, seattle, portland, la,
+            sf, san_diego, honolulu, anchorage, detroit]
 
   # RESTAURANTS
 
   #approved
-  ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros", slug: "ono-burrito", status: "approved", active: true)
-  billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'", slug: "billys-bbq", status: "approved", active: true)
-  adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?", slug: "adams-pizza", status: "approved", active: true)
-  ben = Restaurant.create(name: "Ben's Beer", description: "Good Head!", slug: "bens-beer", status: "approved", active: true)
-  taste_of_india = Restaurant.create(name: "Taste of India", description: "Delicacies from India", slug: "taste-of-india", status: "approved", active: true)
+  ono = Restaurant.create(name: "Ono Burrito", description: "Yummy Burros", slug: "ono-burrito", status: "approved", location_id: denver.id , active: true)
+  billy = Restaurant.create(name: "Billy's BBQ", description: "Fingerlickin' Chickin'", slug: "billys-bbq", status: "approved", location_id: dc.id, active: true)
+  adam = Restaurant.create(name: "Adam's Pizza", description: "Ummm...I made you a pizza?", slug: "adams-pizza", status: "approved", location_id: nyc.id, active: true)
+  ben = Restaurant.create(name: "Ben's Beer", description: "Good Head!", slug: "bens-beer", status: "approved", location_id: atlanta.id, active: true)
+  taste_of_india = Restaurant.create(name: "Taste of India", description: "Delicacies from India", slug: "taste-of-india", status: "approved", location_id: philadelphia.id, active: true)
 
   #offline
-  le_central = Restaurant.create(name: "Le Central", description: "High Brow Cuisine", slug: "le-central", status: "approved", active: false)
+  le_central = Restaurant.create(name: "Le Central", description: "High Brow Cuisine", slug: "le-central", status: "approved", location_id: pittsburgh.id, active: false)
 
   #pending
-  parsley = Restaurant.create(name: "Parsley", description: "Hippie Food", slug: "parsley", status: "pending", active: false)
-  gorgonzola = Restaurant.create(name: "Gorgonzola", description: "Cheese Boards Deluxe", slug: "gorgonzola", status: "pending", active: false)
+  parsley = Restaurant.create(name: "Parsley", description: "Hippie Food", slug: "parsley", status: "pending", location_id: boston.id, active: false)
+  gorgonzola = Restaurant.create(name: "Gorgonzola", description: "Cheese Boards Deluxe", slug: "gorgonzola", status: "pending", location_id: charlotte.id, active: false)
 
   #rejected
-  coltandgray = Restaurant.create(name: "Colt and Gray", description: "We Use It All...Yes, Even The Brains", slug: "colt-and-gray", status: "rejected", active: false)
-  englishtea = Restaurant.create(name: "English Tea House", description: "Tea Time!!!", slug: "english-tea-house", status: "rejected", active: false)
+  coltandgray = Restaurant.create(name: "Colt and Gray", description: "We Use It All...Yes, Even The Brains", slug: "colt-and-gray", status: "rejected", location_id: miami.id, active: false)
+  englishtea = Restaurant.create(name: "English Tea House", description: "Tea Time!!!", slug: "english-tea-house", status: "rejected", location_id: burlington.id, active: false)
 
   restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgray, englishtea]
 
-  def clone_restaurant(restaurant, count)
+  def clone_restaurant(restaurant, locations, count)
     count.times do |i|
       puts "creating restaurant #{restaurant.name} #{i}..."
       r = restaurant.dup
       r.update(
         name: restaurant.name + "#{i}",
         status: restaurant.status,
-        slug: restaurant.slug + "#{i}")
+        slug: restaurant.slug + "#{i}",
+        location: locations[rand(30)])
     end
   end
 
