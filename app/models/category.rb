@@ -1,4 +1,7 @@
 class Category < ActiveRecord::Base
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   validates :title, presence: true
 
   belongs_to :restaurant
