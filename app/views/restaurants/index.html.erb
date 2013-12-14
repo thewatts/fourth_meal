@@ -1,3 +1,8 @@
 <h1>All Restaurants</h1>
-<%= render @restaurants %>
+<% @locations.each do |l|%>
+  <div class="grid-container">
+    <h2><%= l.city %></h2>
+    <%= render l.restaurants.where(:active => true) %>
+  </div>
+<% end %>
 

@@ -91,8 +91,8 @@ time = Benchmark.measure do
     end
   end
 
-  restaurants.each {|r| clone_restaurant(r, 10) }
-  # restaurants.each {|r| clone_restaurant(r, 1000) }
+  restaurants.each {|r| clone_restaurant(r, cities, 10) }
+  # restaurants.each {|r| clone_restaurant(r, cities, 1000) }
 
 
 
