@@ -1,12 +1,12 @@
 class RestaurantsController < ApplicationController
   layout 'home'
   def index
-    if params[:query].present?
-      flash.notice = "Searched for #{params[:query]}."
-      @restaurants = Restaurant.where(active: true).search(params[:query])
-    else
+    # if params[:query].present?
+    #   flash.notice = "Searched for #{params[:query]}."
+    #   @restaurants = Restaurant.where(active: true).search(params[:query])
+    # else
       @locations ||= Location.all.includes(:restaurants)
-    end
+    # end
   end
 
   def new

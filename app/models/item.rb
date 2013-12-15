@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
   # attr_accessor :photo_file_name
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  # include Tire::Model::Search
+  # include Tire::Model::Callbacks
 
   validates :title, presence: true
   validates :description, presence: true
