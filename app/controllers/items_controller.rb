@@ -11,13 +11,7 @@ class ItemsController < ApplicationController
 
 
   def index
-    # if params[:query].present?
-    #   flash.notice = "Searched for #{params[:query]}."
-    #   @items = @restaurant.items.active.search(params[:query])
-    #   # @items = @restaurant.items.active.search(params[:query], load: true)
-    # else
-      @items = @restaurant.items.active
-    # end
+    @items = @restaurant.items.active
     @page_title = "Full Menu"
   end
 

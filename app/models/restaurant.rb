@@ -1,7 +1,4 @@
 class Restaurant < ActiveRecord::Base
-  # include Tire::Model::Search
-  # include Tire::Model::Callbacks
-
   has_many :categories
   has_many :items
   has_many :orders

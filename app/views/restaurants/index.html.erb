@@ -17,14 +17,10 @@
     application, wait for approval, add your products, and start selling today.
     Thanks for visiting! Bon apetit!</p>
 </div>
-<%# @locations %>
-  <% @locations.each do |l|%>
-    <div class="grid-container">
-      <h1><%= l.city %></h1>
-      <%= render l.restaurants.where(:active => true) %>
-    </div>
-  <% end %>
-<%# else %>
-  <%# render @restaurants %>
-<# end %>
+<% @locations.each do |l|%>
+  <div class="grid-container">
+    <h1><%= l.city %></h1>
+    <%= render l.restaurants.where(:active => true) %>
+  </div>
+<% end %>
 
