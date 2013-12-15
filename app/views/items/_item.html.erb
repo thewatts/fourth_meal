@@ -1,6 +1,5 @@
 <%= div_for(item, class:"tile grid-33") do %>
-    <%= image_tag item.photo.url, class:"item-image", height:200, width:200 %>
-    <img src="/assets/<%= item.photo_file_name %>">
+    <img src="/assets/<%= item.photo_file_name %>" class="item-image">
 
     <%= form_for current_order, url: order_path(session[:current_restaurant], current_order) do |f| %>
       <h2 class="tile-title">
