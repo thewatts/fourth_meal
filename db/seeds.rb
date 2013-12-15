@@ -188,7 +188,6 @@
 
 
 
-
   # ITEMS
 
   def seed_items(restaurant, menu, adjectives, count)
@@ -197,13 +196,7 @@
         # puts "Seeding item number #{i} for #{restaurant.name}..."
         title = menu[rand(5)] + "_#{i}"
         desc = "#{title}. Oh so #{adjectives[rand(5)]}!"
-        item = restaurant.items.create( 
-          title: title,
-          description: desc,
-          price: rand(20) + 1,
-          photo_file_name: "seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg",
-          retired: false,
-          restaurant_id: restaurant.id)
+        item = restaurant.items.create(item_params(title, desc, restaurant))
       rescue
         binding.pry
         # puts "Item failed to create! Trying again..."
@@ -211,6 +204,29 @@
       end
     end
   end
+
+  def item_params(title, desc, restaurant)
+    if Rails.env == "production"
+      {
+        title: title,
+        description: desc,
+        price: rand(20) + 1,
+        photo_file_name: "seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg",
+        retired: false,
+        restaurant_id: restaurant.id
+      }
+    else
+      {
+        title: title,
+        description: desc,
+        price: rand(20) + 1,
+        photo: File.open("app/assets/images/seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg", 'r'),
+        retired: false,
+        restaurant_id: restaurant.id
+      }
+    end
+  end
+
 
   restaurants = [ono, billy, adam, ben, taste_of_india, le_central, parsley, gorgonzola, coltandgray, englishtea]
   ono_menu = ["Taco Gumbo", "Steak Burrito", "Breakfast Burrito", "Taco Salad", "Signature Vegetable Burrito"]
