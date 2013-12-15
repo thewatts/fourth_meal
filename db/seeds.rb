@@ -201,7 +201,7 @@
           title: title,
           description: desc,
           price: rand(20) + 1,
-          photo: File.open("app/assets/images/seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg", 'r'),
+          photo_file_name: "seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg",
           retired: false,
           restaurant_id: restaurant.id)
       rescue
