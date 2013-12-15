@@ -9,7 +9,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'thin'
 gem "bcrypt-ruby", :require => "bcrypt"
-gem 'paperclip'
 gem 'faker'
 
 group :development, :test do

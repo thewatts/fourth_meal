@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New Restaurant <%= @restaurant.name %> was created!</h1>
+
+    <p><%= @user.name %> created this restaurant, and it is pending your approval!</p>
+
+    <p>Here are the restaurant details:</p>
+     <div class="grid-container">
+      <div class="grid-100" id="restaurant-container">
+        <div id="restaurant-details">
+           <p>Restaurant Name: <%= @restaurant.name %></p>
+           <p>Restaurant Description: <%= @restaurant.description %></p>
+        </div>
+        <p>To approve this and any other pending restaurants, please visit: <%= @link %></p>
+      </div>
+    </div>
+      
+  </body>
+</html>
