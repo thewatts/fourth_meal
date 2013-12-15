@@ -1,12 +1,4 @@
-<div class="grid-100">
-  <%= form_tag(restaurants_path, method: "get") do %>
-    <p>
-      <%= text_field_tag :query, params[:query] %>
-      <%= submit_tag "Search", name: nil, class: "button" %>
-    </p>
-  <% end %>
-</div>
-<div id="welcome-message">
+<div id="welcome-message" class="grid-100">
   <h1>Welcome to Noshify!</h1>
   <p>Noshify is your online restaurant ordering solution! Hungry? Plase browse 
     our selection of over 10,000 restaurants to find the perfect meal tonight!
