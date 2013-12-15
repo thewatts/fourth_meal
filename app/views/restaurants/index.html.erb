@@ -18,9 +18,11 @@
     Thanks for visiting! Bon apetit!</p>
 </div>
 <% @locations.each do |l|%>
-  <div class="grid-container">
-    <h1><%= l.city %></h1>
-    <%= render l.restaurants.where(:active => true) %>
-  </div>
+  <% unless l.restaurants.size == 0 %>
+    <div class="grid-container">
+      <h1><%= l.city %></h1>
+      <%= render l.restaurants.where(:active => true) %>
+    </div>
+  <% end %>
 <% end %>
 
