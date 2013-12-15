@@ -10,7 +10,7 @@
 
 # require 'benchmark'
 
-# time = Benchmark.measure do
+# time = Benchmark.measure do 
 
   # CITIES
 
@@ -91,7 +91,7 @@
     end
   end
 
-  restaurants.each {|r| clone_restaurant(r, cities, 1) }
+  restaurants.each {|r| clone_restaurant(r, cities, 5) }
   # restaurants.each {|r| clone_restaurant(r, cities, 1000) }
 
 
@@ -103,42 +103,42 @@
 
   # USERS
 
-  frank = User.create(email: "demo+franklin@jumpstartlab.com",
-    full_name: "Franklin Webber",
-    display_name: "burtlo",
+  frank = User.create(email: "demo+franklin@jumpstartlab.com", 
+    full_name: "Franklin Webber", 
+    display_name: "burtlo", 
     password: "password",
     password_confirmation: "password",
     :super => true)
 
-  jeff = User.create(email: "demo+jeff@jumpstartlab.com",
-    full_name: "Jeff",
+  jeff = User.create(email: "demo+jeff@jumpstartlab.com", 
+    full_name: "Jeff", 
     display_name: "j3",
     password: "password",
     password_confirmation: "password",
     :super => true)
 
-  katrina = User.create(email: "demo+katrina@jumpstartlab.com",
-    full_name: "Katrina Owen",
-    display_name: "kytrynx",
+  katrina = User.create(email: "demo+katrina@jumpstartlab.com", 
+    full_name: "Katrina Owen", 
+    display_name: "kytrynx", 
     password: "password",
     password_confirmation: "password",
     :super => true)
 
-  benny = User.create(email: "bennlewis@gmail.com",
-    full_name: "Ben Lewis",
-    display_name: "bennybeans",
+  benny = User.create(email: "bennlewis@gmail.com", 
+    full_name: "Ben Lewis", 
+    display_name: "bennybeans", 
     password: "password",
     password_confirmation: "password")
 
-  billyo = User.create(email: "navyosu@gmail.com",
-    full_name: "Billy G",
-    display_name: "billybeans",
+  billyo = User.create(email: "navyosu@gmail.com", 
+    full_name: "Billy G", 
+    display_name: "billybeans", 
     password: "password",
     password_confirmation: "password")
 
-  addy = User.create(email: "adam.dev89@gmail.com",
-    full_name: "Adam",
-    display_name: "addybeans",
+  addy = User.create(email: "adam.dev89@gmail.com", 
+    full_name: "Adam", 
+    display_name: "addybeans", 
     password: "password",
     password_confirmation: "password")
 
@@ -164,11 +164,11 @@
 
   def seed_restaurant_users(rest_id, role, count)
     unless ['customer', 'employee', 'owner'].include?(role)
-      throw ArgumentError "Role must be customer, employee, or owner"
+      throw ArgumentError "Role must be customer, employee, or owner" 
     end
 
     count.times do |i|
-      begin
+      begin 
         # puts "Seeding #{role} number #{i} for restaurant #{rest_id}..."
         RestaurantUser.create(
           restaurant_id: rest_id,
@@ -197,11 +197,11 @@
         # puts "Seeding item number #{i} for #{restaurant.name}..."
         title = menu[rand(5)] + "_#{i}"
         desc = "#{title}. Oh so #{adjectives[rand(5)]}!"
-        item = restaurant.items.create(
+        item = restaurant.items.create( 
           title: title,
           description: desc,
           price: rand(20) + 1,
-          photo_file_name: "seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg",
+          photo: File.open("app/assets/images/seed/#{restaurant.slug.gsub(/\d+/, "")}/#{rand(5) + 1}.jpg", 'r'),
           retired: false,
           restaurant_id: restaurant.id)
       rescue
@@ -224,7 +224,7 @@
   colt_menu = ["Peameal Bacon", "Braunschweiger", "Shropshire Blue Cheddar", "Local Duroc Pork Brains", "Toasted Oat Farfalle"]
   englishtea_menu = ["Kensington", "Wimbledon", "Covent Garden", "Ploughman's Lunch", "Earl Grey Platter"]
 
-  menu_lookup = { ono.slug => ono_menu,
+  menu_lookup = { ono.slug => ono_menu, 
                   billy.slug => billy_menu,
                   adam.slug => adam_menu,
                   ben.slug => ben_menu,
@@ -244,7 +244,7 @@
 
   # CATEGORIES
 
-  cats = ["Entrees", "Appetizers", "Dessert", "Beverages", "Specialties",
+  cats = ["Entrees", "Appetizers", "Dessert", "Beverages", "Specialties", 
     "Apéritifs", "Digestifs", "Vegetarian", "Salads", "Kids Menu"]
 
   def seed_categories(restaurant, categories, count)
@@ -285,7 +285,7 @@
     end
   end
 
-  Restaurant.all.each do |rest|
+  Restaurant.all.each do |rest| 
     @count ||= rest.items.size
     seed_item_categories(rest, @count)
   end
